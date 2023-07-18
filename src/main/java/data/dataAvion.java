@@ -1,5 +1,5 @@
 package data;
 
-public class dataAvion {
+public class DataAvion {
 
 }

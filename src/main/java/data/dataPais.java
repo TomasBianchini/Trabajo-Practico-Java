@@ -1,5 +1,5 @@
 package data;
 
-public class dataPais {
+public class DataPais {
 
 }
