@@ -1,5 +1,5 @@
 package data;
-
+//cambiaria la forma de generar idPais, cambiaria el update
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +19,7 @@ public class DataPais {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select email,nombre,apellido,dni from pasajero");
+			rs= stmt.executeQuery("select idPais, nombre from pais");
 
 			if(rs!=null) {
 				while(rs.next()) {
@@ -48,8 +48,7 @@ public class DataPais {
 		return pais;
 }
 		
-		
-		
+				
 		public Pais getByNombre(Pais pa) {
 			Pais p=null;
 			PreparedStatement stmt=null;
@@ -79,10 +78,7 @@ public class DataPais {
 				}
 			}
 			
-			return p;
-		
-		
-		
+			return p;		
 		
 	}
 		
@@ -94,8 +90,6 @@ public class DataPais {
 								"insert into pais(idPais,nombre) values(?,?)");
 				stmt.setString(1, p.getIdPais());
 				stmt.setString(2, p.getNombre());
-				
-			
 				
 				stmt.executeUpdate();
 			}  catch (SQLException e) {

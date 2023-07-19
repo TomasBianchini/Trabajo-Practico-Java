@@ -1,4 +1,5 @@
 package data;
+//dni clase aparte? como identificamos a pasajero? que metedos podemos agregar aca? 
 
 import entities.Pasajero;
 
