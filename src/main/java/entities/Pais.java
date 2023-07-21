@@ -2,13 +2,13 @@ package entities;
 
 public class Pais {
 
-	private String idPais;
+	private int idPais;
 	private String nombre;
 	
-	public String getIdPais() {
+	public int getIdPais() {
 		return idPais;
 	}
-	public void setIdPais(String idPais) {
+	public void setIdPais(int idPais) {
 		this.idPais = idPais;
 	}
 	public String getNombre() {
