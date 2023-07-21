@@ -24,7 +24,7 @@ public class DataPais {
 			if(rs!=null) {
 				while(rs.next()) {
 					Pais p=new Pais();
-					p.setIdPais(rs.getString("IdPais"));
+					p.setIdPais(rs.getInt("IdPais"));
 					p.setNombre(rs.getString("nombre"));
 					
 					pais.add(p);
@@ -62,7 +62,7 @@ public class DataPais {
 				rs=stmt.executeQuery();
 				if(rs!=null && rs.next()) {
 					p=new Pais();
-					
+					//Falta setear idPais
 					p.setNombre(rs.getString("nombre"));
 					
 				}
@@ -88,7 +88,7 @@ public class DataPais {
 				stmt=DbConnector.getInstancia().getConn().
 						prepareStatement(
 								"insert into pais(idPais,nombre) values(?,?)");
-				stmt.setString(1, p.getIdPais());
+				stmt.setInt(1, p.getIdPais());
 				stmt.setString(2, p.getNombre());
 				
 				stmt.executeUpdate();
@@ -110,7 +110,7 @@ public class DataPais {
 			PreparedStatement pstmt = null;
 			try {
 				pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE pais SET IdPais=?,nombre =? WHERE IdPais=?");
-				pstmt.setString(1, p.getIdPais());
+				pstmt.setInt(1, p.getIdPais());
 				pstmt.setString(2, p.getNombre());
 				pstmt.executeUpdate();	
 			}  catch (SQLException e) {
@@ -130,7 +130,7 @@ public class DataPais {
 			try {
 				pstmt = DbConnector.getInstancia().getConn().prepareStatement(
 						"delete from pais where IdPais=?");
-				pstmt.setString(1, p.getIdPais());
+				pstmt.setInt(1, p.getIdPais());
 
 				pstmt.executeUpdate();
 			}catch(SQLException e){
