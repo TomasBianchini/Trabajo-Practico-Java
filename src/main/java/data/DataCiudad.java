@@ -5,6 +5,7 @@ import entities.Ciudad;
 import java.util.LinkedList;
 import java.sql.*;
 
+
 public class DataCiudad {
 	
 	
@@ -19,12 +20,20 @@ public class DataCiudad {
 				if(rs!=null) {
 					while(rs.next()) {
 						Ciudad c=new Ciudad();
-						c.setPais(new Pais());
+						
+						Pais p = new Pais(); // objeto Pais
+						//c.setPais(new Pais()); me parece q este o va, fijate q agregue lo de arriba y lo otro
+						
 						c.setIdCiudad(rs.getInt("idciudad"));
 						c.setNombre(rs.getString("nombre"));
-						c.getPais.setIdPais(rs.getString("idpais"));
-					
-						ciudades.add(c);
+						
+						
+						int idPais = rs.getInt("idpais");
+					    p.setIdPais(idPais); 
+					    c.setPais(p); 
+					    ciudades.add(c);
+						
+
 					}
 				}
 				
