@@ -5,6 +5,7 @@ public class Ciudad {
 	private int idCiudad; 
 	private String nombre;
 	
+	
 	public Pais getPais() {
 		return pais;
 	}
