@@ -75,7 +75,7 @@ public class DataCiudad {
 				ciu.setPais(new Pais());
 				ciu.setIdCiudad(rs.getInt("idciudad"));
 				ciu.setNombre(rs.getString("nombre"));
-				ciu..setIdPais(rs.getInt("idPais"));
+				ciu.get.setIdPais(rs.getInt("idPais"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
