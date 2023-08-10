@@ -1,5 +1,5 @@
 package data;
-//dni clase aparte? como identificamos a pasajero? que metedos podemos agregar aca? 
+ 
 
 import entities.Pasajero;
 
@@ -80,6 +80,37 @@ public class DataPasajero {
 		return p;
 	}
 	
+	public Pasajero getByDni(Pasajero pas) {
+		Pasajero p=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"select dni,nombre,apellido,email from persona where dni=?"
+					);
+			stmt.setString(1, pas.getDni());
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				p=new Pasajero();
+				p.setDni(rs.getString("dni"));
+				p.setNombre(rs.getString("nombre"));
+				p.setApellido(rs.getString("apellido"));
+				p.setEmail(rs.getString("email"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return p;
+	}
 	
 	public void addPasajero(Pasajero p) {
 		PreparedStatement stmt= null;
@@ -110,10 +141,13 @@ public class DataPasajero {
 	public void editPasajero(Pasajero p) {
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE persona SET email=?,contraseña =? WHERE dni=?");
+			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE persona SET email=?,contraseña =?, nombre = ?, apellido = ?WHERE dni=?");
 			pstmt.setString(1, p.getEmail());
 			pstmt.setString(2, p.getContraseña());
-			pstmt.setString(3, p.getDni());
+			pstmt.setString(3, p.getNombre());
+			pstmt.setString(4, p.getApellido());
+			
+			pstmt.setString(5, p.getDni());
 			pstmt.executeUpdate();	
 		}  catch (SQLException e) {
             e.printStackTrace();
