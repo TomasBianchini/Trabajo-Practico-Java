@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public class DataPasajero {
 	
-	public LinkedList<Pasajero> getAll(){
+	public LinkedList<Pasajero> getAllPasajero(){
 
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -81,7 +81,7 @@ public class DataPasajero {
 	}
 	
 	
-	public void add(Pasajero p) {
+	public void addPasajero(Pasajero p) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -107,7 +107,7 @@ public class DataPasajero {
 
 
 	
-	public void edit(Pasajero p) {
+	public void editPasajero(Pasajero p) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE persona SET email=?,contraseña =? WHERE dni=?");
@@ -127,7 +127,7 @@ public class DataPasajero {
 		}
 	}
 	
-	public void delete(Pasajero p) {
+	public void deletePasajero(Pasajero p) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement(

@@ -2,7 +2,7 @@ package entities;
 
 public class Ciudad {
 	private Pais pais;
-	private int idCiudad; 
+	private String codPostal; 
 	private String nombre;
 	
 	
@@ -12,11 +12,11 @@ public class Ciudad {
 	public void setPais(Pais pais) {
 		this.pais = pais;
 	}
-	public int getIdCiudad() {
-		return idCiudad;
+	public String getCodPostal() {
+		return codPostal;
 	}
-	public void setIdCiudad(int idCiudad) {
-		this.idCiudad = idCiudad;
+	public void setCodPostal(String codPostal) {
+		this.codPostal = codPostal;
 	}
 	public String getNombre() {
 		return nombre;

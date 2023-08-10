@@ -11,7 +11,7 @@ import entities.Avion;
 public class DataAvion {
 
 	
-	public LinkedList<Avion> getAll(){
+	public LinkedList<Avion> getAllAvion(){
 
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -81,7 +81,7 @@ public class DataAvion {
 	}
 	
 	
-	public void add(Avion p) {
+	public void addAvion(Avion p) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -106,7 +106,7 @@ public class DataAvion {
 
 
 	
-	public void edit(Avion p) {
+	public void editAvion(Avion p) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE avion SET idAvion=? cantAsientos=?  WHERE idAvion=?");
@@ -125,7 +125,7 @@ public class DataAvion {
 		}
 	}
 	
-	public void delete(Avion p) {
+	public void deleteAvion(Avion p) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement(

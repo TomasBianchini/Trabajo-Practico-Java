@@ -16,24 +16,19 @@ public class DataCiudad {
 			
 			try {
 				stmt= DbConnector.getInstancia().getConn().createStatement();
-				rs= stmt.executeQuery("select idciudad,nombre, idpais from ciudad");
+				rs= stmt.executeQuery("select codPostal, ciu.nombre, p.idPais, p.nombre" 
+						+ "from ciudad ciu "
+						+ "inner join pais p on  ciu.idPais  = p.idPais" );
 				if(rs!=null) {
 					while(rs.next()) {
 						Ciudad c=new Ciudad();
+						c.setPais(new Pais());
+						c.setCodPostal(rs.getString("codPostal"));
+						c.setNombre(rs.getString("ciu.nombre"));
+						c.getPais().setIdPais(rs.getInt("idPais"));
+						c.getPais().setNombre(rs.getString("p.nombre"));
 						
-						Pais p = new Pais(); // objeto Pais
-						//c.setPais(new Pais()); me parece q este o va, fijate q agregue lo de arriba y lo otro
-						
-						c.setIdCiudad(rs.getInt("idciudad"));
-						c.setNombre(rs.getString("nombre"));
-						
-						
-						int idPais = rs.getInt("idpais");
-					    p.setIdPais(idPais); 
-					    c.setPais(p); 
-					    ciudades.add(c);
-						
-
+					    ciudades.add(c);					
 					}
 				}
 				
@@ -53,29 +48,31 @@ public class DataCiudad {
 			
 			return ciudades;
 		
-		
-		
 	}
-
 	
 	public Ciudad getByid(Ciudad c) {
-		Pais p = new Pais();
+		//Pais p = new Pais();
 		Ciudad ciu = null; 
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select idCiudad,nombre,idpais from ciudad where idciudad =?"
+					"select codPostal, ciu.nombre, p.idPais, p.nombre" 
+							+ "from ciudad ciu "
+							+ "inner join pais p on  ? = p.idPais"
+							+ "where c.codpostal = ?"
 					);
-			stmt.setInt(1, c.getIdCiudad());
+			stmt.setInt(1, c.getPais().getIdPais());
+			stmt.setString(2, c.getCodPostal());
 
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				ciu=new Ciudad();
 				ciu.setPais(new Pais());
-				ciu.setIdCiudad(rs.getInt("idciudad"));
-				ciu.setNombre(rs.getString("nombre"));
+				ciu.setCodPostal(rs.getString("codPostal"));
+				ciu.setNombre(rs.getString("ciu.nombre"));
 				ciu.getPais().setIdPais(rs.getInt("idPais"));
+				ciu.getPais().setNombre(rs.getString("p.nombre"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,4 +90,68 @@ public class DataCiudad {
 		return ciu;
 	}
 
+	
+	public void addCiudad(Ciudad c) {
+		PreparedStatement stmt= null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"insert into ciudad(codPostal, nombre, idPais) values(?,?,?)");
+			stmt.setString(1, c.getCodPostal());
+			stmt.setString(2, c.getNombre());
+			stmt.setInt(3, c.getPais().getIdPais());
+			
+			stmt.executeUpdate();
+		}  catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+		
+	}
+	
+	public void deleteCiudad(Ciudad c) {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = DbConnector.getInstancia().getConn().prepareStatement(
+					"delete from ciudad where codPostal=?");
+			
+			pstmt.setString(1, c.getCodPostal());
+			pstmt.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace(); 
+		}finally{
+	            try {
+	                if(pstmt!=null)pstmt.close();
+	                DbConnector.getInstancia().releaseConn();
+	            } catch (SQLException e) {
+	            	e.printStackTrace();
+	            }
+		}
+	}
+		
+	public void editCiudad(Ciudad c) {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE ciudad SET nombre =? WHERE codPostal=?");
+			pstmt.setString(1, c.getNombre());
+			pstmt.setString(2, c.getCodPostal());
+			pstmt.executeUpdate();	
+		}  catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(pstmt!=null)pstmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+	}
 }
+

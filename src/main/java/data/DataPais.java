@@ -1,5 +1,5 @@
 package data;
-//cambiaria la forma de generar idPais, cambiaria el update
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +11,7 @@ import entities.Pais;
 
 public class DataPais {
 	
-	public LinkedList<Pais> getAll(){
+	public LinkedList<Pais> getAllPais(){
 
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -49,7 +49,7 @@ public class DataPais {
 }
 		
 				
-		public Pais getByNombre(Pais pa) {
+		public Pais getByNombrePais(Pais pa) {
 			Pais p=null;
 			PreparedStatement stmt=null;
 			ResultSet rs=null;
@@ -82,7 +82,7 @@ public class DataPais {
 		
 	}
 		
-		public void add(Pais p) {
+		public void addPais(Pais p) {
 			PreparedStatement stmt= null;
 			try {
 				stmt=DbConnector.getInstancia().getConn().
@@ -106,7 +106,7 @@ public class DataPais {
 
 
 		
-		public void edit(Pais p) {
+		public void editPais(Pais p) {
 			PreparedStatement pstmt = null;
 			try {
 				pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE pais SET IdPais=?,nombre =? WHERE IdPais=?");
@@ -125,7 +125,7 @@ public class DataPais {
 			}
 		}
 		
-		public void delete(Pais p) {
+		public void deletePais(Pais p) {
 			PreparedStatement pstmt = null;
 			try {
 				pstmt = DbConnector.getInstancia().getConn().prepareStatement(
@@ -144,9 +144,5 @@ public class DataPais {
 		            }
 			}
 		}
-	
-	
-	
-	
-
+		
 }
