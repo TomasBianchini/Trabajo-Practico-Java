@@ -23,8 +23,8 @@
     <link href="styles/signin.css" rel="stylesheet">
     <link href="styles/bootstrap.min.css" rel="stylesheet">
 	<%
-    	LinkedList<Pasajero> listaPas = new ctrlPasajero().getAllPasajero();
 
+    	LinkedList<Pasajero> listaPas = (LinkedList<Pasajero>)request.getAttribute("listaPersonas");
     %>
 </head>
 <body style="background-color:rgb(251, 252, 255);">

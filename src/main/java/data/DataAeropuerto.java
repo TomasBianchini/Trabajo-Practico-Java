@@ -43,10 +43,7 @@ public class DataAeropuerto {
 					e.printStackTrace();
 				}
 			}
-			
-			
 			return aeropuertos;
-		
 	}
 	
 	public Aeropuerto getByid(Aeropuerto a) {

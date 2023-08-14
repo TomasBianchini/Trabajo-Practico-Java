@@ -29,6 +29,7 @@ public class PasajeroServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
 	}
 
 	/**
@@ -39,7 +40,7 @@ public class PasajeroServlet extends HttpServlet {
 		String accion = request.getParameter("accion");
 		if(accion!=null)
 		{
-			switch (accion) {
+			switch (accion){
 				case "insertar":
 					this.insertarPasajero(request,response);break;
 				case "modificar":
@@ -107,7 +108,7 @@ public class PasajeroServlet extends HttpServlet {
 			pasajeroActual.setContraseña(contraseña);
 			
 		new ctrlPasajero().editPasajero(pasajeroActual);
-		request.getRequestDispatcher("/ListaUsuario.jsp").forward(request, response);
+		request.getRequestDispatcher("/ListaPasajero.jsp").forward(request, response);
 	}
 	
 	private void eliminarPasajero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -117,7 +118,7 @@ public class PasajeroServlet extends HttpServlet {
 		pas.setDni(dni);
 		
 		new ctrlPasajero().deletePasajero(pas);
-		request.getRequestDispatcher("/ListaUsuario.jsp").forward(request, response);
+		request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
 		
 	}
 
