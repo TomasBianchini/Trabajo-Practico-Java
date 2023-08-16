@@ -1,6 +1,6 @@
 <%@page import="entities.Pasajero"%>
 <%@page import="java.util.LinkedList"%>
-<%@page import="logic.ctrlPasajero"%>
+<%@page import="logic.CtrlPasajero"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>

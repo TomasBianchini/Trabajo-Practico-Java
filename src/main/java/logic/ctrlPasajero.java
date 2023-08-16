@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import data.DataPasajero;
 import entities.Pasajero; 
 
-public class ctrlPasajero {
+public class CtrlPasajero {
 		private DataPasajero dp;
 
-		public ctrlPasajero() {
+		public CtrlPasajero() {
 			dp=new DataPasajero();
 		}
 		

@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Pasajero;
-import logic.ctrlPasajero;
+import logic.CtrlLogin;
+
 
 /**
  * Servlet implementation class signin
@@ -24,14 +25,14 @@ public class signin extends HttpServlet {
      */
     public signin() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -39,11 +40,19 @@ public class signin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Pasajero pas = new Pasajero(); 
+		String email =request.getParameter("email"); 
+		String password = request.getParameter("password"); 
+		pas.setEmail(email);
+		pas.setContraseña(password);
 		
-		ctrlPasajero ct = new ctrlPasajero();
-		LinkedList<Pasajero> lp = ct.getAllPasajero();
-		request.setAttribute("listaPersonas", lp);
-		request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
+		CtrlLogin ctrl = new CtrlLogin(); 
+		pas = ctrl.validate(pas); 
+		request.setAttribute("email", email);
+		request.setAttribute("password", password);
+		request.getSession().setAttribute("pasajero", pas);
+		
+		request.getRequestDispatcher("WEB-INF/MenuPrincipal.jsp").forward(request, response);
 	}
 
 }

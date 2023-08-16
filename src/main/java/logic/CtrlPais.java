@@ -1,8 +1,8 @@
 package logic;
 
-public class LogicPais {
+public class CtrlPais {
 
-	public LogicPais() {
+	public CtrlPais() {
 		// TODO Auto-generated constructor stub
 	}
 

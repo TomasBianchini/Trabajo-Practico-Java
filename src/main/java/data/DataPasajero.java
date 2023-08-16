@@ -53,10 +53,9 @@ public class DataPasajero {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select dni,nombre,apellido,email from persona where email=? and contraseña=?"
-					);
+						"select dni,nombre,apellido,email from persona where email=? ");
 			stmt.setString(1, pas.getEmail());
-			stmt.setString(2, pas.getContraseña());
+			//stmt.setString(2, pas.getContraseña());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				p=new Pasajero();
@@ -86,9 +85,10 @@ public class DataPasajero {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select dni,nombre,apellido,email from persona where dni=?"
+					"select dni,nombre,apellido,email from persona where dni=? and contraseña=?"
 					);
 			stmt.setString(1, pas.getDni());
+			stmt.setString(2, pas.getContraseña());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				p=new Pasajero();
