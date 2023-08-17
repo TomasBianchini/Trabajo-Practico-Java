@@ -53,9 +53,9 @@ public class DataPasajero {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-						"select dni,nombre,apellido,email from persona where email=? ");
+						"select dni,nombre,apellido,email from pasajero where email=? and contrasenia=?");
 			stmt.setString(1, pas.getEmail());
-			//stmt.setString(2, pas.getContraseña());
+			stmt.setString(2, pas.getContrasenia());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				p=new Pasajero();
@@ -85,10 +85,10 @@ public class DataPasajero {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select dni,nombre,apellido,email from persona where dni=? and contraseña=?"
+					"select dni,nombre,apellido,email from pasajero where dni=? and contrasenia=?"
 					);
 			stmt.setString(1, pas.getDni());
-			stmt.setString(2, pas.getContraseña());
+			stmt.setString(2, pas.getContrasenia());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				p=new Pasajero();
@@ -117,7 +117,7 @@ public class DataPasajero {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into persona(nombre, apellido, dni , email) values(?,?,?,?)");
+							"insert into pasajero(nombre, apellido, dni , email) values(?,?,?,?)");
 			stmt.setString(1, p.getNombre());
 			stmt.setString(2, p.getApellido());
 			stmt.setString(3, p.getDni());
@@ -141,9 +141,9 @@ public class DataPasajero {
 	public void editPasajero(Pasajero p) {
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE persona SET email=?,contraseña =?, nombre = ?, apellido = ?WHERE dni=?");
+			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE pasajero SET email=?,contraseña =?, nombre = ?, apellido = ?WHERE dni=?");
 			pstmt.setString(1, p.getEmail());
-			pstmt.setString(2, p.getContraseña());
+			pstmt.setString(2, p.getContrasenia());
 			pstmt.setString(3, p.getNombre());
 			pstmt.setString(4, p.getApellido());
 			
@@ -165,7 +165,7 @@ public class DataPasajero {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement(
-					"delete from persona where dni=?");
+					"delete from pasajero where dni=?");
 			pstmt.setString(1, p.getDni());
 
 			pstmt.executeUpdate();

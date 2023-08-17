@@ -30,8 +30,8 @@ public class PasajeroServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	
+		this.listarPasajero(request, response);
+
 	}
 
 	/**
@@ -39,27 +39,40 @@ public class PasajeroServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String accion = request.getParameter("accion");
-		if(accion!=null)
+		//String accion = request.getParameter("accion");
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		/*String query= request.getPathInfo();
+		if(query!=null)
 		{
-			switch (accion){
-				case "insertar":
-					this.insertarPasajero(request,response);break;
+			switch (query){
+				case "insertar":{
+					this.insertarPasajero(request,response);
+					break;
+				}
 				case "modificar":
-					this.modificarPasajero(request,response);break;
+				{
+					this.modificarPasajero(request,response);
+					break;
+				}
 				case "eliminar":
-					this.eliminarPasajero(request,response);break;
+				{
+					this.eliminarPasajero(request,response);
+					break;
+				}
 				case "listarPasajero": 
-					this.listarPasajero(request,response);break;
+				{
+					this.listarPasajero(request,response);
+					break;
+				}
 			
 				
 			default:
-				//  this.accionDefault(request,response);
 			}
 		}
 		else {
 			//this.accionDefault(request,response);
-		}
+		}*/
 		doGet(request, response);
 	}
 	
@@ -77,7 +90,7 @@ public class PasajeroServlet extends HttpServlet {
 			pasajero.setDni(dni);
 			pasajero.setNombre(nombre);
 			pasajero.setEmail(email);
-			pasajero.setContraseña(contraseña);
+			pasajero.setContrasenia(contraseña);
 		new CtrlPasajero().addPasajero(pasajero);
 		request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
 	}
@@ -109,7 +122,7 @@ public class PasajeroServlet extends HttpServlet {
 			pasajeroActual.setApellido(apellido);
 			pasajeroActual.setEmail(email);
 			pasajeroActual.setNombre(nombre);
-			pasajeroActual.setContraseña(contraseña);
+			pasajeroActual.setContrasenia(contraseña);
 			
 		new CtrlPasajero().editPasajero(pasajeroActual);
 		request.getRequestDispatcher("/ListaPasajero.jsp").forward(request, response);

@@ -5,7 +5,7 @@ public class Pasajero {
 	private String nombre;
 	private String apellido;
 	private String email;
-	private String contraseña;
+	private String contrasenia;
 
 	public String getDni() {
 		return dni;
@@ -39,12 +39,12 @@ public class Pasajero {
 		this.email = email;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasenia() {
+		return contrasenia;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasenia(String contraseña) {
+		this.contrasenia = contraseña;
 	}
 
 

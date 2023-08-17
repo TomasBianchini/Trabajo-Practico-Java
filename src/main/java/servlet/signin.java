@@ -42,17 +42,31 @@ public class signin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Pasajero pas = new Pasajero(); 
 		String email =request.getParameter("email"); 
-		String password = request.getParameter("password"); 
+		String contrasenia = request.getParameter("contrasenia"); 
 		pas.setEmail(email);
-		pas.setContraseña(password);
+		pas.setContrasenia(contrasenia);
 		
 		CtrlLogin ctrl = new CtrlLogin(); 
-		pas = ctrl.validate(pas); 
-		request.setAttribute("email", email);
-		request.setAttribute("password", password);
-		request.getSession().setAttribute("pasajero", pas);
 		
-		request.getRequestDispatcher("WEB-INF/MenuPrincipal.jsp").forward(request, response);
+		request.setAttribute("email", email);
+		request.setAttribute("contrasenia", contrasenia);
+		
+		pas = ctrl.validate(pas); 
+		
+		
+		
+		
+		if(pas != null) {
+			request.getSession().setAttribute("pasajero", pas);
+			request.getRequestDispatcher("WEB-INF/MenuPrincipal.jsp").forward(request, response);;
+		}else {
+			request.setAttribute("titulo", "No se pudo iniciar sesión");
+			request.setAttribute("mensage", "Usuario o contraseña incorrectos");
+			request.setAttribute("pagina", "Login");
+			request.getRequestDispatcher("WEB-INF/Advertencia.jsp").forward(request, response);
+		}
+		
+		
 	}
 
 }

@@ -13,7 +13,6 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	    <meta name="description" content="">
 	    <meta name="author" content="">
-	    <link rel="icon" href="https://getbootstrap.com/favicon.ico">
 <title>Lista Pasajero</title>
   <!-- Bootstrap core CSS -->
     <link href="styles/bootstrap.css" rel="stylesheet">
@@ -24,7 +23,7 @@
     <link href="styles/bootstrap.min.css" rel="stylesheet">
 	<%
 
-    	LinkedList<Pasajero> listaPas = (LinkedList<Pasajero>)request.getAttribute("listaPersonas");
+    	LinkedList<Pasajero> listaPas = (LinkedList<Pasajero>)request.getAttribute("listaPasajero");
     %>
 </head>
 <body style="background-color:rgb(251, 252, 255);">
