@@ -30,7 +30,10 @@ public class PasajeroServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		this.listarPasajero(request, response);
+		CtrlPasajero ct = new CtrlPasajero();
+		LinkedList<Pasajero> lp = ct.getAllPasajero();
+		request.setAttribute("listaPasajero", lp);
+		request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
 
 	}
 
