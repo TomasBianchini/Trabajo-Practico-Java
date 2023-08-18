@@ -32,7 +32,7 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <!-- Brand/logo -->
-	  <a class="navbar-brand mb-0 h1" href="MenuPrincipal.jsp">Menú</a>
+	  <a class="navbar-brand mb-0 h1" href="MenuPrincipal.jsp">MenÃº</a>
 	  
 	  <!-- Links -->
 	  <ul class="navbar-nav">
@@ -72,7 +72,7 @@
         <td><%=pas.getEmail() %></td>
 
         
-        <td><a class="bg-primary text-white" href="UsuarioServlet?accion=editar&dniPasajero=<%=pas.getDni()%>"><button type="button" class="btn btn-primary">Editar</button></a></td>
+        <td><a class="bg-primary text-white" href="../PasajeroServlet?accion=editar&dniPasajero=<%=pas.getDni()%>"><button type="button" class="btn btn-primary">Editar</button></a></td>
         <td><a class="bg-danger text-white" href="UsuarioServlet?accion=eliminar&dniPasajero=<%=pas.getDni()%>"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
       </tr>
       <%} %>
