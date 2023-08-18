@@ -42,11 +42,10 @@ public class PasajeroServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//String accion = request.getParameter("accion");
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		String accion = request.getParameter("accion");
+		//String dni = request.getParameter("dnipasajero");
 
-		/*String query= request.getPathInfo();
-		if(query!=null)
+		if(accion!=null)
 		{
 			switch (query){
 				case "insertar":{
@@ -63,12 +62,6 @@ public class PasajeroServlet extends HttpServlet {
 					this.eliminarPasajero(request,response);
 					break;
 				}
-				case "listarPasajero": 
-				{
-					this.listarPasajero(request,response);
-					break;
-				}
-			
 				
 			default:
 			}
