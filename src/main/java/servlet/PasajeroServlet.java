@@ -30,11 +30,11 @@ public class PasajeroServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		CtrlPasajero ct = new CtrlPasajero();
 		LinkedList<Pasajero> lp = ct.getAllPasajero();
 		request.setAttribute("listaPasajero", lp);
 		request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
-
 	}
 
 	/**
@@ -42,12 +42,15 @@ public class PasajeroServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+
 		String accion = request.getParameter("accion");
-		//String dni = request.getParameter("dnipasajero");
+		
+		/*String query= request.getPathInfo();*/
 
 		if(accion!=null)
 		{
-			switch (query){
+			switch (accion){
 				case "insertar":{
 					this.insertarPasajero(request,response);
 					break;
@@ -59,7 +62,12 @@ public class PasajeroServlet extends HttpServlet {
 				}
 				case "eliminar":
 				{
-					this.eliminarPasajero(request,response);
+					String dni = request.getParameter("dniPasajero");
+					Pasajero pas = new Pasajero();
+					pas.setDni(dni);
+					
+					new CtrlPasajero().deletePasajero(pas);
+					request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
 					break;
 				}
 				
@@ -68,7 +76,7 @@ public class PasajeroServlet extends HttpServlet {
 		}
 		else {
 			//this.accionDefault(request,response);
-		}*/
+		}
 		doGet(request, response);
 	}
 	
