@@ -35,10 +35,6 @@
   </style>
 </head>
 <body>
-      <form class="form-signin" action="PasajeroServlet" method="get">
-    	 <p  class="btn btn-custom">Listar Pasajero</p>
-         <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-    </form>
 
 <div class="container mt-5">
   <div class="row">

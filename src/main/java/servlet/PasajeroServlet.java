@@ -42,11 +42,9 @@ public class PasajeroServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		String accion = request.getParameter("accion");
-		
-		/*String query= request.getPathInfo();*/
+	
 		if(accion!=null)
 		{
 			switch (accion){
