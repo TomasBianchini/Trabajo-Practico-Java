@@ -79,8 +79,9 @@
      
     </tbody>
   </table>
-<button class="btn btn-success" onclick="location.href = 'AgregarUsuario.jsp'">Agregar Usuario</button>
-  
+  <a class="bg-danger text-white" href="AgregarPasajero"><button type="button" class="btn btn-primary">Agregar pasajero</button></a>
+
+
  
 
 </div>

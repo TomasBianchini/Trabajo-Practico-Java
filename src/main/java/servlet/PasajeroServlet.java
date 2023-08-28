@@ -34,7 +34,47 @@ public class PasajeroServlet extends HttpServlet {
 		CtrlPasajero ct = new CtrlPasajero();
 		LinkedList<Pasajero> lp = ct.getAllPasajero();
 		request.setAttribute("listaPasajero", lp);
-		request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
+		String accion = request.getParameter("accion");
+		
+		if(accion!=null)
+		{
+			switch (accion){
+				case "insertar":{
+					this.insertarPasajero(request,response);
+					break;
+				}
+				case "modificar":
+				{
+					this.modificarPasajero(request,response);
+					break;
+				}
+				case "eliminar":
+				{
+					String dni = request.getParameter("dniPasajero");
+					Pasajero pas = new Pasajero();
+					pas.setDni(dni);
+					
+					new CtrlPasajero().deletePasajero(pas);
+					request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
+					break;
+				}
+				case "listarPasajero": 
+				{
+					this.listarPasajero(request,response);
+					break;
+				}
+			
+				
+			default:
+				request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
+			}
+		}
+		else {
+			//this.accionDefault(request,response);
+			request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
+		}
+	
+		//request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
 	}
 
 	/**
