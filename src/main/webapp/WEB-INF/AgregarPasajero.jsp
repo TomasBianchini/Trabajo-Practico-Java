@@ -14,7 +14,8 @@
 <title>Agregar Pasajero</title>
 </head>
 <body>
-  <form class="form-signin" action="PasajeroServlet" method="post">
+  <form class="form-signin" action="PasajeroServlet?accion=insertarPasajero" method="post">
+
   		<label for="inputDni" class="sr-only">DNI</label>
     	 <input id="inputDni" name="dni" class="form-control" placeholder="Dni" required="" autofocus="" type="text">
   		 <label for="inputName" class="sr-only">Nombre</label>
