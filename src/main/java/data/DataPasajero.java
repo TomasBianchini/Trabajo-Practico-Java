@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public class DataPasajero {
 	
-	public LinkedList<Pasajero> getAllPasajero(){
+	public LinkedList<Pasajero> getAll(){
 
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -112,16 +112,17 @@ public class DataPasajero {
 		return p;
 	}
 	
-	public void addPasajero(Pasajero p) {
+	public void add(Pasajero p) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into pasajero(nombre, apellido, dni , email) values(?,?,?,?)");
+							"insert into pasajero(nombre, apellido, dni , email, contrasenia) values(?,?,?,?,?)");
 			stmt.setString(1, p.getNombre());
 			stmt.setString(2, p.getApellido());
 			stmt.setString(3, p.getDni());
-			stmt.setString(5, p.getEmail());	
+			stmt.setString(4, p.getEmail());	
+			stmt.setString(5, p.getContrasenia());	
 			
 			stmt.executeUpdate();
 		}  catch (SQLException e) {
@@ -138,7 +139,7 @@ public class DataPasajero {
 
 
 	
-	public void editPasajero(Pasajero p) {
+	public void edit(Pasajero p) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE pasajero SET email=?,contraseña =?, nombre = ?, apellido = ?WHERE dni=?");
@@ -161,7 +162,7 @@ public class DataPasajero {
 		}
 	}
 	
-	public void deletePasajero(Pasajero p) {
+	public void delete(Pasajero p) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement(

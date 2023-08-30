@@ -35,10 +35,6 @@
   </style>
 </head>
 <body>
-      <form class="form-signin" action="PasajeroServlet" method="get">
-    	 <p  class="btn btn-custom">Listar Pasajero</p>
-         <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-    </form>
 
 <div class="container mt-5">
   <div class="row">
@@ -46,10 +42,10 @@
       <div class="d-flex justify-content-between">
         <a href="" class="btn btn-custom">Listar pasajero</a>
         <a href="PasajeroServlet" class="btn btn-custom">Listar pasajero</a>
-        <a href="paises.html" class="btn btn-custom">Listar pais</a>
-        <a href="ciudades.html" class="btn btn-custom">Listar ciudad</a>
-        <a href="aviones.html" class="btn btn-custom">Listar avion</a>
-        <a href="aeropuertos.html" class="btn btn-custom">Listar aeropuerto</a>
+        <a href="PaisServlet" class="btn btn-custom">Listar pais</a>
+        <a href="CiudadServlet" class="btn btn-custom">Listar ciudad</a>
+        <a href="AvionServlet" class="btn btn-custom">Listar avion</a>
+        <a href="AeropuertoServlet" class="btn btn-custom">Listar aeropuerto</a>
       </div>
     </div>
   </div>

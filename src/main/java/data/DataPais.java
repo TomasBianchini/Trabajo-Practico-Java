@@ -11,7 +11,7 @@ import entities.Pais;
 
 public class DataPais {
 	
-	public LinkedList<Pais> getAllPais(){
+	public LinkedList<Pais> getAll(){
 
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -49,7 +49,7 @@ public class DataPais {
 }
 		
 				
-		public Pais getByNombrePais(Pais pa) {
+	public Pais getByNombre(Pais pa) {
 			Pais p=null;
 			PreparedStatement stmt=null;
 			ResultSet rs=null;
@@ -82,14 +82,14 @@ public class DataPais {
 		
 	}
 		
-		public void addPais(Pais p) {
+	public void add(Pais p) {
 			PreparedStatement stmt= null;
 			try {
 				stmt=DbConnector.getInstancia().getConn().
 						prepareStatement(
-								"insert into pais(idPais,nombre) values(?,?)");
-				stmt.setInt(1, p.getIdPais());
-				stmt.setString(2, p.getNombre());
+								"insert into pais(nombre) values(?)");
+
+				stmt.setString(1, p.getNombre());
 				
 				stmt.executeUpdate();
 			}  catch (SQLException e) {
@@ -103,10 +103,8 @@ public class DataPais {
 	            }
 			}
 	    }
-
-
 		
-		public void editPais(Pais p) {
+	public void edit(Pais p) {
 			PreparedStatement pstmt = null;
 			try {
 				pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE pais SET IdPais=?,nombre =? WHERE IdPais=?");
@@ -125,7 +123,7 @@ public class DataPais {
 			}
 		}
 		
-		public void deletePais(Pais p) {
+	public void delete(Pais p) {
 			PreparedStatement pstmt = null;
 			try {
 				pstmt = DbConnector.getInstancia().getConn().prepareStatement(

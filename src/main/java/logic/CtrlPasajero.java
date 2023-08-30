@@ -12,8 +12,8 @@ public class CtrlPasajero {
 			dp=new DataPasajero();
 		}
 		
-		public LinkedList<Pasajero> getAllPasajero(){
-			return dp.getAllPasajero();
+		public LinkedList<Pasajero> getAll(){
+			return dp.getAll();
 		}
 
 		public Pasajero getByEmail(Pasajero pas) {
@@ -27,17 +27,17 @@ public class CtrlPasajero {
 		}
 	
 
-		public void addPasajero(Pasajero p){
-			dp.addPasajero(p);
+		public void add(Pasajero p){
+			dp.add(p);
 		}
 	
 			
-		public void editPasajero(Pasajero p) {
-			dp.editPasajero(p);
+		public void edit(Pasajero p) {
+			dp.edit(p);
 		}
 		
-		public void deletePasajero(Pasajero p) {
-			dp.deletePasajero(p);
+		public void delete(Pasajero p) {
+			dp.delete(p);
 		}
 
 	
