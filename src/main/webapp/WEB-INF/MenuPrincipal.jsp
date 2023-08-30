@@ -41,7 +41,7 @@
     <div class="col">
       <div class="d-flex justify-content-between">
         <a href="PasajeroServlet" class="btn btn-custom">Listar pasajero</a>
-        <a href="paises.html" class="btn btn-custom">Listar pais</a>
+        <a href="PaisServlet" class="btn btn-custom">Listar pais</a>
         <a href="ciudades.html" class="btn btn-custom">Listar ciudad</a>
         <a href="aviones.html" class="btn btn-custom">Listar avion</a>
         <a href="aeropuertos.html" class="btn btn-custom">Listar aeropuerto</a>

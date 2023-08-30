@@ -1,5 +1,6 @@
-<%@page import="entities.Pasajero"%>
+<%@page import="entities.Pais"%>
 <%@page import="java.util.LinkedList"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -12,7 +13,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	    <meta name="description" content="">
 	    <meta name="author" content="">
-<title>Lista Pasajero</title>
+<title>Lista Paises</title>
   <!-- Bootstrap core CSS -->
     <link href="styles/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -22,7 +23,7 @@
     <link href="styles/bootstrap.min.css" rel="stylesheet">
 	<%
 
-    	LinkedList<Pasajero> listaPas = (LinkedList<Pasajero>)request.getAttribute("listaPasajero");
+    	LinkedList<Pais> listaPais = (LinkedList<Pais>)request.getAttribute("listaPaises");
     %>
 </head>
 <body style="background-color:rgb(251, 252, 255);">
@@ -35,47 +36,40 @@
 	  
 	  <!-- Links -->
 	  <ul class="navbar-nav">
-	   
-	    <li class="nav-item">
-	      <a class="nav-link" href="ListaPasajeros.jsp">Pasajeros</a>
-	    </li>
+	
 	  </ul>
 	</nav>
 	<br>
 
 <div class="container">
 	<div class="mt-4 p-5 bg-info text-white rounded">
-	  <h1>Lista de Pasajeros</h1>
+	  <h1>Lista de Paises</h1>
 	</div>
-   <!-- Lista Pasajero -->
+   <!-- Lista Pais -->
   <table class="table table-fixed table-condensed">
     <thead class="table-dark">
       <tr>
-        <th>Dni Pasajero</th>
-        <th>Apellido</th>
+        <th>ID PAIS</th>
         <th>Nombre</th>
-        <th>Email</th>
-        <th>Eliminar</th>
+
       </tr>
     </thead>
     <tbody>
-    <%for(Pasajero pas: listaPas){ %>
+    <%for(Pais pa: listaPais){ %>
       <tr>
-        <td><%=pas.getDni() %> </td>
-        <td><%=pas.getApellido() %></td>
-        <td><%=pas.getNombre() %></td>
-        <td><%=pas.getEmail() %></td>
+        <td><%=pa.getIdPais() %> </td>
+        <td><%=pa.getNombre() %></td>
 
-        
-        <td><a class="bg-primary text-white" href="PasajeroServlet?accion=editar&dniPasajero=<%=pas.getDni()%>"><button type="button" class="btn btn-primary">Editar</button></a></td>
-        <td><a class="bg-danger text-white" href="PasajeroServlet?accion=eliminar&dniPasajero=<%=pas.getDni()%>"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+
+        <td><a class="bg-primary text-white" href="PaisServlet?accion=editar&idPais=<%=pa.getIdPais()%>"><button type="button" class="btn btn-primary">Editar</button></a></td>
+        <td><a class="bg-danger text-white" href="PaisServlet?accion=eliminar&idPais=<%=pa.getIdPais()%>"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
       </tr>
       <%} %>
      
     </tbody>
   </table>
   
-   <a class="bg-danger text-white" href="PasajeroServlet?accion=AgregarPasajero"><button type="button" class="btn btn-primary">Agregar pasajero</button></a>
+   <a class="bg-danger text-white" href="PaisServlet?accion=AgregarPais"><button type="button" class="btn btn-primary">Agregar pais</button></a>
 	
 
  
