@@ -13,10 +13,9 @@ public class DataCiudad {
 		Statement stmt = null; 
 		ResultSet rs = null;
 		LinkedList<Ciudad> ciudades = new LinkedList<>();
-			
 			try {
 				stmt= DbConnector.getInstancia().getConn().createStatement();
-				rs= stmt.executeQuery("select codPostal, ciu.nombre, p.idPais, p.nombre" 
+    			rs= stmt.executeQuery("select ciu.codPostal as codPostal, ciu.nombre as nombreCiudad, p.idpais as idPais, p.nombre as nombrePais " 
 						+ "from ciudad ciu "
 						+ "inner join pais p on  ciu.idPais  = p.idPais" );
 				if(rs!=null) {
@@ -24,14 +23,12 @@ public class DataCiudad {
 						Ciudad c=new Ciudad();
 						c.setPais(new Pais());
 						c.setCodPostal(rs.getString("codPostal"));
-						c.setNombre(rs.getString("ciu.nombre"));
+						c.setNombre(rs.getString("nombreCiudad"));
 						c.getPais().setIdPais(rs.getInt("idPais"));
-						c.getPais().setNombre(rs.getString("p.nombre"));
-						
+						c.getPais().setNombre(rs.getString("nombrePais"));
 					    ciudades.add(c);					
 					}
-				}
-				
+				}		
 			} catch (SQLException e) {
 				e.printStackTrace();
 				
@@ -40,14 +37,11 @@ public class DataCiudad {
 					if(rs!=null) {rs.close();}
 					if(stmt!=null) {stmt.close();}
 					DbConnector.getInstancia().releaseConn();
-				} catch (SQLException e) {
+				}catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			
-			
-			return ciudades;
-		
+			return ciudades;	
 	}
 	
 	public Ciudad getById(Ciudad c) {
@@ -56,10 +50,10 @@ public class DataCiudad {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select codPostal, ciu.nombre, p.idPais, p.nombre" 
+					"select codPostal, ciu.nombre, p.idPais, p.nombre " 
 							+ "from ciudad ciu "
-							+ "inner join pais p on  ? = p.idPais"
-							+ "where c.codpostal = ?"
+							+ "inner join pais p on  ? = p.idPais "
+							+ "where c.codpostal = ? "
 					);
 			stmt.setInt(1, c.getPais().getIdPais());
 			stmt.setString(2, c.getCodPostal());
@@ -99,7 +93,6 @@ public class DataCiudad {
 			stmt.setString(1, c.getCodPostal());
 			stmt.setString(2, c.getNombre());
 			stmt.setInt(3, c.getPais().getIdPais());
-			
 			stmt.executeUpdate();
 		}  catch (SQLException e) {
             e.printStackTrace();

@@ -36,20 +36,15 @@ public class PaisServlet extends HttpServlet {
 		CtrlPais cp = new CtrlPais(); 
 		LinkedList<Pais> paises= cp.getAll(); 
 		request.setAttribute("listaPaises", paises);
-		request.getRequestDispatcher("WEB-INF/ListarPaises.jsp").forward(request, response);
-
-		String accion = request.getParameter("accion");
-		
+		String accion = request.getParameter("accion");		
 		if(accion!=null)
 		{
 			switch (accion){
-
 				case "eliminar":
 				{
 					int idPais = Integer.parseInt(request.getParameter("idPais"));
 					Pais pa = new Pais();
-					pa.setIdPais(idPais);
-					
+					pa.setIdPais(idPais);			
 					new CtrlPais().delete(pa);
 					request.getRequestDispatcher("WEB-INF/ListarPaises.jsp").forward(request, response);
 					break;
@@ -58,58 +53,41 @@ public class PaisServlet extends HttpServlet {
 				{
 					request.getRequestDispatcher("WEB-INF/AgregarPais.jsp").forward(request, response);
 					break;
-				}
-			
-				
+				}		
 			default:
 				request.getRequestDispatcher("WEB-INF/ListarPaises.jsp").forward(request, response);
 			}
-		}
-		else {
-			//this.accionDefault(request,response);
+		}else {
 			request.getRequestDispatcher("WEB-INF/ListarPaises.jsp").forward(request, response);
 		}
-	
-		//request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
 	}
-		
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String accion = request.getParameter("accion");
-		
+		String accion = request.getParameter("accion");		
 		if(accion!=null)
 		{
 			switch (accion){
-				case "insertarPais":{
-	
+				case "insertar":{	
 					String nombre =  request.getParameter("nombre");
-
 					Pais pa = new Pais();
-
-					pa.setNombre(nombre);
-						
+					pa.setNombre(nombre);						
 					new CtrlPais().add(pa);
 					//request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
 					break;
 				}
-
 				case "eliminar":
 				{
 					int idPais = Integer.parseInt(request.getParameter("idPais"));
 					Pais pa = new Pais();
-					pa.setIdPais(idPais);
-					
+					pa.setIdPais(idPais);					
 					new CtrlPais().delete(pa);
 					request.getRequestDispatcher("/ListarPaises.jsp").forward(request, response);
 					break;
-				}
-			
-				
+				}			
 			default:
 			}
 		}

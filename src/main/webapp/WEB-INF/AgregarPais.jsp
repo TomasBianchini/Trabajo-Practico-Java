@@ -14,7 +14,7 @@
 <title>Agregar Pais</title>
 </head>
 <body>
-  <form class="form-signin" action="PaisServlet?accion=insertarPais" method="post">
+  <form class="form-signin" action="PaisServlet?accion=insertar" method="post">
   		 <label for="inputName" class="sr-only">Nombre del Pais</label>
     	 <input id="inputName" name="nombre" class="form-control" placeholder="Nombre" required="" autofocus="" type="text">
  		 <button class="btn btn-lg btn-primary btn-block" type="submit">Agregar</button>

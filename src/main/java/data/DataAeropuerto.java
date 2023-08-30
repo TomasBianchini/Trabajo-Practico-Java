@@ -15,18 +15,18 @@ public class DataAeropuerto {
 		LinkedList<Aeropuerto> aeropuertos = new LinkedList<>();
 			try {
 				stmt= DbConnector.getInstancia().getConn().createStatement();
-				rs= stmt.executeQuery("select a.idaeropuerto, a.nombre, a.descaeropuerto, ciu.codpostal, ciu.nombre" 
-						+ "from aeropuerto a"
-						+ "inner join ciudad ciu on  a.codpostal = ciu.codpostal");
+				rs= stmt.executeQuery("select a.idaeropuerto, a.nombre as nombreAero, a.descaeropuerto, ciu.codpostal, ciu.nombre as nombreCiudad " 
+						+ "from aeropuerto a "
+						+ "inner join ciudad ciu on  a.codpostal = ciu.codpostal ");
 				if(rs!=null) {
 					while(rs.next()) {
 						Aeropuerto a=new Aeropuerto();
 						a.setCiudad(new Ciudad());
 						a.setIdAeropuerto(rs.getInt("idaeropuerto"));
-						a.setNombre(rs.getString("a.nombre"));
+						a.setNombre(rs.getString("nombreAero"));
 						a.setDescAeropuerto(rs.getString("descaeropuerto"));
 						a.getCiudad().setCodPostal(rs.getString("codPostal"));
-						a.getCiudad().setNombre(rs.getString("ciu.nombre"));
+						a.getCiudad().setNombre(rs.getString("nombreCiudad"));
 						aeropuertos.add(a);					
 					}
 				}
@@ -92,12 +92,10 @@ public class DataAeropuerto {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into aeropuerto(idaeropuerto, nombre, descaeropuerto, codpostal) values(?,?,?,?)");
-			stmt.setInt(1, a.getIdAeropuerto());
-			stmt.setString(2, a.getNombre());
+							"insert into aeropuerto(nombre, descaeropuerto, codpostal) values(?,?,?)");
+			stmt.setString(1, a.getNombre());
 			stmt.setString(2, a.getDescAeropuerto());
 			stmt.setString(3, a.getCiudad().getCodPostal());
-			
 			stmt.executeUpdate();
 		}  catch (SQLException e) {
             e.printStackTrace();
