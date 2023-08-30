@@ -117,11 +117,12 @@ public class DataPasajero {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into pasajero(nombre, apellido, dni , email) values(?,?,?,?)");
+							"insert into pasajero(nombre, apellido, dni , email, contrasenia) values(?,?,?,?,?)");
 			stmt.setString(1, p.getNombre());
 			stmt.setString(2, p.getApellido());
 			stmt.setString(3, p.getDni());
-			stmt.setString(5, p.getEmail());	
+			stmt.setString(4, p.getEmail());	
+			stmt.setString(5, p.getContrasenia());	
 			
 			stmt.executeUpdate();
 		}  catch (SQLException e) {

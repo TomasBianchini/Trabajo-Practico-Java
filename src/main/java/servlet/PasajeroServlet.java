@@ -39,23 +39,6 @@ public class PasajeroServlet extends HttpServlet {
 		if(accion!=null)
 		{
 			switch (accion){
-				case "insertarPasajero":{
-					String dni = request.getParameter("dni");
-					String nombre =  request.getParameter("nombre");
-					String apellido = request.getParameter("apellido");
-					String email = request.getParameter("email");
-					String contraseña = request.getParameter("contraseña");
-					Pasajero pasajero = new Pasajero();
-
-						pasajero.setApellido(apellido);
-						pasajero.setDni(dni);
-						pasajero.setNombre(nombre);
-						pasajero.setEmail(email);
-						pasajero.setContrasenia(contraseña);
-					new CtrlPasajero().addPasajero(pasajero);
-					request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
-					break;
-				}
 				case "modificar":
 				{
 					this.modificarPasajero(request,response);
@@ -111,16 +94,16 @@ public class PasajeroServlet extends HttpServlet {
 					String nombre =  request.getParameter("nombre");
 					String apellido = request.getParameter("apellido");
 					String email = request.getParameter("email");
-					String contraseña = request.getParameter("contraseña");
+					String contrasenia = request.getParameter("contrasenia");
 					Pasajero pasajero = new Pasajero();
 
 						pasajero.setApellido(apellido);
 						pasajero.setDni(dni);
 						pasajero.setNombre(nombre);
 						pasajero.setEmail(email);
-						pasajero.setContrasenia(contraseña);
+						pasajero.setContrasenia(contrasenia);
 					new CtrlPasajero().addPasajero(pasajero);
-					request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
+					//request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
 					break;
 				}
 				case "modificar":

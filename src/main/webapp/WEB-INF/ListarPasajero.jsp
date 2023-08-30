@@ -32,17 +32,13 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <!-- Brand/logo -->
-	  <a class="navbar-brand mb-0 h1" href="MenuPrincipal.jsp">Menú</a>
+	  <a class="navbar-brand mb-0 h1" href="MenuPrincipal.jsp">Menu Principal</a>
 	  
 	  <!-- Links -->
 	  <ul class="navbar-nav">
 	   
 	    <li class="nav-item">
-	      <a class="nav-link" href="ListaProducto.jsp">Productos</a>
-	    </li>
-
-	    <li class="nav-item">
-	      <a class="nav-link" href="ListaUsuario.jsp">Usuarios</a>
+	      <a class="nav-link" href="ListaPasajeros.jsp">Pasajeros</a>
 	    </li>
 	  </ul>
 	</nav>
@@ -80,7 +76,7 @@
     </tbody>
   </table>
   
-    <a class="bg-danger text-white" href="PasajeroServlet?accion=AgregarPasajero"><button type="button" class="btn btn-primary">Agregar pasajero</button></a>
+   <a class="bg-danger text-white" href="PasajeroServlet?accion=AgregarPasajero"><button type="button" class="btn btn-primary">Agregar pasajero</button></a>
 	
 
  
