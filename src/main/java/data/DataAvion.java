@@ -11,11 +11,11 @@ import entities.Avion;
 public class DataAvion {
 
 	
-	public LinkedList<Avion> getAllAvion(){
+	public LinkedList<Avion> getAll(){
 
 		Statement stmt=null;
 		ResultSet rs=null;
-		LinkedList<Avion> avion = new LinkedList<>();
+		LinkedList<Avion> aviones = new LinkedList<>();
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
@@ -23,11 +23,11 @@ public class DataAvion {
 
 			if(rs!=null) {
 				while(rs.next()) {
-					Avion p=new Avion();
-					p.setIdAvion(rs.getInt("idAvion"));
-					p.setCantAsientos(rs.getInt("cantAsientos"));
+					Avion a=new Avion();
+					a.setIdAvion(rs.getInt("idAvion"));
+					a.setCantAsientos(rs.getInt("cantAsientos"));
 				
-					avion.add(p);
+					aviones.add(a);
 				}
 			}
 			
@@ -45,24 +45,23 @@ public class DataAvion {
 		}
 		
 		
-		return avion;
+		return aviones;
 	}
 	
 	public Avion getByCantAsientos(Avion av) {
-		Avion p=null;
+		Avion a=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select idAvion,cantAsientos from avion where cantAsientos=?"
 					);
-			stmt.setInt(1, av.getIdAvion());
-			stmt.setInt(2, av.getCantAsientos());
+			stmt.setInt(1, av.getCantAsientos());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
-				p=new Avion();
-				p.setIdAvion(rs.getInt("IdAvion"));
-				p.setCantAsientos(rs.getInt("CantAsientos"));
+				a=new Avion();
+				a.setIdAvion(rs.getInt("IdAvion"));
+				a.setCantAsientos(rs.getInt("CantAsientos"));
 			
 			}
 		} catch (SQLException e) {
@@ -77,11 +76,44 @@ public class DataAvion {
 			}
 		}
 		
-		return p;
+		return a;
+	}
+	
+	public Avion getById(Avion av) {
+		Avion a=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"select idAvion,cantAsientos from avion where idAvion =?"
+					);
+			stmt.setInt(1, av.getIdAvion());
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				a=new Avion();
+				a.setIdAvion(rs.getInt("IdAvion"));
+				a.setCantAsientos(rs.getInt("CantAsientos"));
+			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return a;
+	
 	}
 	
 	
-	public void addAvion(Avion p) {
+	
+	public void add(Avion p) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -106,7 +138,7 @@ public class DataAvion {
 
 
 	
-	public void editAvion(Avion p) {
+	public void edit(Avion p) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE avion SET idAvion=? cantAsientos=?  WHERE idAvion=?");
@@ -125,7 +157,7 @@ public class DataAvion {
 		}
 	}
 	
-	public void deleteAvion(Avion p) {
+	public void delete(Avion p) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement(

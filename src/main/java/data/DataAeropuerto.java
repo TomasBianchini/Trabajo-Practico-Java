@@ -46,7 +46,7 @@ public class DataAeropuerto {
 			return aeropuertos;
 	}
 	
-	public Aeropuerto getByid(Aeropuerto a) {
+	public Aeropuerto getById(Aeropuerto a) {
 		Aeropuerto aero = null; 
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -87,7 +87,7 @@ public class DataAeropuerto {
 	}
 
 	
-	public void addAeropuerto(Aeropuerto a) {
+	public void add(Aeropuerto a) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -112,7 +112,7 @@ public class DataAeropuerto {
 		
 	}
 	
-	public void deleteAeropuerto(Aeropuerto a) {
+	public void delete(Aeropuerto a) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement(
@@ -132,7 +132,7 @@ public class DataAeropuerto {
 		}
 	}
 		
-	public void editAeropuerto(Aeropuerto a) {
+	public void edit(Aeropuerto a) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE aeropuerto SET nombre =?, descaeropuerto= ? WHERE idaeropuerto=?");

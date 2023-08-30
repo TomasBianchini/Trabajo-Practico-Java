@@ -32,7 +32,7 @@ public class PasajeroServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		CtrlPasajero ct = new CtrlPasajero();
-		LinkedList<Pasajero> lp = ct.getAllPasajero();
+		LinkedList<Pasajero> lp = ct.getAll();
 		request.setAttribute("listaPasajero", lp);
 		String accion = request.getParameter("accion");
 		
@@ -50,7 +50,7 @@ public class PasajeroServlet extends HttpServlet {
 					Pasajero pas = new Pasajero();
 					pas.setDni(dni);
 					
-					new CtrlPasajero().deletePasajero(pas);
+					new CtrlPasajero().delete(pas);
 					request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
 					break;
 				}
@@ -102,7 +102,7 @@ public class PasajeroServlet extends HttpServlet {
 						pasajero.setNombre(nombre);
 						pasajero.setEmail(email);
 						pasajero.setContrasenia(contrasenia);
-					new CtrlPasajero().addPasajero(pasajero);
+					new CtrlPasajero().add(pasajero);
 					//request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
 					break;
 				}
@@ -117,7 +117,7 @@ public class PasajeroServlet extends HttpServlet {
 					Pasajero pas = new Pasajero();
 					pas.setDni(dni);
 					
-					new CtrlPasajero().deletePasajero(pas);
+					new CtrlPasajero().delete(pas);
 					request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
 					break;
 				}
@@ -152,7 +152,7 @@ public class PasajeroServlet extends HttpServlet {
 			pasajero.setNombre(nombre);
 			pasajero.setEmail(email);
 			pasajero.setContrasenia(contraseña);
-		new CtrlPasajero().addPasajero(pasajero);
+		new CtrlPasajero().add(pasajero);
 		request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
 	}
 	
@@ -185,7 +185,7 @@ public class PasajeroServlet extends HttpServlet {
 			pasajeroActual.setNombre(nombre);
 			pasajeroActual.setContrasenia(contraseña);
 			
-		new CtrlPasajero().editPasajero(pasajeroActual);
+		new CtrlPasajero().edit(pasajeroActual);
 		request.getRequestDispatcher("/ListaPasajero.jsp").forward(request, response);
 	}
 	
@@ -195,14 +195,14 @@ public class PasajeroServlet extends HttpServlet {
 		Pasajero pas = new Pasajero();
 		pas.setDni(dni);
 		
-		new CtrlPasajero().deletePasajero(pas);
+		new CtrlPasajero().delete(pas);
 		request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
 		
 	}
 	
 	private void listarPasajero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CtrlPasajero ct = new CtrlPasajero();
-		LinkedList<Pasajero> lp = ct.getAllPasajero();
+		LinkedList<Pasajero> lp = ct.getAll();
 		request.setAttribute("listaPersonas", lp);
 		request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
 

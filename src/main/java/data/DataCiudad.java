@@ -50,8 +50,7 @@ public class DataCiudad {
 		
 	}
 	
-	public Ciudad getByid(Ciudad c) {
-		//Pais p = new Pais();
+	public Ciudad getById(Ciudad c) {
 		Ciudad ciu = null; 
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -91,7 +90,7 @@ public class DataCiudad {
 	}
 
 	
-	public void addCiudad(Ciudad c) {
+	public void add(Ciudad c) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -115,7 +114,7 @@ public class DataCiudad {
 		
 	}
 	
-	public void deleteCiudad(Ciudad c) {
+	public void delete(Ciudad c) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement(
@@ -135,7 +134,7 @@ public class DataCiudad {
 		}
 	}
 		
-	public void editCiudad(Ciudad c) {
+	public void edit(Ciudad c) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE ciudad SET nombre =? WHERE codPostal=?");
