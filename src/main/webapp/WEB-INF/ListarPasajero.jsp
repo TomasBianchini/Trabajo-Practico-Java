@@ -79,8 +79,8 @@
      
     </tbody>
   </table>
-  <a class="bg-danger text-white" href="AgregarPasajero"><button type="button" class="btn btn-primary">Agregar pasajero</button></a>
-
+  <a class="bg-danger text-white" href="AgregarPasajero.jsp"><button type="button" class="btn btn-primary">Agregar pasajero</button></a>
+	
 
  
 
