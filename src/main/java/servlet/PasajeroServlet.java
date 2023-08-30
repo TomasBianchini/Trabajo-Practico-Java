@@ -39,8 +39,21 @@ public class PasajeroServlet extends HttpServlet {
 		if(accion!=null)
 		{
 			switch (accion){
-				case "insertar":{
-					this.insertarPasajero(request,response);
+				case "insertarPasajero":{
+					String dni = request.getParameter("dni");
+					String nombre =  request.getParameter("nombre");
+					String apellido = request.getParameter("apellido");
+					String email = request.getParameter("email");
+					String contraseña = request.getParameter("contraseña");
+					Pasajero pasajero = new Pasajero();
+
+						pasajero.setApellido(apellido);
+						pasajero.setDni(dni);
+						pasajero.setNombre(nombre);
+						pasajero.setEmail(email);
+						pasajero.setContrasenia(contraseña);
+					new CtrlPasajero().addPasajero(pasajero);
+					request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
 					break;
 				}
 				case "modificar":
@@ -61,6 +74,11 @@ public class PasajeroServlet extends HttpServlet {
 				case "listarPasajero": 
 				{
 					this.listarPasajero(request,response);
+					break;
+				}
+				case "AgregarPasajero": 
+				{
+					request.getRequestDispatcher("WEB-INF/AgregarPasajero.jsp").forward(request, response);
 					break;
 				}
 			
@@ -88,8 +106,21 @@ public class PasajeroServlet extends HttpServlet {
 		if(accion!=null)
 		{
 			switch (accion){
-				case "insertar":{
-					this.insertarPasajero(request,response);
+				case "insertarPasajero":{
+					String dni = request.getParameter("dni");
+					String nombre =  request.getParameter("nombre");
+					String apellido = request.getParameter("apellido");
+					String email = request.getParameter("email");
+					String contraseña = request.getParameter("contraseña");
+					Pasajero pasajero = new Pasajero();
+
+						pasajero.setApellido(apellido);
+						pasajero.setDni(dni);
+						pasajero.setNombre(nombre);
+						pasajero.setEmail(email);
+						pasajero.setContrasenia(contraseña);
+					new CtrlPasajero().addPasajero(pasajero);
+					request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
 					break;
 				}
 				case "modificar":
@@ -193,5 +224,7 @@ public class PasajeroServlet extends HttpServlet {
 		request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
 
 	}
+	
 
+	
 }
