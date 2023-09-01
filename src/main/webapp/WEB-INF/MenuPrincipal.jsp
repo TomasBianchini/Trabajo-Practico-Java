@@ -5,7 +5,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  
+
    <%
     	String email = (String) request.getAttribute("email");
    		String password = (String) request.getAttribute("password");
@@ -50,8 +50,6 @@
     </div>
   </div>
 </div>
-
-
 
 <!-- Agrega el enlace a Bootstrap JS (opcional si planeas usar componentes interactivos) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
