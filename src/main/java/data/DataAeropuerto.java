@@ -62,7 +62,7 @@ public class DataAeropuerto {
 							+ " where a.idaeropuerto = ?"
 					);
 			stmt.setString(1, a.getCiudad().getCodPostal());
-			stmt.setInt(1, a.getIdAeropuerto());
+			stmt.setInt(2, a.getIdAeropuerto());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				aero =new Aeropuerto();
