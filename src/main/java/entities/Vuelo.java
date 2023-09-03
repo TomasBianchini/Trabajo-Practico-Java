@@ -1,5 +1,5 @@
 package entities;
-import java.time.LocalDateTime; 
+import java.time.*; 
 
 public class Vuelo {
 	private int idvuelo;

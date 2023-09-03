@@ -40,12 +40,12 @@
   <div class="row">
     <div class="col">
       <div class="d-flex justify-content-between">
-        <a href="" class="btn btn-custom">Listar pasajero</a>
         <a href="PasajeroServlet" class="btn btn-custom">Listar pasajero</a>
         <a href="PaisServlet" class="btn btn-custom">Listar pais</a>
         <a href="CiudadServlet" class="btn btn-custom">Listar ciudad</a>
         <a href="AvionServlet" class="btn btn-custom">Listar avion</a>
         <a href="AeropuertoServlet" class="btn btn-custom">Listar aeropuerto</a>
+ 		<a href="VueloServlet" class="btn btn-custom">Listar vuelo</a>
       </div>
     </div>
   </div>

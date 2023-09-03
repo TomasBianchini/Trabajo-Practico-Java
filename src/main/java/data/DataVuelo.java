@@ -6,7 +6,7 @@ import entities.Vuelo;
 import entities.Aeropuerto;
 import entities.Ciudad;
 import entities.Pais;
-
+import java.time.*; 
 public class DataVuelo {
 	
 	public LinkedList<Vuelo> getAll(){
@@ -35,8 +35,8 @@ public class DataVuelo {
 						v.getAeropuertoDestino().getCiudad().setPais(new Pais());
 						v.getAeropuertoOrigen().getCiudad().setPais(new Pais());
 						v.setIdvuelo(rs.getInt("idVuelo"));
-						//v.setFechaHoraSalida(rs.getTimestamp("fechaHoraSalida"));
-						//v.setFechaHoraLLegada(rs.get ("fechaHoraLlegada"));	
+						v.setFechaHoraSalida(rs.getObject("fechaHoraSalida",LocalDateTime.class));
+						v.setFechaHoraLlegada(rs.getObject("fechaHoraLlegada",LocalDateTime.class));	
 						v.getAeropuertoOrigen().setIdAeropuerto(rs.getInt("idAeropuertoOrigen"));
 						v.getAeropuertoOrigen().setNombre(rs.getString("nAeroO"));
 						v.getAeropuertoDestino().setIdAeropuerto(rs.getInt("idAeropuertoDestino"));
@@ -91,8 +91,8 @@ public class DataVuelo {
 				vue.getAeropuertoDestino().getCiudad().setPais(new Pais());
 				vue.getAeropuertoOrigen().getCiudad().setPais(new Pais());
 				vue.setIdvuelo(rs.getInt("idVuelo"));
-				//vue.setFechaHoraSalida(rs.getTimestamp("fechaHoraSalida"));
-				//vue.setFechaHoraLLegada(rs.get ("fechaHoraLlegada"));	
+				v.setFechaHoraSalida(rs.getObject("fechaHoraSalida",LocalDateTime.class));
+				v.setFechaHoraLlegada(rs.getObject("fechaHoraLlegada",LocalDateTime.class));
 				vue.getAeropuertoOrigen().setIdAeropuerto(rs.getInt("idAeropuertoOrigen"));
 				vue.getAeropuertoOrigen().setNombre(rs.getString("nAeroO"));
 				vue.getAeropuertoDestino().setIdAeropuerto(rs.getInt("idAeropuertoDestino"));
@@ -147,8 +147,8 @@ public class DataVuelo {
 				vue.getAeropuertoDestino().getCiudad().setPais(new Pais());
 				vue.getAeropuertoOrigen().getCiudad().setPais(new Pais());
 				vue.setIdvuelo(rs.getInt("idVuelo"));
-				//vue.setFechaHoraSalida(rs.getTimestamp("fechaHoraSalida"));
-				//vue.setFechaHoraLLegada(rs.get ("fechaHoraLlegada"));	
+				v.setFechaHoraSalida(rs.getObject("fechaHoraSalida",LocalDateTime.class));
+				v.setFechaHoraLlegada(rs.getObject("fechaHoraLlegada",LocalDateTime.class));
 				vue.getAeropuertoOrigen().setIdAeropuerto(rs.getInt("idAeropuertoOrigen"));
 				vue.getAeropuertoOrigen().setNombre(rs.getString("nAeroO"));
 				vue.getAeropuertoDestino().setIdAeropuerto(rs.getInt("idAeropuertoDestino"));
@@ -182,8 +182,8 @@ public class DataVuelo {
 							"insert into vuelo(idvuelo, fechaHoraSalida, fechaHoraLlegada, "
 							+ " idAeropuertoOrigen, idAeropuertoDestino, idAvion) values(?,?,?,?,?,?)");
 			stmt.setInt(1, v.getIdvuelo());
-			//stmt.set(2, v.getFechaHoraSalida());
-			//stmt.set(3, v.getFechaHoraLlegada());
+			stmt.setObject(2, v.getFechaHoraSalida());
+			stmt.setObject(3, v.getFechaHoraLlegada());
 			stmt.setInt(4, v.getAeropuertoOrigen().getIdAeropuerto());
 			stmt.setInt(5, v.getAeropuertoDestino().getIdAeropuerto());
 			stmt.setInt(6, v.getAvion().getIdAvion());
@@ -225,8 +225,8 @@ public class DataVuelo {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement
 					("UPDATE vuelo SET fechaHoraSalida=?, fechaHoraLlegada=? WHERE idvuelo=?");
 			pstmt.setInt(3, v.getIdvuelo());
-			//pstmt.set (1, v.getFechaHoraSalida());
-			//pstmt.set (2, v.getFechaHoraLlegada());
+			pstmt.setObject(1, v.getFechaHoraSalida());
+			pstmt.setObject(2, v.getFechaHoraLlegada());
 			pstmt.executeUpdate();	
 		}  catch (SQLException e) {
             e.printStackTrace();
