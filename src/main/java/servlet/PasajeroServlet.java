@@ -74,8 +74,6 @@ public class PasajeroServlet extends HttpServlet {
 			//this.accionDefault(request,response);
 			request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
 		}
-	
-		//request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
 	}
 
 	/**

@@ -54,6 +54,8 @@
         <th>LLega</th>
         <th>Desde</th>
         <th>Hasta</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -73,15 +75,9 @@
   </table>
   
    <a class="bg-danger text-white" href="VueloServlet?accion=AgregarVuelo"><button type="button" class="btn btn-primary">Agregar vuelo</button></a>
-	
-
- 
 
 </div>
 </div>
-
-
-
 
 
 <!-- Option 1: Bootstrap Bundle with Popper -->

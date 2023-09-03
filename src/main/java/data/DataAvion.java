@@ -19,13 +19,13 @@ public class DataAvion {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select idAvion,cantAsientos from avion");
+			rs= stmt.executeQuery("select idAvion, cantidadAsientos from avion");
 
 			if(rs!=null) {
 				while(rs.next()) {
 					Avion a=new Avion();
 					a.setIdAvion(rs.getInt("idAvion"));
-					a.setCantAsientos(rs.getInt("cantAsientos"));
+					a.setCantAsientos(rs.getInt("cantidadAsientos"));
 				
 					aviones.add(a);
 				}
@@ -54,14 +54,14 @@ public class DataAvion {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select idAvion,cantAsientos from avion where cantAsientos=?"
+					"select idAvion,cantidadAsientos from avion where cantidadAsientos=?"
 					);
 			stmt.setInt(1, av.getCantAsientos());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				a=new Avion();
 				a.setIdAvion(rs.getInt("IdAvion"));
-				a.setCantAsientos(rs.getInt("CantAsientos"));
+				a.setCantAsientos(rs.getInt("cantidadAsientos"));
 			
 			}
 		} catch (SQLException e) {
@@ -85,14 +85,14 @@ public class DataAvion {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select idAvion,cantAsientos from avion where idAvion =?"
+					"select idAvion,cantidadAsientos from avion where idAvion =?"
 					);
 			stmt.setInt(1, av.getIdAvion());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				a=new Avion();
 				a.setIdAvion(rs.getInt("IdAvion"));
-				a.setCantAsientos(rs.getInt("CantAsientos"));
+				a.setCantAsientos(rs.getInt("cantidadAsientos"));
 			
 			}
 		} catch (SQLException e) {
@@ -111,16 +111,13 @@ public class DataAvion {
 	
 	}
 	
-	
-	
 	public void add(Avion p) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into avion(idAvion, cantAsientos) values(?,?)");
-			stmt.setInt(1, p.getIdAvion());
-			stmt.setInt(2, p.getCantAsientos());
+							"insert into avion(cantidadAsientos) values(?)");
+			stmt.setInt(1, p.getCantAsientos());
 	
 			
 			stmt.executeUpdate();
@@ -136,14 +133,12 @@ public class DataAvion {
 		}
     }
 
-
-	
 	public void edit(Avion p) {
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE avion SET idAvion=? cantAsientos=?  WHERE idAvion=?");
-			pstmt.setInt(1, p.getIdAvion());
-			pstmt.setInt(2, p.getCantAsientos());
+			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE avion SET cantidadAsientos=?  WHERE idAvion=?");
+
+			pstmt.setInt(1, p.getCantAsientos());
 			pstmt.executeUpdate();	
 		}  catch (SQLException e) {
             e.printStackTrace();
@@ -176,6 +171,5 @@ public class DataAvion {
 	            }
 		}
 	}
-
 
 }

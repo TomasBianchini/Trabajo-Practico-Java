@@ -50,7 +50,8 @@
         <th>Apellido</th>
         <th>Nombre</th>
         <th>Email</th>
-        <th>Eliminar</th>
+		<th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>

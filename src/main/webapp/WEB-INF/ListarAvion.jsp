@@ -1,4 +1,4 @@
-<%@page import="entities.Ciudad"%>
+<%@page import="entities.Avion"%>
 <%@page import="java.util.LinkedList"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -13,7 +13,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	    <meta name="description" content="">
 	    <meta name="author" content="">
-<title>Lista Ciudades</title>
+<title>Lista Aviones</title>
   <!-- Bootstrap core CSS -->
     <link href="styles/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -23,7 +23,7 @@
     <link href="styles/bootstrap.min.css" rel="stylesheet">
 	<%
 
-    	LinkedList<Ciudad> listaCiudades= (LinkedList<Ciudad>)request.getAttribute("listaCiudades");
+    	LinkedList<Avion> listaAviones = (LinkedList<Avion>)request.getAttribute("listaAviones");
     %>
 </head>
 <body style="background-color:rgb(251, 252, 255);">
@@ -43,34 +43,33 @@
 
 <div class="container">
 	<div class="mt-4 p-5 bg-info text-white rounded">
-	  <h1>Lista de Ciudades</h1>
+	  <h1>Lista de Aviones</h1>
 	</div>
-   <!-- Lista Ciudad -->
+   <!-- Lista Avion -->
   <table class="table table-fixed table-condensed">
     <thead class="table-dark">
       <tr>
-        <th>Codigo Postal</th>
-        <th>Nombre</th>
-        <th>Pais</th>
+        <th>ID Avion</th>
+        <th>Cantidad de Asientos</th>
         <th></th>
         <th></th>
+
       </tr>
     </thead>
     <tbody>
-    <%for(Ciudad ciu: listaCiudades){ %>
+    <%for(Avion avi: listaAviones){ %>
       <tr>
-        <td><%=ciu.getCodPostal() %> </td>
-        <td><%=ciu.getNombre() %></td>
-        <td><%=ciu.getPais().getNombre()%></td>
-        <td><a class="bg-primary text-white" href="CiudadServlet?accion=editar&codPostal=<%=ciu.getCodPostal()%>"><button type="button" class="btn btn-primary">Editar</button></a></td>
-        <td><a class="bg-danger text-white" href="CiudadServlet?accion=eliminar&codPostal=<%=ciu.getCodPostal()%>"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+        <td><%=avi.getIdAvion() %> </td>
+        <td><%=avi.getCantAsientos() %></td>
+        <td><a class="bg-primary text-white" href="AvionServlet?accion=editar&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-primary">Editar</button></a></td>
+        <td><a class="bg-danger text-white" href="AvionServlet?accion=eliminar&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
       </tr>
       <%} %>
      
     </tbody>
   </table>
   
-   <a class="bg-danger text-white" href="CiudadServlet?accion=AgregarCiudad"><button type="button" class="btn btn-primary">Agregar ciudad</button></a>
+   <a class="bg-danger text-white" href="AvionServlet?accion=AgregarAvion"><button type="button" class="btn btn-primary">Agregar avion</button></a>
 	
 
  

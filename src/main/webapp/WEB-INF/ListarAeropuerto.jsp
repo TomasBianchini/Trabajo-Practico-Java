@@ -45,6 +45,8 @@
         <th>Nombre</th>
         <th>Descripción Aeropuerto</th>
         <th>Ciudad</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>

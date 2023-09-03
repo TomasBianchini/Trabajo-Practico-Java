@@ -77,8 +77,8 @@ public class VueloServlet extends HttpServlet {
 				case "insertar":{
 
 					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-					//DateTime fechaHoraSalida =  request.getParameter("fechaHoraSalida");
-					//String fechaHoraLlegada = request.getParameter("fechaHoraLlegada");
+					LocalDateTime fechaHoraSalida =  LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
+					LocalDateTime  fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
 					int idAeropuertoOrigen = Integer.parseInt(request.getParameter("idAeropuertoOrigen"));
 					int idAeropuertoDestino = Integer.parseInt(request.getParameter("idAeropuertoDestino"));
 					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
@@ -89,6 +89,8 @@ public class VueloServlet extends HttpServlet {
 					vue.setAeropuertoDestino(new Aeropuerto());
 					vue.getAeropuertoOrigen().setIdAeropuerto(idAeropuertoOrigen);
 					vue.getAeropuertoDestino().setIdAeropuerto(idAeropuertoDestino);
+					vue.setFechaHoraLlegada(fechaHoraLlegada); 
+					vue.setFechaHoraSalida(fechaHoraSalida); 
 					vue.setAvion(new Avion());
 					vue.getAvion().setIdAvion(idAvion); 
 

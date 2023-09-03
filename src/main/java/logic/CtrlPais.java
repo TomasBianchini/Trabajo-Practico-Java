@@ -24,7 +24,9 @@ public class CtrlPais {
 		dp.add(p);
 	}
 	
-			
+	public Pais getById(Pais p) {
+		return dp.getById(p);
+	}
 	public void edit(Pais p) {
 		dp.edit(p);
 	}

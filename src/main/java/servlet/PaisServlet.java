@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import entities.Pais;
-import entities.Pasajero;
 import logic.CtrlPais;
-import logic.CtrlPasajero;
 
 
 /**
@@ -53,7 +51,18 @@ public class PaisServlet extends HttpServlet {
 				{
 					request.getRequestDispatcher("WEB-INF/AgregarPais.jsp").forward(request, response);
 					break;
-				}		
+				}
+				case "editar": 
+				{
+					Pais p = new Pais(); 
+					int idPais = Integer.parseInt(request.getParameter("idPais"));
+					p.setIdPais(idPais); 
+					CtrlPais cpais = new CtrlPais(); 
+					Pais pa = cpais.getById(p); 
+					request.setAttribute("Pais", pa);
+					request.getRequestDispatcher("WEB-INF/EditarPais.jsp").forward(request, response);
+				}
+				
 			default:
 				request.getRequestDispatcher("WEB-INF/ListarPaises.jsp").forward(request, response);
 			}
@@ -87,14 +96,21 @@ public class PaisServlet extends HttpServlet {
 					new CtrlPais().delete(pa);
 					request.getRequestDispatcher("/ListarPaises.jsp").forward(request, response);
 					break;
-				}			
-			default:
-			}
-		}
-		else {
-			//this.accionDefault(request,response);
+				}
+				case "editarPais": 
+				{
+					int idPais = Integer.parseInt(request.getParameter("idPais"));
+					String nombre = request.getParameter("nombre");
+					Pais pa = new Pais();
+					pa.setIdPais(idPais);
+					pa.setNombre(nombre);
+					new CtrlPais().edit(pa);	
+					break; 
+				}
 		}
 		doGet(request, response);
+		}
 	}
-
 }
+
+

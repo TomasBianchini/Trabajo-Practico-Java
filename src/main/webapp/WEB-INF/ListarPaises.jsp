@@ -51,6 +51,8 @@
       <tr>
         <th>ID PAIS</th>
         <th>Nombre</th>
+        <th></th>
+        <th></th>
 
       </tr>
     </thead>
