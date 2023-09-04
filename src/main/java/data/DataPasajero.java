@@ -85,10 +85,9 @@ public class DataPasajero {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select dni,nombre,apellido,email from pasajero where dni=? and contrasenia=?"
+					"select dni,nombre,apellido,email,contrasenia from pasajero where dni=?"
 					);
 			stmt.setString(1, pas.getDni());
-			stmt.setString(2, pas.getContrasenia());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				p=new Pasajero();
@@ -96,6 +95,7 @@ public class DataPasajero {
 				p.setNombre(rs.getString("nombre"));
 				p.setApellido(rs.getString("apellido"));
 				p.setEmail(rs.getString("email"));
+				p.setContrasenia(rs.getString("contrasenia"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -136,18 +136,15 @@ public class DataPasajero {
             }
 		}
     }
-
-
 	
 	public void edit(Pasajero p) {
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE pasajero SET email=?,contraseña =?, nombre = ?, apellido = ?WHERE dni=?");
+			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE pasajero SET email=?,contrasenia =?, nombre = ?, apellido = ? WHERE dni=?");
 			pstmt.setString(1, p.getEmail());
 			pstmt.setString(2, p.getContrasenia());
 			pstmt.setString(3, p.getNombre());
 			pstmt.setString(4, p.getApellido());
-			
 			pstmt.setString(5, p.getDni());
 			pstmt.executeUpdate();	
 		}  catch (SQLException e) {
