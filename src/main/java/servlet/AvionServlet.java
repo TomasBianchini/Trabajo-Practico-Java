@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Avion;
+import entities.Pais;
 import logic.CtrlAvion;
+import logic.CtrlPais;
 
 
 /**
@@ -41,9 +43,16 @@ public class AvionServlet extends HttpServlet {
 		if(accion!=null)
 		{
 			switch (accion){
-				case "modificar":
+				case "editar":
 				{
-					//Implementar
+					Avion a = new Avion(); 
+					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+					a.setIdAvion(idAvion); 
+					CtrlAvion av = new CtrlAvion(); 
+					Avion avi = av.getById(a); 
+					request.setAttribute("Avion", avi);
+					request.getRequestDispatcher("WEB-INF/EditarAvion.jsp").forward(request, response);
+					break;
 				}
 				case "eliminar":
 				{
@@ -86,9 +95,15 @@ public class AvionServlet extends HttpServlet {
 					
 					break;
 				}
-				case "modificar":
+				case "editarAvion": 
 				{
-					//Implementar
+					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+					int cantAsientos = Integer.parseInt(request.getParameter("cantidadAsientos"));
+					Avion a = new Avion();
+					a.setIdAvion(idAvion);
+					a.setCantAsientos(cantAsientos);
+					new CtrlAvion().edit(a);	
+					break; 
 				}
 				case "eliminar":
 				{

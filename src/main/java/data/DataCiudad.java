@@ -124,9 +124,10 @@ public class DataCiudad {
 	public void edit(Ciudad c) {
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE ciudad SET nombre =? WHERE codPostal=?");
-			pstmt.setString(1, c.getNombre());
-			pstmt.setString(2, c.getCodPostal());
+			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE ciudad SET codPostal = ?,nombre =? WHERE codPostal=?");
+			pstmt.setString(1, c.getCodPostal());
+			pstmt.setString(2, c.getNombre());
+			pstmt.setString(3, c.getCodPostal());
 			pstmt.executeUpdate();	
 		}  catch (SQLException e) {
             e.printStackTrace();

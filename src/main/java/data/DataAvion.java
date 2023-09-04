@@ -137,8 +137,8 @@ public class DataAvion {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE avion SET cantidadAsientos=?  WHERE idAvion=?");
-
 			pstmt.setInt(1, p.getCantAsientos());
+			pstmt.setInt(2, p.getIdAvion());
 			pstmt.executeUpdate();	
 		}  catch (SQLException e) {
             e.printStackTrace();

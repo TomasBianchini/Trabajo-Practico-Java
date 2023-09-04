@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import entities.Ciudad;
 import entities.Pais;
 import logic.CtrlCiudad;
+import logic.CtrlPais;
 
 /**
  * Servlet implementation class CiudadServlet
@@ -48,6 +49,19 @@ public class CiudadServlet extends HttpServlet {
 					request.getRequestDispatcher("WEB-INF/ListarCiudad.jsp").forward(request, response);
 					break;
 				}
+				case "editar": 
+				{
+					Ciudad p = new Ciudad(); 
+					String codPostal = request.getParameter("codPostal");
+					p.setCodPostal(codPostal); 
+					CtrlCiudad ci = new CtrlCiudad(); 
+					Ciudad ciu = ci.getById(p); 
+					request.setAttribute("Ciudad", ciu);
+					request.getRequestDispatcher("WEB-INF/EditarCiudad.jsp").forward(request, response);
+				}
+				
+				
+				
 				case "AgregarCiudad": 
 				{
 					request.getRequestDispatcher("WEB-INF/AgregarCiudad.jsp").forward(request, response);
@@ -84,6 +98,18 @@ public class CiudadServlet extends HttpServlet {
 					//request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
 					break;
 				}	
+				
+				
+				case "editarCiudad": 
+				{
+					String codPostal =  request.getParameter("codPostal");
+					String nombre = request.getParameter("nombre");
+					Ciudad pa = new Ciudad();
+					pa.setCodPostal(codPostal);
+					pa.setNombre(nombre);
+					new CtrlCiudad().edit(pa);	
+					break; 
+				}
 
 				case "eliminar":
 				{
