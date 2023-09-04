@@ -27,7 +27,7 @@
 <div class="fixed-top">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <!-- Brand/logo -->
-	  <a class="navbar-brand mb-0 h1" href="MenuPrincipal.jsp">Menu Principal</a>
+	  <a class="navbar-brand mb-0 h1" href="/webapp\WEB-INF\MenuPrincipal.jsp">Menu Principal</a>
 	  <!-- Links -->
 	  <ul class="navbar-nav">
 	  </ul>
