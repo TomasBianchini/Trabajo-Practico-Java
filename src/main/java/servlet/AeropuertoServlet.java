@@ -39,6 +39,16 @@ public class AeropuertoServlet extends HttpServlet {
 		if(accion!=null)
 		{
 			switch (accion){
+			    case "editar":
+			    {
+			    	Aeropuerto a = new Aeropuerto(); 
+					int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
+					a.setIdAeropuerto(idAeropuerto);  
+					Aeropuerto aero = ca.getById(a);   
+					request.setAttribute("Aeropuerto", aero);
+					request.getRequestDispatcher("WEB-INF/EditarAeropuerto.jsp").forward(request, response);
+			    	break;
+			    }
 				case "eliminar":
 				{
 					int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
@@ -91,8 +101,19 @@ public class AeropuertoServlet extends HttpServlet {
 					new CtrlAeropuerto().delete(pa);
 					request.getRequestDispatcher("/ListarPaises.jsp").forward(request, response);
 					break;
-				}			
-			default:
+				}
+				case "editarAeropuerto": 
+				{
+					int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
+					String descAeropuerto = request.getParameter("descAeropuerto");
+					String nombre = request.getParameter("nombre");
+					Aeropuerto a = new Aeropuerto();
+					a.setIdAeropuerto(idAeropuerto);
+					a.setNombre(nombre);
+					a.setDescAeropuerto(descAeropuerto);
+					new CtrlAeropuerto().edit(a);	
+					break; 
+				}
 			}
 		}
 		else {

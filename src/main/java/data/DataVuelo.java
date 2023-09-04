@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import entities.Vuelo;
 import entities.Aeropuerto;
+import entities.Avion;
 import entities.Ciudad;
 import entities.Pais;
 import java.time.*; 
@@ -73,11 +74,12 @@ public class DataVuelo {
 							+ " pO.nombre as nPaisO, pD.nombre as nPaisD "
 							+ " from vuelo vue "
 							+ " inner join aeropuerto aeroO on aeroO.idaeropuerto = vue.idAeropuertoOrigen"
-							+ "inner join aeropuerto aeroD on aeroD.idaeropuerto = vue.idAeropuertoDestino"
+							+ " inner join aeropuerto aeroD on aeroD.idaeropuerto = vue.idAeropuertoDestino"
 							+ " inner join ciudad ciuO on ciuO.codPostal = aeroO.codPostal "
 							+ " inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal "
 							+ " inner join pais pO on pO.idpais = ciuO.idPais"
-							+ " inner join pais pD on pD.idpais = ciuD.idPais"
+							+ " inner join pais pD on pD.idpais = ciuD.idPais "
+							+ " inner join avion av on av.idavion = vue.idavion "
 							+ " where vue.idvuelo = ?");
 			
 			stmt.setInt(1, v.getIdvuelo());
@@ -90,6 +92,7 @@ public class DataVuelo {
 				vue.getAeropuertoOrigen().setCiudad(new Ciudad()); 
 				vue.getAeropuertoDestino().getCiudad().setPais(new Pais());
 				vue.getAeropuertoOrigen().getCiudad().setPais(new Pais());
+				vue.setAvion(new Avion()); 
 				vue.setIdvuelo(rs.getInt("idVuelo"));
 				v.setFechaHoraSalida(rs.getObject("fechaHoraSalida",LocalDateTime.class));
 				v.setFechaHoraLlegada(rs.getObject("fechaHoraLlegada",LocalDateTime.class));
@@ -101,6 +104,7 @@ public class DataVuelo {
 				vue.getAeropuertoDestino().getCiudad().setNombre(rs.getString("nCiudadD"));
 				vue.getAeropuertoOrigen().getCiudad().getPais().setNombre(rs.getString("nPaisO"));
 				vue.getAeropuertoDestino().getCiudad().getPais().setNombre(rs.getString("nPaisD"));
+				vue.getAvion().setIdAvion(rs.getInt("idAvion"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -223,10 +227,11 @@ public class DataVuelo {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement
-					("UPDATE vuelo SET fechaHoraSalida=?, fechaHoraLlegada=? WHERE idvuelo=?");
-			pstmt.setInt(3, v.getIdvuelo());
+					("UPDATE vuelo SET fechaHoraSalida=?, fechaHoraLlegada=?, idAvion = ? WHERE idvuelo=?");
+			pstmt.setInt(4, v.getIdvuelo());
 			pstmt.setObject(1, v.getFechaHoraSalida());
 			pstmt.setObject(2, v.getFechaHoraLlegada());
+			pstmt.setInt(3, v.getAvion().getIdAvion());
 			pstmt.executeUpdate();	
 		}  catch (SQLException e) {
             e.printStackTrace();

@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import entities.Aeropuerto;
 import entities.Avion;
+import entities.Ciudad;
 import entities.Vuelo;
+import logic.CtrlCiudad;
 import logic.CtrlVuelo;
 import java.time.LocalDateTime;
 import java.util.LinkedList; 
@@ -45,17 +47,26 @@ public class VueloServlet extends HttpServlet {
 				{
 					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
 					Vuelo vue = new Vuelo();
-					vue.setIdvuelo(idvuelo);
-					
-					new CtrlVuelo().delete(vue);
-					
+					vue.setIdvuelo(idvuelo);				
+					cv.delete(vue);
 					break;
 				}
 				case "AgregarVuelo": 
 				{
 					request.getRequestDispatcher("WEB-INF/AgregarVuelo.jsp").forward(request, response);
 					break;
-				}			
+				}
+				case "editar": 
+				{
+					int idvuelo = Integer.parseInt(request.getParameter("idvuelo")); 
+					Vuelo vue = new Vuelo(); 
+					vue.setIdvuelo(idvuelo);
+					Vuelo v = new Vuelo();
+					v = cv.getById(vue);
+					request.setAttribute("Vuelo", v);
+					request.getRequestDispatcher("WEB-INF/EditarVuelo.jsp").forward(request, response);
+					break;
+				}
 			default:
 				request.getRequestDispatcher("WEB-INF/ListarVuelo.jsp").forward(request, response);
 			}
@@ -75,7 +86,6 @@ public class VueloServlet extends HttpServlet {
 		{
 			switch (accion){
 				case "insertar":{
-
 					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
 					LocalDateTime fechaHoraSalida =  LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
 					LocalDateTime  fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
@@ -83,7 +93,6 @@ public class VueloServlet extends HttpServlet {
 					int idAeropuertoDestino = Integer.parseInt(request.getParameter("idAeropuertoDestino"));
 					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
 					Vuelo vue = new Vuelo();
-
 					vue.setIdvuelo(idvuelo);
 					vue.setAeropuertoOrigen(new Aeropuerto());
 					vue.setAeropuertoDestino(new Aeropuerto());
@@ -98,27 +107,33 @@ public class VueloServlet extends HttpServlet {
 					
 					break;
 				}
-				case "modificar":
+				case "editarVuelo":
 				{
-					//Implementar
+					int idvuelo = Integer.parseInt(request.getParameter("idVuelo"));
+					LocalDateTime fechaHoraSalida =  LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
+					LocalDateTime  fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
+					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+					Vuelo vue = new Vuelo();
+					vue.setAvion(new Avion());
+					vue.setIdvuelo(idvuelo);
+					vue.setFechaHoraSalida(fechaHoraSalida);
+					vue.setFechaHoraLlegada(fechaHoraLlegada);
+					vue.getAvion().setIdAvion(idAvion);
+					new CtrlVuelo().edit(vue);
+					break; 
 				}
 				case "eliminar":
 				{
 					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
 					Vuelo vue = new Vuelo();
-					vue.setIdvuelo(idvuelo);
-					
+					vue.setIdvuelo(idvuelo);				
 					new CtrlVuelo().delete(vue);
-					
 					break;
 				}
-				
-			default:
+			
 			}
 		}
-		else {
-			//this.accionDefault(request,response);
-		}
+
 		doGet(request, response);
 	}
 

@@ -56,13 +56,12 @@ public class DataAeropuerto {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select a.idaeropuerto, a.nombre, a.descaeropuerto, ciu.codpostal, ciu.nombre, p.nombre " 
-							+ "from aeropuerto a "
-							+ "inner join ciudad ciu on  ? = ciu.codpostal "
-							+ " inner join pais p on p.idpais = c.idciudad "
+							+ " from aeropuerto a "
+							+ " inner join ciudad ciu on  a.codpostal = ciu.codpostal "
+							+ " inner join pais p on p.idpais = ciu.idPais "
 							+ " where a.idaeropuerto = ?"
 					);
-			stmt.setString(1, a.getCiudad().getCodPostal());
-			stmt.setInt(2, a.getIdAeropuerto());
+			stmt.setInt(1, a.getIdAeropuerto());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				aero =new Aeropuerto();

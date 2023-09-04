@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import entities.Ciudad;
 import entities.Pais;
 import logic.CtrlCiudad;
-import logic.CtrlPais;
 
 /**
  * Servlet implementation class CiudadServlet

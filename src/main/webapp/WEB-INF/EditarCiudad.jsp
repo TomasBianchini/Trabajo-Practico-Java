@@ -15,7 +15,7 @@
 	
 	  <form class="form-signin" action="CiudadServlet?accion=editarCiudad" method="post">
         <label for="idpais">Codigo Postal del Ciudad:</label>
-        <input type="text"  name="codPostal" value="<%= ciudad.getCodPostal() %>" >
+        <input type="text"  name="codPostal" value="<%= ciudad.getCodPostal() %>" readonly>
          <br></br>
   		 <label for="inputName" class="sr-only">Nombre de la ciudad</label>
     	 <input id="inputName" name="nombre" class="form-control" placeholder="Nombre" required="" autofocus="" type="text" value="<%= ciudad.getNombre() %>" >

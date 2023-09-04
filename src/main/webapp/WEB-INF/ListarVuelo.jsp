@@ -52,8 +52,8 @@
         <th>ID Vuelo</th>
         <th>Sale</th>
         <th>LLega</th>
-        <th>Desde</th>
-        <th>Hasta</th>
+        <th>Origen</th>
+        <th>Destino</th>
         <th></th>
         <th></th>
       </tr>

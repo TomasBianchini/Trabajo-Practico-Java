@@ -8,7 +8,6 @@ import java.sql.*;
 
 public class DataCiudad {
 	
-	
 	public LinkedList<Ciudad> getAll(){
 		Statement stmt = null; 
 		ResultSet rs = null;
@@ -51,11 +50,10 @@ public class DataCiudad {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select codPostal, ciu.nombre, p.idPais, p.nombre " 
 							+ "from ciudad ciu "
-							+ "inner join pais p on  ? = p.idPais "
-							+ "where c.codpostal = ? "
+							+ "inner join pais p on  p.idPais  = ciu.idPais "
+							+ "where ciu.codpostal = ? "
 					);
-			stmt.setInt(1, c.getPais().getIdPais());
-			stmt.setString(2, c.getCodPostal());
+			stmt.setString(1, c.getCodPostal());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				ciu=new Ciudad();
@@ -140,5 +138,6 @@ public class DataCiudad {
             }
 		}
 	}
+
 }
 
