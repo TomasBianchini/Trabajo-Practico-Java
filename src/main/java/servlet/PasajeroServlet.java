@@ -155,16 +155,16 @@ public class PasajeroServlet extends HttpServlet {
 	}
 
 
-	private void eliminarPasajero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String dni = request.getParameter("dniPasajero");
-		Pasajero pas = new Pasajero();
-		pas.setDni(dni);
-		
-		new CtrlPasajero().delete(pas);
-		request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
-		
-	}
+//	private void eliminarPasajero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		
+//		String dni = request.getParameter("dniPasajero");
+//		Pasajero pas = new Pasajero();
+//		pas.setDni(dni);
+//		
+//		new CtrlPasajero().delete(pas);
+//		request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
+//		
+//	}
 	
 	private void listarPasajero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CtrlPasajero ct = new CtrlPasajero();

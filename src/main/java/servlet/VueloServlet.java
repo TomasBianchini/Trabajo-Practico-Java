@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entities.Aeropuerto;
 import entities.Avion;
-import entities.Ciudad;
 import entities.Vuelo;
-import logic.CtrlCiudad;
 import logic.CtrlVuelo;
 import java.time.LocalDateTime;
 import java.util.LinkedList; 
