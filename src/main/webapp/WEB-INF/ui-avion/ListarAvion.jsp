@@ -51,6 +51,9 @@
       <tr>
         <th>ID Avion</th>
         <th>Cantidad de Asientos</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+    	<th>Año</th>
         <th></th>
         <th></th>
 
@@ -61,6 +64,9 @@
       <tr>
         <td><%=avi.getIdAvion() %> </td>
         <td><%=avi.getCantAsientos() %></td>
+        <td><%=avi.getMarca() %></td>
+        <td><%=avi.getModelo() %></td>
+        <td><%=avi.getAnio() %></td>
         <td><a class="bg-primary text-white" href="AvionServlet?accion=editar&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-primary">Editar</button></a></td>
         <td><a class="bg-danger text-white" href="AvionServlet?accion=eliminar&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
       </tr>

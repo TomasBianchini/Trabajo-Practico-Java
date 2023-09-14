@@ -35,6 +35,8 @@
         				<th>ID Avion</th>
         				<th>Fila</th>
         				<th>Numero</th>
+        				<th>Tipo</th>
+						<th></th>
       				</tr>
     			</thead>
     			<tbody>
@@ -43,8 +45,9 @@
         				<td><%=asi.getAvion().getIdAvion()%></td>
         				<td><%=asi.getFila()%></td>
         				<td><%=asi.getNumero()%></td>
+						<td><%=asi.getTipo()%></td>
         				<td>
-        					<a class="bg-danger text-white" href="AsientoServlet?accion=eliminar&idAvion=<%asi.getAvion().getIdAvion();%>&fila=<%asi.getFila();%>&numero=<%asi.getNumero();%>">
+        					<a class="bg-danger text-white" href="AsientoServlet?accion=eliminar&idAvion=<%=asi.getAvion().getIdAvion()%>&fila=<%=asi.getFila()%>&numero=<%=asi.getNumero()%>">
         						<button type="button" class="btn btn-danger">Eliminar</button>
         					</a>
         				</td>
@@ -53,7 +56,7 @@
     			</tbody>
   			</table>
    			<a class="bg-danger text-white" href="AsientoServlet?accion=AgregarAsiento">
-   				<button type="button" class="btn btn-primary">Agregar Aeropuerto</button>
+   				<button type="button" class="btn btn-primary">Agregar Asiento</button>
    			</a>
 		</div>
 	</div>

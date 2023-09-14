@@ -19,114 +19,95 @@ import logic.CtrlCiudad;
 @WebServlet("/CiudadServlet")
 public class CiudadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CiudadServlet() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CtrlCiudad cc = new CtrlCiudad(); 
-		LinkedList<Ciudad> ciudadades= cc.getAll(); 
+	public CiudadServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		CtrlCiudad cc = new CtrlCiudad();
+		LinkedList<Ciudad> ciudadades = cc.getAll();
 		request.setAttribute("listaCiudades", ciudadades);
 		String accion = request.getParameter("accion");
-		if(accion!=null)
-		{
-			switch (accion){
+		if (accion != null) {
+			switch (accion) {
 
-				case "eliminar":
-				{
-					String codPostal = request.getParameter("codPostal");
-					Ciudad ciu = new Ciudad();
-					ciu.setCodPostal(codPostal);	
-					new CtrlCiudad().delete(ciu);
-					request.getRequestDispatcher("WEB-INF/ListarCiudad.jsp").forward(request, response);
-					break;
-				}
-				case "editar": 
-				{
-					Ciudad p = new Ciudad(); 
-					String codPostal = request.getParameter("codPostal");
-					p.setCodPostal(codPostal); 
-					CtrlCiudad ci = new CtrlCiudad(); 
-					Ciudad ciu = ci.getById(p); 
-					request.setAttribute("Ciudad", ciu);
-					request.getRequestDispatcher("WEB-INF/EditarCiudad.jsp").forward(request, response);
-				}
-				
-				
-				
-				case "AgregarCiudad": 
-				{
-					request.getRequestDispatcher("WEB-INF/AgregarCiudad.jsp").forward(request, response);
-					break;
-				}			
-			default:
-				request.getRequestDispatcher("WEB-INF/ListarCiudad.jsp").forward(request, response);
+			case "eliminar": {
+				String codPostal = request.getParameter("codPostal");
+				Ciudad ciu = new Ciudad();
+				ciu.setCodPostal(codPostal);
+				new CtrlCiudad().delete(ciu);
+				request.getRequestDispatcher("WEB-INF/ui-ciudad/ListarCiudad.jsp").forward(request, response);
+				break;
 			}
-		}
-		else {			
-			request.getRequestDispatcher("WEB-INF/ListarCiudad.jsp").forward(request, response);
+			case "editar": {
+				Ciudad p = new Ciudad();
+				String codPostal = request.getParameter("codPostal");
+				p.setCodPostal(codPostal);
+				CtrlCiudad ci = new CtrlCiudad();
+				Ciudad ciu = ci.getById(p);
+				request.setAttribute("Ciudad", ciu);
+				request.getRequestDispatcher("WEB-INF/ui-ciudad/EditarCiudad.jsp").forward(request, response);
+			}
+
+			case "AgregarCiudad": {
+				request.getRequestDispatcher("WEB-INF/ui-ciudad/AgregarCiudad.jsp").forward(request, response);
+				break;
+			}
+			default:
+				request.getRequestDispatcher("WEB-INF/ui-ciudad/ListarCiudad.jsp").forward(request, response);
+			}
+		} else {
+			request.getRequestDispatcher("WEB-INF/ui-ciudad/ListarCiudad.jsp").forward(request, response);
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String accion = request.getParameter("accion");		
-		if(accion!=null)
-		{
-			switch (accion){
-				case "insertar":{
-					String codPostal =  request.getParameter("codPostal");
-					String nombre =  request.getParameter("nombre");
-					int idPais =  Integer.parseInt(request.getParameter("idPais"));
-					Ciudad ciu = new Ciudad();
-					ciu.setNombre(nombre);
-					ciu.setCodPostal(codPostal); 
-					ciu.setPais(new Pais()); 
-					ciu.getPais().setIdPais(idPais);
-						
-					new CtrlCiudad().add(ciu);
-					//request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
-					break;
-				}	
-				
-				
-				case "editarCiudad": 
-				{
-					String codPostal =  request.getParameter("codPostal");
-					String nombre = request.getParameter("nombre");
-					Ciudad pa = new Ciudad();
-					pa.setCodPostal(codPostal);
-					pa.setNombre(nombre);
-					new CtrlCiudad().edit(pa);	
-					break; 
-				}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String accion = request.getParameter("accion");
+		if (accion != null) {
+			switch (accion) {
+			case "insertar": {
+				String codPostal = request.getParameter("codPostal");
+				String nombre = request.getParameter("nombre");
+				int idPais = Integer.parseInt(request.getParameter("idPais"));
+				Ciudad ciu = new Ciudad();
+				ciu.setNombre(nombre);
+				ciu.setCodPostal(codPostal);
+				ciu.setPais(new Pais());
+				ciu.getPais().setIdPais(idPais);
 
-				case "eliminar":
-				{
-					String codPostal = request.getParameter("codPostal");
-					Ciudad ciu = new Ciudad();
-					ciu.setCodPostal(codPostal);				
-					new CtrlCiudad().delete(ciu);
-					request.getRequestDispatcher("/ListarCiudad.jsp").forward(request, response);
-					break;
-				}
-			default:
+				new CtrlCiudad().add(ciu);
+				// request.getRequestDispatcher("/ListarPasajero.jsp").forward(request,
+				// response);
+				break;
+			}
+
+			case "editarCiudad": {
+				String codPostal = request.getParameter("codPostal");
+				String nombre = request.getParameter("nombre");
+				Ciudad pa = new Ciudad();
+				pa.setCodPostal(codPostal);
+				pa.setNombre(nombre);
+				new CtrlCiudad().edit(pa);
+				break;
+			}
 			}
 		}
-		else {
-			//this.accionDefault(request,response);
-		}
 		doGet(request, response);
-		
+
 	}
 
 }

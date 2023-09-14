@@ -30,26 +30,27 @@ public class AsientoServlet extends HttpServlet {
 		if (accion != null) {
 			switch (accion) {
 			case "AgregarAsiento": {
-				request.getRequestDispatcher("WEB-INF/AgregarAsiento.jsp").forward(request, response);
+				request.getRequestDispatcher("WEB-INF/ui-asiento/AgregarAsiento.jsp").forward(request, response);
 				break;
 			}
 			case "eliminar": {
 				int idavion = Integer.parseInt(request.getParameter("idAvion"));
-				int fila = Integer.parseInt(request.getParameter("fila"));
-				int numero = Integer.parseInt(request.getParameter("numero"));
+				String fila = request.getParameter("fila");
+				String numero = request.getParameter("numero");
 				Asiento asi = new Asiento();
 				asi.setFila(fila);
 				asi.setNumero(numero);
 				asi.setAvion(new Avion());
 				asi.getAvion().setIdAvion(idavion);
 				new CtrlAsiento().delete(asi);
+				request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
 				break;
 			}
 			default:
-				request.getRequestDispatcher("WEB-INF/ListarAsiento.jsp").forward(request, response);
+				request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
 			}
 		} else {
-			request.getRequestDispatcher("WEB-INF/ListarAsiento.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
 		}
 	}
 
@@ -60,31 +61,19 @@ public class AsientoServlet extends HttpServlet {
 			switch (accion) {
 			case "insertar": {
 				int idavion = Integer.parseInt(request.getParameter("inputIdAvion"));
-				int fila = Integer.parseInt(request.getParameter("inputFila"));
-				int numero = Integer.parseInt(request.getParameter("inputNumero"));
+				String fila = request.getParameter("inputFila");
+				String numero = request.getParameter("inputNumero");
+				String tipo = request.getParameter("tipo");
 				Asiento asi = new Asiento();
 				asi.setFila(fila);
 				asi.setNumero(numero);
+				asi.setTipo(tipo);
 				asi.setAvion(new Avion());
 				asi.getAvion().setIdAvion(idavion);
 				new CtrlAsiento().add(asi);
 				break;
 			}
-			case "eliminar": {
-				int idavion = Integer.parseInt(request.getParameter("inputIdAvion"));
-				int fila = Integer.parseInt(request.getParameter("inputFila"));
-				int numero = Integer.parseInt(request.getParameter("inputNumero"));
-				Asiento asi = new Asiento();
-				asi.setFila(fila);
-				asi.setNumero(numero);
-				asi.setAvion(new Avion());
-				asi.getAvion().setIdAvion(idavion);
-				new CtrlAsiento().delete(asi);
-				break;
 			}
-			}
-		} else {
-			request.getRequestDispatcher("WEB-INF/ListarAeropuerto.jsp").forward(request, response);
 		}
 		doGet(request, response);
 	}

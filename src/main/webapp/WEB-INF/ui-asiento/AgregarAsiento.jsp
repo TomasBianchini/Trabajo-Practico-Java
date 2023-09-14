@@ -20,6 +20,8 @@
  		 	
  		 	<label>Numero</label>
     	 	<input id="inputNumero" name="inputNumero" class="form-control" required autofocus type="text">
+    	 	<label>Tipo</label>
+    	 	<input id="tipo" name="tipo" class="form-control" required autofocus type="text">
  		 	
  		 	<button class="btn btn-lg btn-primary btn-block" type="submit">Agregar</button>
   		</form>

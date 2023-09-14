@@ -1,23 +1,24 @@
 package entities;
 
 public class Asiento {
-	private int fila;
-	private int numero;
+	private String fila;
+	private String numero;
 	private Avion avion;
+	private String tipo;
 
-	public int getFila() {
+	public String getFila() {
 		return fila;
 	}
 
-	public void setFila(int fila) {
+	public void setFila(String fila) {
 		this.fila = fila;
 	}
 
-	public int getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
@@ -28,4 +29,13 @@ public class Asiento {
 	public void setAvion(Avion avion) {
 		this.avion = avion;
 	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 }

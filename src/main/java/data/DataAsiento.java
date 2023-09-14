@@ -16,20 +16,16 @@ public class DataAsiento {
 		LinkedList<Asiento> asientos = new LinkedList<>();
 		try {
 			stmt = DbConnector.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery(
-					  "select av.idavion, av.cantidadasientos, asi.fila, asi.numero"
-					+ "from asiento as asi"
-					+ "inner join avion as av"
-					+ "on asi.idavion = av.idavion"
-			);
+			rs = stmt.executeQuery("select av.idavion, asi.fila, asi.numero, asi.tipo " + " from asiento asi"
+					+ " inner join avion av on asi.idavion = av.idavion");
 			if (rs != null) {
 				while (rs.next()) {
 					Asiento a = new Asiento();
 					a.setAvion(new Avion());
-					a.setFila(rs.getInt("fila"));
-					a.setFila(rs.getInt("numero"));
+					a.setFila(rs.getString("fila"));
+					a.setNumero(rs.getString("numero"));
+					a.setTipo(rs.getString("tipo"));
 					a.getAvion().setIdAvion(rs.getInt("idavion"));
-					a.getAvion().setCantAsientos(rs.getInt("cantidadasientos"));
 					asientos.add(a);
 				}
 			}
@@ -48,30 +44,27 @@ public class DataAsiento {
 		}
 		return asientos;
 	}
-	
+
 	public Asiento getOne(Asiento asi) {
 		Asiento a = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = DbConnector.getInstancia().getConn().prepareStatement(
-					  "select av.idavion, av.cantidadasientos, asi.fila, asi.numero"
-					+ "from asiento as asi"
-					+ "inner join avion as av"
-					+ "on asi.idavion = av.idavion"
-					+ "where asi.fila = ? and asi.numero = ? and asi.idavion = ?"
-			);
-			stmt.setInt(1, asi.getFila());
-			stmt.setInt(2, asi.getNumero());
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement("select av.idavion, asi.fila, asi.numero, asi.tipo" + " from asiento as asi"
+							+ " inner join avion as av" + " on asi.idavion = av.idavion"
+							+ " where asi.fila = ? and asi.numero = ? and asi.idavion = ?");
+			stmt.setString(1, asi.getFila());
+			stmt.setString(2, asi.getNumero());
 			stmt.setInt(3, asi.getAvion().getIdAvion());
 			rs = stmt.executeQuery();
 			if (rs != null && rs.next()) {
 				a = new Asiento();
 				a.setAvion(new Avion());
-				a.setFila(rs.getInt("fila"));
-				a.setFila(rs.getInt("numero"));
+				a.setFila(rs.getString("fila"));
+				a.setNumero(rs.getString("numero"));
+				a.setTipo(rs.getString("tipo"));
 				a.getAvion().setIdAvion(rs.getInt("idavion"));
-				a.getAvion().setCantAsientos(rs.getInt("cantidadasientos"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,9 +86,10 @@ public class DataAsiento {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn()
-					.prepareStatement("insert into asiento(fila, numero, idavion) values(?,?,?)");
-			stmt.setInt(1, a.getFila());
-			stmt.setInt(2, a.getNumero());
+					.prepareStatement("insert into asiento(fila, numero, idavion, tipo) values(?,?,?,?)");
+			stmt.setString(1, a.getFila());
+			stmt.setString(2, a.getNumero());
+			stmt.setString(4, a.getTipo());
 			stmt.setInt(3, a.getAvion().getIdAvion());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -116,8 +110,8 @@ public class DataAsiento {
 		try {
 			stmt = DbConnector.getInstancia().getConn()
 					.prepareStatement("delete from asiento where fila=? and numero=? and idavion=?");
-			stmt.setInt(1, a.getFila());
-			stmt.setInt(2, a.getNumero());
+			stmt.setString(1, a.getFila());
+			stmt.setString(2, a.getNumero());
 			stmt.setInt(3, a.getAvion().getIdAvion());
 			stmt.executeUpdate();
 		} catch (SQLException e) {

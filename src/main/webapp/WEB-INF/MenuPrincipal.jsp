@@ -46,6 +46,7 @@
         <a href="AvionServlet" class="btn btn-custom">Listar avion</a>
         <a href="AeropuertoServlet" class="btn btn-custom">Listar aeropuerto</a>
  		<a href="VueloServlet" class="btn btn-custom">Listar vuelo</a>
+ 		<a href="AsientoServlet" class="btn btn-custom">Listar Asientos</a>
       </div>
     </div>
   </div>

@@ -19,105 +19,101 @@ import logic.CtrlAeropuerto;
 @WebServlet("/AeropuertoServlet")
 public class AeropuertoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AeropuertoServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CtrlAeropuerto ca = new CtrlAeropuerto(); 
-		LinkedList<Aeropuerto> aeropuertos= ca.getAll(); 
+	public AeropuertoServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		CtrlAeropuerto ca = new CtrlAeropuerto();
+		LinkedList<Aeropuerto> aeropuertos = ca.getAll();
 		request.setAttribute("listaAeropuertos", aeropuertos);
-		String accion = request.getParameter("accion");		
-		if(accion!=null)
-		{
-			switch (accion){
-			    case "editar":
-			    {
-			    	Aeropuerto a = new Aeropuerto(); 
-					int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
-					a.setIdAeropuerto(idAeropuerto);  
-					Aeropuerto aero = ca.getById(a);   
-					request.setAttribute("Aeropuerto", aero);
-					request.getRequestDispatcher("WEB-INF/EditarAeropuerto.jsp").forward(request, response);
-			    	break;
-			    }
-				case "eliminar":
-				{
-					int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
-					Aeropuerto ae = new Aeropuerto();
-					ae.setIdAeropuerto(idAeropuerto);			
-					new CtrlAeropuerto().delete(ae);
-					request.getRequestDispatcher("WEB-INF/ListarAeropuerto.jsp").forward(request, response);
-					break;
-				}
-				case "AgregarAeropuerto": 
-				{
-					request.getRequestDispatcher("WEB-INF/AgregarAeropuerto.jsp").forward(request, response);
-					break;
-				}		
-			default:
-				request.getRequestDispatcher("WEB-INF/ListarAeropuerto.jsp").forward(request, response);
+		String accion = request.getParameter("accion");
+		if (accion != null) {
+			switch (accion) {
+			case "editar": {
+				Aeropuerto a = new Aeropuerto();
+				int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
+				a.setIdAeropuerto(idAeropuerto);
+				Aeropuerto aero = ca.getById(a);
+				request.setAttribute("Aeropuerto", aero);
+				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/EditarAeropuerto.jsp").forward(request, response);
+				break;
 			}
-		}else {
-			request.getRequestDispatcher("WEB-INF/ListarAeropuerto.jsp").forward(request, response);
+			case "eliminar": {
+				int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
+				Aeropuerto ae = new Aeropuerto();
+				ae.setIdAeropuerto(idAeropuerto);
+				new CtrlAeropuerto().delete(ae);
+				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
+				break;
+			}
+			case "AgregarAeropuerto": {
+				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/AgregarAeropuerto.jsp").forward(request, response);
+				break;
+			}
+			default:
+				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
+			}
+		} else {
+			request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String accion = request.getParameter("accion");		
-		if(accion!=null)
-		{
-			switch (accion){
-				case "insertar":
-				{	
-					String nombre =  request.getParameter("nombre");
-					String desc =  request.getParameter("descripcion");
-					String codPostal =  request.getParameter("codPostal");
-					Aeropuerto ae = new Aeropuerto();
-					ae.setNombre(nombre);	
-					ae.setDescAeropuerto(desc);
-					ae.setCiudad(new Ciudad());
-					ae.getCiudad().setCodPostal(codPostal);
-					new CtrlAeropuerto().add(ae);
-					//request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
-					break;
-				}
-				case "eliminar":
-				{
-					int idAeropuerto= Integer.parseInt(request.getParameter("idAeropuerto"));
-					Aeropuerto pa = new Aeropuerto();
-					pa.setIdAeropuerto(idAeropuerto);					
-					new CtrlAeropuerto().delete(pa);
-					request.getRequestDispatcher("/ListarPaises.jsp").forward(request, response);
-					break;
-				}
-				case "editarAeropuerto": 
-				{
-					int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
-					String descAeropuerto = request.getParameter("descAeropuerto");
-					String nombre = request.getParameter("nombre");
-					Aeropuerto a = new Aeropuerto();
-					a.setIdAeropuerto(idAeropuerto);
-					a.setNombre(nombre);
-					a.setDescAeropuerto(descAeropuerto);
-					new CtrlAeropuerto().edit(a);	
-					break; 
-				}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String accion = request.getParameter("accion");
+		if (accion != null) {
+			switch (accion) {
+			case "insertar": {
+				String nombre = request.getParameter("nombre");
+				String desc = request.getParameter("descripcion");
+				String codPostal = request.getParameter("codPostal");
+				Aeropuerto ae = new Aeropuerto();
+				ae.setNombre(nombre);
+				ae.setDescAeropuerto(desc);
+				ae.setCiudad(new Ciudad());
+				ae.getCiudad().setCodPostal(codPostal);
+				new CtrlAeropuerto().add(ae);
+				// request.getRequestDispatcher("/ListarPasajero.jsp").forward(request,
+				// response);
+				break;
 			}
-		}
-		else {
-			//this.accionDefault(request,response);
+			case "eliminar": {
+				int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
+				Aeropuerto pa = new Aeropuerto();
+				pa.setIdAeropuerto(idAeropuerto);
+				new CtrlAeropuerto().delete(pa);
+				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
+				break;
+			}
+			case "editarAeropuerto": {
+				int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
+				String descAeropuerto = request.getParameter("descAeropuerto");
+				String nombre = request.getParameter("nombre");
+				Aeropuerto a = new Aeropuerto();
+				a.setIdAeropuerto(idAeropuerto);
+				a.setNombre(nombre);
+				a.setDescAeropuerto(descAeropuerto);
+				new CtrlAeropuerto().edit(a);
+				break;
+			}
+			}
+		} else {
+			// this.accionDefault(request,response);
 		}
 		doGet(request, response);
 	}

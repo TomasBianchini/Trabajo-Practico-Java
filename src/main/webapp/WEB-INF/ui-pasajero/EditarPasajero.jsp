@@ -18,13 +18,13 @@
         <input type="text"  name="dniPasajero" value="<%= pas.getDni() %>" readonly>
          <br></br>
  		 <label for="inputName" class="sr-only">Nombre</label>
-    	 <input id="inputName" name="nombre" class="form-control" placeholder="Nombre" required="" autofocus="" type="text" value="<%= pas.getNombre() %>" >
+    	 <input id="inputName" name="nombre" class="form-control" placeholder="Nombre" required autofocus type="text" value="<%= pas.getNombre() %>" >
     	 <label for="inputApellido" class="sr-only">Apellido</label>
-    	 <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required="" autofocus="" type="text" value="<%= pas.getApellido() %>" >
+    	 <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required autofocus type="text" value="<%= pas.getApellido() %>" >
     	 <label for="inputEmail" class="sr-only">Email</label>
-    	 <input id="inputEmail" name="email" class="form-control" placeholder="Email" required="" autofocus="" type="email" value="<%= pas.getEmail() %>" >
+    	 <input id="inputEmail" name="email" class="form-control" placeholder="Email" required autofocus type="email" value="<%= pas.getEmail() %>" >
  		 <label for="inputContrasenia" class="sr-only">Contraseña</label>
-    	 <input id="inputContrasenia" name="contrasenia" class="form-control" placeholder="contraseña" required="" autofocus="" type="password" value="<%= pas.getContrasenia() %>" >
+    	 <input id="inputContrasenia" name="contrasenia" class="form-control" placeholder="contraseña" required autofocus type="password" value="<%= pas.getContrasenia() %>" >
  		 <button class="btn btn-lg btn-primary btn-block" type="submit">Actualizar</button>
  	 </form>
  

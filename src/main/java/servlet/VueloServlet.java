@@ -1,6 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.LinkedList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +14,6 @@ import entities.Aeropuerto;
 import entities.Avion;
 import entities.Vuelo;
 import logic.CtrlVuelo;
-import java.time.LocalDateTime;
-import java.util.LinkedList; 
 
 /**
  * Servlet implementation class VueloServlet
@@ -20,115 +21,104 @@ import java.util.LinkedList;
 @WebServlet("/VueloServlet")
 public class VueloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public VueloServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CtrlVuelo cv = new CtrlVuelo(); 
-		LinkedList<Vuelo> vuelos = cv.getAll(); 
+	public VueloServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		CtrlVuelo cv = new CtrlVuelo();
+		LinkedList<Vuelo> vuelos = cv.getAll();
 		request.setAttribute("listaVuelos", vuelos);
 		String accion = request.getParameter("accion");
-		if(accion!=null)
-		{
-			switch (accion){
+		if (accion != null) {
+			switch (accion) {
 
-				case "eliminar":
-				{
-					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-					Vuelo vue = new Vuelo();
-					vue.setIdvuelo(idvuelo);				
-					cv.delete(vue);
-					break;
-				}
-				case "AgregarVuelo": 
-				{
-					request.getRequestDispatcher("WEB-INF/AgregarVuelo.jsp").forward(request, response);
-					break;
-				}
-				case "editar": 
-				{
-					int idvuelo = Integer.parseInt(request.getParameter("idvuelo")); 
-					Vuelo vue = new Vuelo(); 
-					vue.setIdvuelo(idvuelo);
-					Vuelo v = new Vuelo();
-					v = cv.getById(vue);
-					request.setAttribute("Vuelo", v);
-					request.getRequestDispatcher("WEB-INF/EditarVuelo.jsp").forward(request, response);
-					break;
-				}
-			default:
-				request.getRequestDispatcher("WEB-INF/ListarVuelo.jsp").forward(request, response);
+			case "eliminar": {
+				int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+				Vuelo vue = new Vuelo();
+				vue.setIdvuelo(idvuelo);
+				cv.delete(vue);
+				break;
 			}
-		}
-		else {			
-			request.getRequestDispatcher("WEB-INF/ListarVuelo.jsp").forward(request, response);
+			case "AgregarVuelo": {
+				request.getRequestDispatcher("WEB-INF/ui-vuelo/AgregarVuelo.jsp").forward(request, response);
+				break;
+			}
+			case "editar": {
+				int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+				Vuelo vue = new Vuelo();
+				vue.setIdvuelo(idvuelo);
+				Vuelo v = new Vuelo();
+				v = cv.getById(vue);
+				request.setAttribute("Vuelo", v);
+				request.getRequestDispatcher("WEB-INF/ui-vuelo/EditarVuelo.jsp").forward(request, response);
+				break;
+			}
+			default:
+				request.getRequestDispatcher("WEB-INF/ui-vuelo/ListarVuelo.jsp").forward(request, response);
+			}
+		} else {
+			request.getRequestDispatcher("WEB-INF/ui-vuelo/ListarVuelo.jsp").forward(request, response);
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String accion = request.getParameter("accion");
 
-		if(accion!=null)
-		{
-			switch (accion){
-				case "insertar":{
-					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-					LocalDateTime fechaHoraSalida =  LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
-					LocalDateTime  fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
-					int idAeropuertoOrigen = Integer.parseInt(request.getParameter("idAeropuertoOrigen"));
-					int idAeropuertoDestino = Integer.parseInt(request.getParameter("idAeropuertoDestino"));
-					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
-					Vuelo vue = new Vuelo();
-					vue.setIdvuelo(idvuelo);
-					vue.setAeropuertoOrigen(new Aeropuerto());
-					vue.setAeropuertoDestino(new Aeropuerto());
-					vue.getAeropuertoOrigen().setIdAeropuerto(idAeropuertoOrigen);
-					vue.getAeropuertoDestino().setIdAeropuerto(idAeropuertoDestino);
-					vue.setFechaHoraLlegada(fechaHoraLlegada); 
-					vue.setFechaHoraSalida(fechaHoraSalida); 
-					vue.setAvion(new Avion());
-					vue.getAvion().setIdAvion(idAvion); 
+		if (accion != null) {
+			switch (accion) {
+			case "insertar": {
+				int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+				LocalDateTime fechaHoraSalida = LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
+				LocalDateTime fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
+				int idAeropuertoOrigen = Integer.parseInt(request.getParameter("idAeropuertoOrigen"));
+				int idAeropuertoDestino = Integer.parseInt(request.getParameter("idAeropuertoDestino"));
+				int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+				Vuelo vue = new Vuelo();
+				vue.setIdvuelo(idvuelo);
+				vue.setAeropuertoOrigen(new Aeropuerto());
+				vue.setAeropuertoDestino(new Aeropuerto());
+				vue.getAeropuertoOrigen().setIdAeropuerto(idAeropuertoOrigen);
+				vue.getAeropuertoDestino().setIdAeropuerto(idAeropuertoDestino);
+				vue.setFechaHoraLlegada(fechaHoraLlegada);
+				vue.setFechaHoraSalida(fechaHoraSalida);
+				vue.setAvion(new Avion());
+				vue.getAvion().setIdAvion(idAvion);
 
-					new CtrlVuelo().add(vue);
-					
-					break;
-				}
-				case "editarVuelo":
-				{
-					int idvuelo = Integer.parseInt(request.getParameter("idVuelo"));
-					LocalDateTime fechaHoraSalida =  LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
-					LocalDateTime  fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
-					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
-					Vuelo vue = new Vuelo();
-					vue.setAvion(new Avion());
-					vue.setIdvuelo(idvuelo);
-					vue.setFechaHoraSalida(fechaHoraSalida);
-					vue.setFechaHoraLlegada(fechaHoraLlegada);
-					vue.getAvion().setIdAvion(idAvion);
-					new CtrlVuelo().edit(vue);
-					break; 
-				}
-				case "eliminar":
-				{
-					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-					Vuelo vue = new Vuelo();
-					vue.setIdvuelo(idvuelo);				
-					new CtrlVuelo().delete(vue);
-					break;
-				}
-			
+				new CtrlVuelo().add(vue);
+
+				break;
+			}
+			case "editarVuelo": {
+				int idvuelo = Integer.parseInt(request.getParameter("idVuelo"));
+				LocalDateTime fechaHoraSalida = LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
+				LocalDateTime fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
+				int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+				Vuelo vue = new Vuelo();
+				vue.setAvion(new Avion());
+				vue.setIdvuelo(idvuelo);
+				vue.setFechaHoraSalida(fechaHoraSalida);
+				vue.setFechaHoraLlegada(fechaHoraLlegada);
+				vue.getAvion().setIdAvion(idAvion);
+				new CtrlVuelo().edit(vue);
+				break;
+			}
+
 			}
 		}
 

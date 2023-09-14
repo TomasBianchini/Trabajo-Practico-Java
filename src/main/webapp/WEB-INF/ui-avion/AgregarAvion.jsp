@@ -15,8 +15,12 @@
 </head>
 <body>
   <form class="form-signin" action="AvionServlet?accion=insertarAvion" method="post">
-  		 <label for="inputCantidadAsientos" class="sr-only">Cantidad de asientos</label>
-    	 <input id="inputCantidadAsientos" name="cantAsientos" class="form-control" placeholder="Cantidad de asientos" required="" autofocus="" type="text">
+  		 <label for="inputMarca" class="sr-only">Marca</label>
+    	 <input id="inputMarca" name="marca" class="form-control" placeholder="Marca" required="" autofocus="" type="text">
+ 		 <label for="inputModelo" class="sr-only">Modelo</label>
+    	 <input id="inputModelo" name="modelo" class="form-control" placeholder="Modelo" required="" autofocus="" type="text">
+    	 <label for="inputAnio" class="sr-only">Año</label>
+    	 <input id="inputAnio" name="anio" class="form-control" placeholder="Año" required="" autofocus="" type="text">
  		 <button class="btn btn-lg btn-primary btn-block" type="submit">Agregar</button>
   </form>
 </body>
