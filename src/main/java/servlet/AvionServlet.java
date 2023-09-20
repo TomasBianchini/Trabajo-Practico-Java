@@ -37,14 +37,16 @@ public class AvionServlet extends HttpServlet {
 		String accion = request.getParameter("accion");
 		if (accion != null) {
 			switch (accion) {
-			/*
-			 * case "editar": { Avion a = new Avion(); int idAvion =
-			 * Integer.parseInt(request.getParameter("idAvion")); a.setIdAvion(idAvion);
-			 * CtrlAvion av = new CtrlAvion(); Avion avi = av.getById(a);
-			 * request.setAttribute("Avion", avi);
-			 * request.getRequestDispatcher("WEB-INF/EditarAvion.jsp").forward(request,
-			 * response); break; }
-			 */
+			case "editar": {
+				Avion a = new Avion();
+				int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+				a.setIdAvion(idAvion);
+				Avion avi = ca.getById(a);
+				request.setAttribute("Avion", avi);
+				request.getRequestDispatcher("WEB-INF/EditarAvion.jsp").forward(request, response);
+				break;
+			}
+
 			case "eliminar": {
 				int idAvion = Integer.parseInt(request.getParameter("idAvion"));
 				Avion avi = new Avion();
@@ -54,6 +56,15 @@ public class AvionServlet extends HttpServlet {
 			}
 			case "AgregarAvion": {
 				request.getRequestDispatcher("WEB-INF/ui-avion/AgregarAvion.jsp").forward(request, response);
+				break;
+			}
+			case "listarAsientos": {
+				Avion a = new Avion();
+				int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+				a.setIdAvion(idAvion);
+				Avion avi = ca.getById(a);
+				request.setAttribute("Avion", avi);
+				request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
 				break;
 			}
 			}

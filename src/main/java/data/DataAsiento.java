@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import entities.Asiento;
@@ -27,6 +28,43 @@ public class DataAsiento {
 					a.setTipo(rs.getString("tipo"));
 					a.getAvion().setIdAvion(rs.getInt("idavion"));
 					asientos.add(a);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return asientos;
+	}
+
+	public HashMap<String, Asiento> getByAvion(Avion a) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		HashMap<String, Asiento> asientos = new HashMap<String, Asiento>();
+		try {
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement("select av.idavion, asi.fila, asi.numero, asi.tipo from asiento asi"
+							+ " inner join avion av on asi.idavion = av.idavion " + " where av.idAvion =  ? ");
+			stmt.setInt(1, a.getIdAvion());
+			rs = stmt.executeQuery();
+			if (rs != null) {
+				while (rs.next()) {
+					Asiento asi = new Asiento();
+					asi.setAvion(new Avion());
+					asi.setFila(rs.getString("fila"));
+					asi.setNumero(rs.getString("numero"));
+					asi.setTipo(rs.getString("tipo"));
+					asi.getAvion().setIdAvion(rs.getInt("idavion"));
+					asientos.put(asi.getFila() + asi.getNumero(), asi);
 				}
 			}
 		} catch (SQLException e) {

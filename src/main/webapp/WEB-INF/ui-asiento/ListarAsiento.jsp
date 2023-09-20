@@ -1,6 +1,6 @@
 <%@page import="entities.Asiento"%>
 <%@page import="entities.Avion"%>
-<%@page import="java.util.LinkedList"%>
+<%@page import="java.util.HashMap"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,7 +17,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="styles/signin.css" rel="stylesheet">
     <link href="styles/bootstrap.min.css" rel="stylesheet">
-	<%LinkedList<Asiento> listaAsientos = (LinkedList<Asiento>)request.getAttribute("listaAsientos");%>
+	<% Avion avi = (Avion)request.getAttribute("avion");%>
+	<% HashMap<String,Asiento> asientos = new HashMap<>();%>
 </head>
 <body style="background-color:rgb(251, 252, 255);">
 	<div class="fixed-top">
@@ -34,7 +35,6 @@
 	<table class="table table-fixed table-condensed">
 	    <thead class="table-dark">
 	      	<tr>
-	        	<th>ID Avion</th>
 	        	<th>Fila</th>
 	        	<th>Numero</th>
 	        	<th>Tipo</th>
@@ -42,14 +42,15 @@
 	      	</tr>
 	    </thead>
   <tbody>
-    	<%for (Asiento asi: listaAsientos) {%>
+  		<% asientos = avi.getAsientos(); %>
+    	<%for (HashMap.Entry<String, Asiento> asi: asientos.entrySet()) {%>
       		<tr>
-        	  <td><%=asi.getAvion().getIdAvion()%></td>			
-        	  <td><%=asi.getFila()%></td>
-        	  <td><%=asi.getNumero()%></td>
-			  <td><%=asi.getTipo()%></td>
+        	  <td><%=asi.getValue().getAvion().getIdAvion()%></td>			
+        	  <td><%=asi.getValue().getFila()%></td>
+        	  <td><%=asi.getValue().getNumero()%></td>
+			  <td><%=asi.getValue().getTipo()%></td>
         	  <td>
-	        	  <a class="bg-danger text-white" href="AsientoServlet?accion=eliminar&idAvion=<%=asi.getAvion().getIdAvion()%>&fila=<%=asi.getFila()%>&numero=<%=asi.getNumero()%>">
+	        	  <a class="bg-danger text-white" href="AsientoServlet?accion=eliminar&idAvion=<%=asi.getValue().getAvion().getIdAvion()%>&fila=<%=asi.getValue().getFila()%>&numero=<%=asi.getValue().getNumero()%>">
 	        		<button type="button" class="btn btn-danger">Eliminar</button>
 	        	   </a>
         	  </td>

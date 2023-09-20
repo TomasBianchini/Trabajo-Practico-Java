@@ -63,10 +63,11 @@
     <%for(Avion avi: listaAviones){ %>
       <tr>
         <td><%=avi.getIdAvion() %> </td>
-        <td><%=avi.getCantAsientos() %></td>
+        <td><%=avi.getAsientos().size() %></td>
         <td><%=avi.getMarca() %></td>
         <td><%=avi.getModelo() %></td>
         <td><%=avi.getAnio() %></td>
+        <td><a class="bg-danger text-white" href="AvionServlet?accion=listarAsientos&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-danger">Ver asientos</button></a></td>
         <td><a class="bg-primary text-white" href="AvionServlet?accion=editar&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-primary">Editar</button></a></td>
         <td><a class="bg-danger text-white" href="AvionServlet?accion=eliminar&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
       </tr>

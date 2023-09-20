@@ -11,25 +11,23 @@ import entities.Avion;
 public class DataAvion {
 
 	public LinkedList<Avion> getAll() {
-
+		DataAsiento da = new DataAsiento();
 		Statement stmt = null;
 		ResultSet rs = null;
 		LinkedList<Avion> aviones = new LinkedList<>();
 
 		try {
 			stmt = DbConnector.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("select avi.idAvion, marca, modelo, anio, count(asi.idAvion) as cantAsientos "
-					+ " from avion avi" + " left join asiento asi on asi.idAvion = avi.idAvion"
-					+ " group by idAvion, marca, modelo, anio");
+			rs = stmt.executeQuery("select idAvion, marca, modelo, anio from avion ");
 
 			if (rs != null) {
 				while (rs.next()) {
 					Avion a = new Avion();
-					a.setIdAvion(rs.getInt("avi.idAvion"));
-					a.setCantAsientos(rs.getInt("cantAsientos"));
+					a.setIdAvion(rs.getInt("idAvion"));
 					a.setMarca(rs.getString("marca"));
 					a.setModelo(rs.getString("modelo"));
 					a.setAnio(rs.getString("anio"));
+					a.setAsientos(da.getByAvion(a));
 					aviones.add(a);
 				}
 			}
@@ -54,22 +52,21 @@ public class DataAvion {
 
 	public Avion getById(Avion av) {
 		Avion a = null;
+		DataAsiento da = new DataAsiento();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = DbConnector.getInstancia().getConn()
-					.prepareStatement("select avi.idAvion, marca, modelo, anio, count(asi.idAvion) as cantAsientos "
-							+ " from avion avi" + " left join asiento asi on asi.idAvion = avi.idAvion"
-							+ " where avi.idAvion = ? " + " group by idAvion, marca, modelo, anio");
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(
+					"select idAvion, marca, modelo, anio " + " from avion avi" + "  where avi.idAvion = ? ");
 			stmt.setInt(1, av.getIdAvion());
 			rs = stmt.executeQuery();
 			if (rs != null && rs.next()) {
 				a = new Avion();
-				a.setIdAvion(rs.getInt("avi.idAvion"));
-				a.setCantAsientos(rs.getInt("cantAsientos"));
+				a.setIdAvion(rs.getInt("idAvion"));
 				a.setMarca(rs.getString("marca"));
 				a.setModelo(rs.getString("modelo"));
 				a.setAnio(rs.getString("anio"));
+				a.setAsientos(da.getByAvion(a));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
