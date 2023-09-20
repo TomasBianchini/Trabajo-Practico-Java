@@ -24,8 +24,6 @@ public class AsientoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CtrlAsiento ca = new CtrlAsiento();
-		LinkedList<Asiento> asientos = ca.getAll();
-		request.setAttribute("listaAsientos", asientos);
 		String accion = request.getParameter("accion");
 		if (accion != null) {
 			switch (accion) {
@@ -43,20 +41,19 @@ public class AsientoServlet extends HttpServlet {
 				asi.setAvion(new Avion());
 				asi.getAvion().setIdAvion(idavion);
 				new CtrlAsiento().delete(asi);
-				request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
 				break;
 			}
-			default:
-				request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
 			}
-		} else {
-			request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
 		}
+		LinkedList<Asiento> asientos = ca.getAll();
+		request.setAttribute("listaAsientos", asientos);
+		request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String accion = request.getParameter("accion");
+		CtrlAsiento ca = new CtrlAsiento();
 		if (accion != null) {
 			switch (accion) {
 			case "insertar": {
@@ -70,7 +67,7 @@ public class AsientoServlet extends HttpServlet {
 				asi.setTipo(tipo);
 				asi.setAvion(new Avion());
 				asi.getAvion().setIdAvion(idavion);
-				new CtrlAsiento().add(asi);
+				ca.add(asi);
 				break;
 			}
 			}

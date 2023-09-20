@@ -30,12 +30,6 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <!-- Brand/logo -->
 	  <a class="navbar-brand mb-0 h1" href="MenuPrincipal.jsp">Menu Principal</a>
-	  <!-- Links -->
-	  <ul class="navbar-nav">
-	    <li class="nav-item">
-	      <a class="nav-link" href="ListaPasajeros.jsp">Pasajeros</a>
-	    </li>
-	  </ul>
 	</nav>
 	<br>
 <div class="container">

@@ -33,12 +33,8 @@ public class AvionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		CtrlAvion ca = new CtrlAvion();
-		LinkedList<Avion> la = ca.getAll();
-		request.setAttribute("listaAviones", la);
 		String accion = request.getParameter("accion");
-
 		if (accion != null) {
 			switch (accion) {
 			/*
@@ -53,20 +49,19 @@ public class AvionServlet extends HttpServlet {
 				int idAvion = Integer.parseInt(request.getParameter("idAvion"));
 				Avion avi = new Avion();
 				avi.setIdAvion(idAvion);
-				new CtrlAvion().delete(avi);
-				request.getRequestDispatcher("WEB-INF/ui-avion/ListarAvion.jsp").forward(request, response);
+				ca.delete(avi);
 				break;
 			}
 			case "AgregarAvion": {
 				request.getRequestDispatcher("WEB-INF/ui-avion/AgregarAvion.jsp").forward(request, response);
 				break;
 			}
-			default:
-				request.getRequestDispatcher("WEB-INF/ui-avion/ListarAvion.jsp").forward(request, response);
 			}
-		} else {
-			request.getRequestDispatcher("WEB-INF/ui-avion/ListarAvion.jsp").forward(request, response);
 		}
+		LinkedList<Avion> la = ca.getAll();
+		request.setAttribute("listaAviones", la);
+		request.getRequestDispatcher("WEB-INF/ui-avion/ListarAvion.jsp").forward(request, response);
+
 	}
 
 	/**
@@ -75,6 +70,7 @@ public class AvionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		CtrlAvion ca = new CtrlAvion();
 		String accion = request.getParameter("accion");
 		if (accion != null) {
 			switch (accion) {
@@ -86,7 +82,7 @@ public class AvionServlet extends HttpServlet {
 				avion.setMarca(marca);
 				avion.setModelo(modelo);
 				avion.setAnio(anio);
-				new CtrlAvion().add(avion);
+				ca.add(avion);
 				break;
 			}
 			/*

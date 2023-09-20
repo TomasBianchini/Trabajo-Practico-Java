@@ -34,8 +34,6 @@ public class PaisServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CtrlPais cp = new CtrlPais();
-		LinkedList<Pais> paises = cp.getAll();
-		request.setAttribute("listaPaises", paises);
 		String accion = request.getParameter("accion");
 		if (accion != null) {
 			switch (accion) {
@@ -43,8 +41,7 @@ public class PaisServlet extends HttpServlet {
 				int idPais = Integer.parseInt(request.getParameter("idPais"));
 				Pais pa = new Pais();
 				pa.setIdPais(idPais);
-				new CtrlPais().delete(pa);
-				request.getRequestDispatcher("WEB-INF/ui-pais/ListarPaises.jsp").forward(request, response);
+				cp.delete(pa);
 				break;
 			}
 			case "AgregarPais": {
@@ -55,18 +52,15 @@ public class PaisServlet extends HttpServlet {
 				Pais p = new Pais();
 				int idPais = Integer.parseInt(request.getParameter("idPais"));
 				p.setIdPais(idPais);
-				CtrlPais cpais = new CtrlPais();
-				Pais pa = cpais.getById(p);
+				Pais pa = cp.getById(p);
 				request.setAttribute("Pais", pa);
 				request.getRequestDispatcher("WEB-INF/ui-pais/EditarPais.jsp").forward(request, response);
 			}
-
-			default:
-				request.getRequestDispatcher("WEB-INF/ui-pais/ListarPaises.jsp").forward(request, response);
 			}
-		} else {
-			request.getRequestDispatcher("WEB-INF/ui-pais/ListarPaises.jsp").forward(request, response);
 		}
+		LinkedList<Pais> paises = cp.getAll();
+		request.setAttribute("listaPaises", paises);
+		request.getRequestDispatcher("WEB-INF/ui-pais/ListarPaises.jsp").forward(request, response);
 	}
 
 	/**
@@ -75,7 +69,7 @@ public class PaisServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		CtrlPais cp = new CtrlPais();
 		String accion = request.getParameter("accion");
 		if (accion != null) {
 			switch (accion) {
@@ -83,7 +77,7 @@ public class PaisServlet extends HttpServlet {
 				String nombre = request.getParameter("nombre");
 				Pais pa = new Pais();
 				pa.setNombre(nombre);
-				new CtrlPais().add(pa);
+				cp.add(pa);
 				break;
 			}
 			case "editarPais": {
@@ -92,7 +86,7 @@ public class PaisServlet extends HttpServlet {
 				Pais pa = new Pais();
 				pa.setIdPais(idPais);
 				pa.setNombre(nombre);
-				new CtrlPais().edit(pa);
+				cp.edit(pa);
 				break;
 			}
 			}

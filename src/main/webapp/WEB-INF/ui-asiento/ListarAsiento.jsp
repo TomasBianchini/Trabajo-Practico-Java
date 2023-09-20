@@ -1,7 +1,8 @@
 <%@page import="entities.Asiento"%>
 <%@page import="entities.Avion"%>
 <%@page import="java.util.LinkedList"%>
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,40 +21,41 @@
 </head>
 <body style="background-color:rgb(251, 252, 255);">
 	<div class="fixed-top">
+	
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand mb-0 h1" href="/webapp\WEB-INF\MenuPrincipal.jsp">Menu Principal</a>
-	  		<ul class="navbar-nav"></ul>
+		  <!-- Brand/logo -->
+		  <a class="navbar-brand mb-0 h1" href="MenuPrincipal.jsp">Menu Principal</a>
 		</nav>
 		<br>
-		<div class="container">
-			<div class="mt-4 p-5 bg-info text-white rounded">
-	  			<h1>Lista de Asientos</h1>
-			</div>
-  			<table class="table table-fixed table-condensed">
-    			<thead class="table-dark">
-      				<tr>
-        				<th>ID Avion</th>
-        				<th>Fila</th>
-        				<th>Numero</th>
-        				<th>Tipo</th>
-						<th></th>
-      				</tr>
-    			</thead>
-    			<tbody>
-    			<%for (Asiento asi: listaAsientos) {%>
-      				<tr>
-        				<td><%=asi.getAvion().getIdAvion()%></td>
-        				<td><%=asi.getFila()%></td>
-        				<td><%=asi.getNumero()%></td>
-						<td><%=asi.getTipo()%></td>
-        				<td>
-        					<a class="bg-danger text-white" href="AsientoServlet?accion=eliminar&idAvion=<%=asi.getAvion().getIdAvion()%>&fila=<%=asi.getFila()%>&numero=<%=asi.getNumero()%>">
-        						<button type="button" class="btn btn-danger">Eliminar</button>
-        					</a>
-        				</td>
-      				</tr>
-      			<%}%>
-    			</tbody>
+	<div class="container" >
+	<div class="mt-4 p-5 bg-info text-white rounded">
+		<h1>Lista de Asientos</h1>
+	</div>
+	<table class="table table-fixed table-condensed">
+	    <thead class="table-dark">
+	      	<tr>
+	        	<th>ID Avion</th>
+	        	<th>Fila</th>
+	        	<th>Numero</th>
+	        	<th>Tipo</th>
+				<th></th>
+	      	</tr>
+	    </thead>
+  <tbody>
+    	<%for (Asiento asi: listaAsientos) {%>
+      		<tr>
+        	  <td><%=asi.getAvion().getIdAvion()%></td>			
+        	  <td><%=asi.getFila()%></td>
+        	  <td><%=asi.getNumero()%></td>
+			  <td><%=asi.getTipo()%></td>
+        	  <td>
+	        	  <a class="bg-danger text-white" href="AsientoServlet?accion=eliminar&idAvion=<%=asi.getAvion().getIdAvion()%>&fila=<%=asi.getFila()%>&numero=<%=asi.getNumero()%>">
+	        		<button type="button" class="btn btn-danger">Eliminar</button>
+	        	   </a>
+        	  </td>
+      	   </tr>
+        <%}%>
+ </tbody>
   			</table>
    			<a class="bg-danger text-white" href="AsientoServlet?accion=AgregarAsiento">
    				<button type="button" class="btn btn-primary">Agregar Asiento</button>

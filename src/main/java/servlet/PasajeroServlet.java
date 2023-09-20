@@ -33,9 +33,7 @@ public class PasajeroServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CtrlPasajero ct = new CtrlPasajero();
-		LinkedList<Pasajero> lp = ct.getAll();
-		request.setAttribute("listaPasajero", lp);
+		CtrlPasajero cp = new CtrlPasajero();
 		String accion = request.getParameter("accion");
 		if (accion != null) {
 			switch (accion) {
@@ -43,7 +41,6 @@ public class PasajeroServlet extends HttpServlet {
 				Pasajero p = new Pasajero();
 				String dniPasajero = request.getParameter("dniPasajero");
 				p.setDni(dniPasajero);
-				CtrlPasajero cp = new CtrlPasajero();
 				Pasajero pa = cp.getByDni(p);
 				request.setAttribute("Pasajero", pa);
 				request.getRequestDispatcher("WEB-INF/ui-pasajero/EditarPasajero.jsp").forward(request, response);
@@ -53,25 +50,18 @@ public class PasajeroServlet extends HttpServlet {
 				String dni = request.getParameter("dniPasajero");
 				Pasajero pas = new Pasajero();
 				pas.setDni(dni);
-				new CtrlPasajero().delete(pas);
-				request.getRequestDispatcher("WEB-INF/ui-pasajero/ListarPasajero.jsp").forward(request, response);
-				break;
-			}
-			case "listarPasajero": {
-				this.listarPasajero(request, response);
+				cp.delete(pas);
 				break;
 			}
 			case "AgregarPasajero": {
 				request.getRequestDispatcher("WEB-INF/ui-pasajero/AgregarPasajero.jsp").forward(request, response);
 				break;
 			}
-
-			default:
-				request.getRequestDispatcher("WEB-INF/ui-pasajero/ListarPasajero.jsp").forward(request, response);
 			}
-		} else {
-			request.getRequestDispatcher("WEB-INF/ui-pasajero/ListarPasajero.jsp").forward(request, response);
 		}
+		LinkedList<Pasajero> lp = cp.getAll();
+		request.setAttribute("listaPasajero", lp);
+		request.getRequestDispatcher("WEB-INF/ui-pasajero/ListarPasajero.jsp").forward(request, response);
 	}
 
 	/**
@@ -81,6 +71,7 @@ public class PasajeroServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String accion = request.getParameter("accion");
+		CtrlPasajero cp = new CtrlPasajero();
 		if (accion != null) {
 			switch (accion) {
 			case "insertarPasajero": {
@@ -90,13 +81,12 @@ public class PasajeroServlet extends HttpServlet {
 				String email = request.getParameter("email");
 				String contrasenia = request.getParameter("contrasenia");
 				Pasajero pasajero = new Pasajero();
-
 				pasajero.setApellido(apellido);
 				pasajero.setDni(dni);
 				pasajero.setNombre(nombre);
 				pasajero.setEmail(email);
 				pasajero.setContrasenia(contrasenia);
-				new CtrlPasajero().add(pasajero);
+				cp.add(pasajero);
 				break;
 			}
 			case "editarPasajero": {
@@ -111,51 +101,12 @@ public class PasajeroServlet extends HttpServlet {
 				pas.setEmail(email);
 				pas.setNombre(nombre);
 				pas.setContrasenia(contrasenia);
-				new CtrlPasajero().edit(pas);
+				cp.edit(pas);
 				break;
 			}
 			}
 		}
 		doGet(request, response);
-	}
-
-	private void insertarPasajero(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String dni = request.getParameter("dni");
-		String nombre = request.getParameter("nombre");
-		String apellido = request.getParameter("apellido");
-		String email = request.getParameter("email");
-		String contraseña = request.getParameter("contraseña");
-		Pasajero pasajero = new Pasajero();
-
-		pasajero.setApellido(apellido);
-		pasajero.setDni(dni);
-		pasajero.setNombre(nombre);
-		pasajero.setEmail(email);
-		pasajero.setContrasenia(contraseña);
-		new CtrlPasajero().add(pasajero);
-		request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
-	}
-
-//	private void eliminarPasajero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
-//		String dni = request.getParameter("dniPasajero");
-//		Pasajero pas = new Pasajero();
-//		pas.setDni(dni);
-//		
-//		new CtrlPasajero().delete(pas);
-//		request.getRequestDispatcher("/ListarPasajero.jsp").forward(request, response);
-//		
-//	}
-
-	private void listarPasajero(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		CtrlPasajero ct = new CtrlPasajero();
-		LinkedList<Pasajero> lp = ct.getAll();
-		request.setAttribute("listaPersonas", lp);
-		request.getRequestDispatcher("WEB-INF/ListarPasajero.jsp").forward(request, response);
-
 	}
 
 }

@@ -35,8 +35,6 @@ public class AeropuertoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CtrlAeropuerto ca = new CtrlAeropuerto();
-		LinkedList<Aeropuerto> aeropuertos = ca.getAll();
-		request.setAttribute("listaAeropuertos", aeropuertos);
 		String accion = request.getParameter("accion");
 		if (accion != null) {
 			switch (accion) {
@@ -54,19 +52,17 @@ public class AeropuertoServlet extends HttpServlet {
 				Aeropuerto ae = new Aeropuerto();
 				ae.setIdAeropuerto(idAeropuerto);
 				new CtrlAeropuerto().delete(ae);
-				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
 				break;
 			}
 			case "AgregarAeropuerto": {
 				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/AgregarAeropuerto.jsp").forward(request, response);
 				break;
 			}
-			default:
-				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
 			}
-		} else {
-			request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
 		}
+		LinkedList<Aeropuerto> aeropuertos = ca.getAll();
+		request.setAttribute("listaAeropuertos", aeropuertos);
+		request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
 	}
 
 	/**
@@ -75,6 +71,7 @@ public class AeropuertoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		CtrlAeropuerto ca = new CtrlAeropuerto();
 		String accion = request.getParameter("accion");
 		if (accion != null) {
 			switch (accion) {
@@ -87,17 +84,7 @@ public class AeropuertoServlet extends HttpServlet {
 				ae.setDescAeropuerto(desc);
 				ae.setCiudad(new Ciudad());
 				ae.getCiudad().setCodPostal(codPostal);
-				new CtrlAeropuerto().add(ae);
-				// request.getRequestDispatcher("/ListarPasajero.jsp").forward(request,
-				// response);
-				break;
-			}
-			case "eliminar": {
-				int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
-				Aeropuerto pa = new Aeropuerto();
-				pa.setIdAeropuerto(idAeropuerto);
-				new CtrlAeropuerto().delete(pa);
-				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
+				ca.add(ae);
 				break;
 			}
 			case "editarAeropuerto": {
@@ -108,12 +95,11 @@ public class AeropuertoServlet extends HttpServlet {
 				a.setIdAeropuerto(idAeropuerto);
 				a.setNombre(nombre);
 				a.setDescAeropuerto(descAeropuerto);
-				new CtrlAeropuerto().edit(a);
+				ca.edit(a);
 				break;
 			}
 			}
 		} else {
-			// this.accionDefault(request,response);
 		}
 		doGet(request, response);
 	}

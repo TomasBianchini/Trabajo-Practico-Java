@@ -29,5 +29,6 @@
     	 <input id="inputIdAvion" name="idAvion" class="form-control" placeholder="id del avion" required="" autofocus="" type="text"> 	
  		 <button class="btn btn-lg btn-primary btn-block" type="submit">Agregar</button>
   </form>
+  		<td><a class="bg-danger text-white" href="VueloServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
 </body>
 </html>

@@ -1,29 +1,68 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="https://getbootstrap.com/favicon.ico">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
 
-    <title>iniciar Sesion</title>
+        h1 {
+            color: #333;
+        }
 
-    <!-- Bootstrap core CSS -->
-    <link href="style/bootstrap.css" rel="stylesheet">
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-    <!-- Custom styles for this template -->
-    <link href="style/signin.css" rel="stylesheet">
-  </head>
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
 
-  <body class="text-center">
-    <form class="form-signin" action="signin" method="post">
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Iniciar Sesión</h1>
+    <div class="login-container">
+        <form class="form-signin" action="signin" method="post">
     	 <label for="inputEmail" class="sr-only">Email</label>
-    	 <input id="inputEmail" name="email" class="form-control" placeholder="Email" required="" autofocus="" type="email">
+    	 <input id="inputEmail" name="email" class="form-control" placeholder="Email" required autofocus type="email">
       	 <label for="inputPassword" class="sr-only">Contraseña</label>
-         <input id="inputPassword" name="contrasenia" class="form-control" placeholder="Contraseña" required="" type="password">
+         <input id="inputPassword" name="contrasenia" class="form-control" placeholder="Contraseña" required type="password">
          <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-    </form>
-  
-
-</body></html>
+    	</form>
+    </div>
+</body>
+</html>

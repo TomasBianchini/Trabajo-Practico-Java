@@ -37,12 +37,9 @@ public class VueloServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CtrlVuelo cv = new CtrlVuelo();
-		LinkedList<Vuelo> vuelos = cv.getAll();
-		request.setAttribute("listaVuelos", vuelos);
 		String accion = request.getParameter("accion");
 		if (accion != null) {
 			switch (accion) {
-
 			case "eliminar": {
 				int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
 				Vuelo vue = new Vuelo();
@@ -64,12 +61,12 @@ public class VueloServlet extends HttpServlet {
 				request.getRequestDispatcher("WEB-INF/ui-vuelo/EditarVuelo.jsp").forward(request, response);
 				break;
 			}
-			default:
-				request.getRequestDispatcher("WEB-INF/ui-vuelo/ListarVuelo.jsp").forward(request, response);
 			}
-		} else {
-			request.getRequestDispatcher("WEB-INF/ui-vuelo/ListarVuelo.jsp").forward(request, response);
 		}
+		LinkedList<Vuelo> vuelos = cv.getAll();
+		request.setAttribute("listaVuelos", vuelos);
+		request.getRequestDispatcher("WEB-INF/ui-vuelo/ListarVuelo.jsp").forward(request, response);
+
 	}
 
 	/**
@@ -79,7 +76,7 @@ public class VueloServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String accion = request.getParameter("accion");
-
+		CtrlVuelo cv = new CtrlVuelo();
 		if (accion != null) {
 			switch (accion) {
 			case "insertar": {
@@ -99,8 +96,7 @@ public class VueloServlet extends HttpServlet {
 				vue.setFechaHoraSalida(fechaHoraSalida);
 				vue.setAvion(new Avion());
 				vue.getAvion().setIdAvion(idAvion);
-
-				new CtrlVuelo().add(vue);
+				cv.add(vue);
 
 				break;
 			}
@@ -115,10 +111,9 @@ public class VueloServlet extends HttpServlet {
 				vue.setFechaHoraSalida(fechaHoraSalida);
 				vue.setFechaHoraLlegada(fechaHoraLlegada);
 				vue.getAvion().setIdAvion(idAvion);
-				new CtrlVuelo().edit(vue);
+				cv.edit(vue);
 				break;
 			}
-
 			}
 		}
 

@@ -33,10 +33,8 @@ public class DataAvion {
 					aviones.add(a);
 				}
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
-
 		} finally {
 			try {
 				if (rs != null) {
