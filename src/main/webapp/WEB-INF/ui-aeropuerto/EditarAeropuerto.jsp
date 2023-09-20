@@ -24,5 +24,6 @@
     	 <input  class="form-control" autofocus="" type="text" value="<%= aero.getCiudad().getNombre()%> , <%= aero.getCiudad().getPais().getNombre()%> " readonly>
  		 <button class="btn btn-lg btn-primary btn-block" type="submit">Actualizar</button>
  	 </form>
+ 	 <td><a class="bg-danger text-white" href="AeropuertoServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
 </body>
 </html>

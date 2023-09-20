@@ -27,10 +27,7 @@
     	 <input id="inputContrasenia" name="contrasenia" class="form-control" placeholder="contraseña" required autofocus type="password" value="<%= pas.getContrasenia() %>" >
  		 <button class="btn btn-lg btn-primary btn-block" type="submit">Actualizar</button>
  	 </form>
- 
-
-
-
+ <td><a class="bg-danger text-white" href="PasajeroServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
 
 </body>
 </html>

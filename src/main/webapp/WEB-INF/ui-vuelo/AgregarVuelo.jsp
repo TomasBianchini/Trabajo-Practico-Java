@@ -27,6 +27,10 @@
     	 <input id="inputAeropuertoDestino" name="idAeropuertoDestino" class="form-control" placeholder="Aeropuerto de destino" required="" autofocus="" type="text">		 
  	     <label for="inputIdAvion" class="sr-only">Id del avion</label>
     	 <input id="inputIdAvion" name="idAvion" class="form-control" placeholder="id del avion" required="" autofocus="" type="text"> 	
+    	 <label for="inputPrecioGeneral" class="sr-only">Precio General: </label>
+    	 <input id="inputPrecioGeneral" name="precioGeneral" class="form-control" required="" autofocus="" type="text"  >
+    	 <label for="inputPrecioPrimeraClase" class="sr-only">Precio Primera Clase: </label>
+    	 <input id="inputPrecioPrimeraClase" name="precioPrimeraClase" class="form-control" required="" autofocus="" type="text"  >
  		 <button class="btn btn-lg btn-primary btn-block" type="submit">Agregar</button>
   </form>
   		<td><a class="bg-danger text-white" href="VueloServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>

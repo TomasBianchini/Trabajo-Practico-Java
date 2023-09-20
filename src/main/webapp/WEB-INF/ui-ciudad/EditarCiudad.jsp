@@ -22,8 +22,7 @@
  		 <button class="btn btn-lg btn-primary btn-block" type="submit">Actualizar</button>
  	 </form>
  
-
-
+<td><a class="bg-danger text-white" href="CiudadServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
 
 
 </body>

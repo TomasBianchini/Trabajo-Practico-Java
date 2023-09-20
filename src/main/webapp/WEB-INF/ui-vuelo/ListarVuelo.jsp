@@ -62,7 +62,7 @@
         <td><%=vue.getFechaHoraLlegada() %></td>
         <td><%=vue.getAeropuertoOrigen().getNombre()%>, <%=vue.getAeropuertoOrigen().getCiudad().getNombre()%>, <%=vue.getAeropuertoOrigen().getCiudad().getPais().getNombre()%></td>
         <td><%=vue.getAeropuertoDestino().getNombre()%>, <%=vue.getAeropuertoDestino().getCiudad().getNombre()%>, <%=vue.getAeropuertoDestino().getCiudad().getPais().getNombre()%></td>
-         <td><a class="bg-primary text-white" href=""><button type="button" class="btn btn-primary">Comprar</button></a></td>
+         <td><a class="bg-primary text-white" href="PasajeServlet?idvuelo=<%=vue.getIdvuelo()%>"><button type="button" class="btn btn-primary">Comprar</button></a></td>
         <td><a class="bg-primary text-white" href="VueloServlet?accion=editar&idvuelo=<%=vue.getIdvuelo()%>"><button type="button" class="btn btn-primary">Editar</button></a></td>
         <td><a class="bg-danger text-white" href="VueloServlet?accion=eliminar&idvuelo=<%=vue.getIdvuelo()%>"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
       </tr>

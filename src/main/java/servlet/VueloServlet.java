@@ -86,6 +86,8 @@ public class VueloServlet extends HttpServlet {
 				int idAeropuertoOrigen = Integer.parseInt(request.getParameter("idAeropuertoOrigen"));
 				int idAeropuertoDestino = Integer.parseInt(request.getParameter("idAeropuertoDestino"));
 				int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+				double precioGeneral = Double.parseDouble(request.getParameter("precioGeneral"));
+				double precioPrimeraclase = Double.parseDouble(request.getParameter("precioPrimeraClase"));
 				Vuelo vue = new Vuelo();
 				vue.setIdvuelo(idvuelo);
 				vue.setAeropuertoOrigen(new Aeropuerto());
@@ -96,6 +98,8 @@ public class VueloServlet extends HttpServlet {
 				vue.setFechaHoraSalida(fechaHoraSalida);
 				vue.setAvion(new Avion());
 				vue.getAvion().setIdAvion(idAvion);
+				vue.setPrecioGeneral(precioGeneral);
+				vue.setPrecioPrimeraClase(precioPrimeraclase);
 				cv.add(vue);
 
 				break;
@@ -105,12 +109,16 @@ public class VueloServlet extends HttpServlet {
 				LocalDateTime fechaHoraSalida = LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
 				LocalDateTime fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
 				int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+				double precioGeneral = Double.parseDouble(request.getParameter("precioGeneral"));
+				double precioPrimeraclase = Double.parseDouble(request.getParameter("precioPrimeraClase"));
 				Vuelo vue = new Vuelo();
 				vue.setAvion(new Avion());
 				vue.setIdvuelo(idvuelo);
 				vue.setFechaHoraSalida(fechaHoraSalida);
 				vue.setFechaHoraLlegada(fechaHoraLlegada);
 				vue.getAvion().setIdAvion(idAvion);
+				vue.setPrecioGeneral(precioGeneral);
+				vue.setPrecioPrimeraClase(precioPrimeraclase);
 				cv.edit(vue);
 				break;
 			}

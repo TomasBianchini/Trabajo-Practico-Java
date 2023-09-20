@@ -21,7 +21,7 @@
     	 <input id="inputCantidadAsientos" name="cantidadAsientos" class="form-control" placeholder="cantidad Asientos" required="" autofocus="" type="number" value="<%= avion.getCantAsientos() %>" >
  		 <button class="btn btn-lg btn-primary btn-block" type="submit">Actualizar</button>
  	 </form>
- 
+ <td><a class="bg-danger text-white" href="AvionServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
 
 
 
