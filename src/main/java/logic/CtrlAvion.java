@@ -28,10 +28,6 @@ public class CtrlAvion {
 		da.add(a);
 	}
 
-	/*
-	 * public void edit(Avion a) { da.edit(a); }
-	 */
-
 	public void delete(Avion a) {
 		da.delete(a);
 	}

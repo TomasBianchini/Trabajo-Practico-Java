@@ -1,4 +1,5 @@
 <%@page import="entities.Vuelo"%>
+<%@page import="entities.Pasajero"%>
 <%@page import="java.util.LinkedList"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -13,6 +14,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	    <meta name="description" content="">
 	    <meta name="author" content="">
+
 <title>Lista Vuelos</title>
   <!-- Bootstrap core CSS -->
     <link href="styles/bootstrap.css" rel="stylesheet">
@@ -25,6 +27,10 @@
 
     	LinkedList<Vuelo> listaVuelos = (LinkedList<Vuelo>)request.getAttribute("listaVuelos");
     %>
+    <%
+		Pasajero p = (Pasajero)request.getSession().getAttribute("pasajero");
+   		request.getSession().setAttribute("pasajero", p);
+	%>
 </head>
 <body style="background-color:rgb(251, 252, 255);">
 

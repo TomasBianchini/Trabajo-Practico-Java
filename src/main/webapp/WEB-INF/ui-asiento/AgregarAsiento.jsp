@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="entities.Avion"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,12 +9,13 @@
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 		<meta charset="UTF-8">
+	    <% Avion avi = (Avion)request.getAttribute("avion");%>
 		<title>Agregar Asiento</title>
 	</head>
 	<body>
-  		<form class="form-signin" action="AsientoServlet?accion=insertar" method="post">
+  		<form class="form-signin" action="AvionServlet?accion=insertarAsiento" method="post">
  			<label>ID Avion</label>
-    	 	<input id="inputIdAvion" name="inputIdAvion" class="form-control" required autofocus type="text">
+    	 	<input  name="IdAvion" class="form-control" type="text" value="<%= avi.getIdAvion() %>" readonly >
  	  	 	
  	  	 	<label>Fila</label>
     	 	<input id="inputFila" name="inputFila" class="form-control" required autofocus type="text">
@@ -25,6 +27,6 @@
  		 	
  		 	<button class="btn btn-lg btn-primary btn-block" type="submit">Agregar</button>
   		</form>
-  		<td><a class="bg-danger text-white" href="AsientoServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
+  		<td><a class="bg-danger text-white" href="AvionServlet?accion=listarAsientos&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
 	</body>
 </html>

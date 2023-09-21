@@ -19,6 +19,7 @@
     <link href="styles/bootstrap.min.css" rel="stylesheet">
 	<% Avion avi = (Avion)request.getAttribute("avion");%>
 	<% HashMap<String,Asiento> asientos = new HashMap<>();%>
+	<% asientos = avi.getAsientos(); %>
 </head>
 <body style="background-color:rgb(251, 252, 255);">
 	<div class="fixed-top">
@@ -30,7 +31,7 @@
 		<br>
 	<div class="container" >
 	<div class="mt-4 p-5 bg-info text-white rounded">
-		<h1>Lista de Asientos</h1>
+		<h1>Lista de Asientos del Avion <%=avi.getIdAvion()%></h1>
 	</div>
 	<table class="table table-fixed table-condensed">
 	    <thead class="table-dark">
@@ -42,23 +43,22 @@
 	      	</tr>
 	    </thead>
   <tbody>
-  		<% asientos = avi.getAsientos(); %>
+
     	<%for (HashMap.Entry<String, Asiento> asi: asientos.entrySet()) {%>
-      		<tr>
-        	  <td><%=asi.getValue().getAvion().getIdAvion()%></td>			
+      		<tr>			
         	  <td><%=asi.getValue().getFila()%></td>
         	  <td><%=asi.getValue().getNumero()%></td>
 			  <td><%=asi.getValue().getTipo()%></td>
         	  <td>
-	        	  <a class="bg-danger text-white" href="AsientoServlet?accion=eliminar&idAvion=<%=asi.getValue().getAvion().getIdAvion()%>&fila=<%=asi.getValue().getFila()%>&numero=<%=asi.getValue().getNumero()%>">
+	        	  <a class="bg-danger text-white" href="AvionServlet?accion=eliminarAsiento&idAvion=<%=avi.getIdAvion()%>&fila=<%=asi.getValue().getFila()%>&numero=<%=asi.getValue().getNumero()%>">
 	        		<button type="button" class="btn btn-danger">Eliminar</button>
 	        	   </a>
         	  </td>
       	   </tr>
         <%}%>
- </tbody>
+  </tbody>
   			</table>
-   			<a class="bg-danger text-white" href="AsientoServlet?accion=AgregarAsiento">
+   			<a class="bg-danger text-white" href="AvionServlet?accion=AgregarAsiento&idAvion=<%=avi.getIdAvion()%>">
    				<button type="button" class="btn btn-primary">Agregar Asiento</button>
    			</a>
 		</div>

@@ -50,18 +50,12 @@ public class signin extends HttpServlet {
 
 		CtrlLogin ctrl = new CtrlLogin();
 
-		request.setAttribute("email", email);
-		request.setAttribute("contrasenia", contrasenia);
-
 		pas = ctrl.validate(pas);
 
 		if (pas != null) {
 			request.getSession().setAttribute("pasajero", pas);
 			request.getRequestDispatcher("MenuPrincipal.jsp").forward(request, response);
 		} else {
-			// request.setAttribute("titulo", "No se pudo iniciar sesión");
-			// request.setAttribute("mensage", "Usuario o contraseña incorrectos");
-			// request.setAttribute("pagina", "Login");
 			request.getRequestDispatcher("index.html").forward(request, response);
 		}
 

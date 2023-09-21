@@ -21,10 +21,7 @@
     <!-- Custom styles for this template -->
     <link href="styles/signin.css" rel="stylesheet">
     <link href="styles/bootstrap.min.css" rel="stylesheet">
-	<%
-
-    	LinkedList<Avion> listaAviones = (LinkedList<Avion>)request.getAttribute("listaAviones");
-    %>
+	<% LinkedList<Avion> listaAviones = (LinkedList<Avion>)request.getAttribute("listaAviones");  %>
 </head>
 <body style="background-color:rgb(251, 252, 255);">
 
@@ -67,8 +64,7 @@
         <td><%=avi.getMarca() %></td>
         <td><%=avi.getModelo() %></td>
         <td><%=avi.getAnio() %></td>
-        <td><a class="bg-danger text-white" href="AvionServlet?accion=listarAsientos&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-danger">Ver asientos</button></a></td>
-        <td><a class="bg-primary text-white" href="AvionServlet?accion=editar&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-primary">Editar</button></a></td>
+        <td><a class="bg-primary text-white" href="AvionServlet?accion=listarAsientos&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-primary">Ver asientos</button></a></td>
         <td><a class="bg-danger text-white" href="AvionServlet?accion=eliminar&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
       </tr>
       <%} %>

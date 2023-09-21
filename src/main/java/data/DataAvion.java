@@ -56,8 +56,8 @@ public class DataAvion {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = DbConnector.getInstancia().getConn().prepareStatement(
-					"select idAvion, marca, modelo, anio " + " from avion avi" + "  where avi.idAvion = ? ");
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement("select idAvion, marca, modelo, anio  from avion avi  where avi.idAvion = ? ");
 			stmt.setInt(1, av.getIdAvion());
 			rs = stmt.executeQuery();
 			if (rs != null && rs.next()) {
@@ -83,9 +83,7 @@ public class DataAvion {
 				e.printStackTrace();
 			}
 		}
-
 		return a;
-
 	}
 
 	public void add(Avion p) {
@@ -109,17 +107,6 @@ public class DataAvion {
 			}
 		}
 	}
-
-	/*
-	 * public void edit(Avion p) { PreparedStatement pstmt = null; try { pstmt =
-	 * DbConnector.getInstancia().getConn()
-	 * .prepareStatement("UPDATE avion SET cantidadAsientos=?  WHERE idAvion=?");
-	 * pstmt.setInt(1, p.getCantAsientos()); pstmt.setInt(2, p.getIdAvion());
-	 * pstmt.executeUpdate(); } catch (SQLException e) { e.printStackTrace(); }
-	 * finally { try { if (pstmt != null) pstmt.close();
-	 * DbConnector.getInstancia().releaseConn(); } catch (SQLException e) {
-	 * e.printStackTrace(); } } }
-	 */
 
 	public void delete(Avion p) {
 		PreparedStatement pstmt = null;

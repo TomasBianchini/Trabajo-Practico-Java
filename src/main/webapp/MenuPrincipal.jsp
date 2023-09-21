@@ -7,9 +7,8 @@
   <meta charset="UTF-8">
 
    <%
-    	String email = (String) request.getAttribute("email");
-   		String password = (String) request.getAttribute("password");
 		Pasajero p = (Pasajero)request.getSession().getAttribute("pasajero");
+   		request.getSession().setAttribute("pasajero", p);
 	%>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Menu Principal</title>
@@ -56,7 +55,6 @@
         <a href="AvionServlet" class="wide-button">Listar avion</a>
         <a href="AeropuertoServlet" class="wide-button">Listar aeropuerto</a>
  		<a href="VueloServlet" class="wide-button">Listar vuelo</a>
- 		<a href="AsientoServlet" class="wide-button">Listar Asientos</a>
 </div>
 
 <!-- Agrega el enlace a Bootstrap JS (opcional si planeas usar componentes interactivos) -->

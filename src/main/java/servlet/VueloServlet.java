@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entities.Aeropuerto;
 import entities.Avion;
+import entities.Pasajero;
 import entities.Vuelo;
 import logic.CtrlVuelo;
 
@@ -38,6 +39,8 @@ public class VueloServlet extends HttpServlet {
 			throws ServletException, IOException {
 		CtrlVuelo cv = new CtrlVuelo();
 		String accion = request.getParameter("accion");
+		Pasajero p = (Pasajero) request.getSession().getAttribute("pasajero");
+		request.getSession().setAttribute("pasajero", p);
 		if (accion != null) {
 			switch (accion) {
 			case "eliminar": {

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="entities.Vuelo"%>
+<%@page import="entities.Pasajero"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,8 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%
     	Vuelo vue = (Vuelo)request.getAttribute("Vuelo");
+		Pasajero p = (Pasajero)request.getSession().getAttribute("pasajero");
+   		request.getSession().setAttribute("pasajero", p);
     %>
-    <title>Detalles del Vuelo</title>
+    <title>Detalles del Pasaje</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -67,6 +70,10 @@
 
         <div class="flight-info">
             <table>
+                 <tr>
+                    <th>DNI</th>
+                    <td><%=p.getDni()%></td>
+                </tr>
                 <tr>
                     <th>Origen</th>
                     <td><%=vue.getAeropuertoOrigen().getCiudad().getNombre()%> , <%=vue.getAeropuertoOrigen().getCiudad().getPais().getNombre()%></td>

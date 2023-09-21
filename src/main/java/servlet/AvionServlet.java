@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.Asiento;
 import entities.Avion;
+import logic.CtrlAsiento;
 import logic.CtrlAvion;
 
 /**
@@ -34,6 +36,7 @@ public class AvionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CtrlAvion ca = new CtrlAvion();
+		CtrlAsiento cas = new CtrlAsiento();
 		String accion = request.getParameter("accion");
 		if (accion != null) {
 			switch (accion) {
@@ -63,7 +66,33 @@ public class AvionServlet extends HttpServlet {
 				int idAvion = Integer.parseInt(request.getParameter("idAvion"));
 				a.setIdAvion(idAvion);
 				Avion avi = ca.getById(a);
-				request.setAttribute("Avion", avi);
+				request.setAttribute("avion", avi);
+				request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
+				break;
+			}
+			case "AgregarAsiento": {
+				Avion a = new Avion();
+				int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+				a.setIdAvion(idAvion);
+				Avion avi = ca.getById(a);
+				request.setAttribute("avion", avi);
+				request.getRequestDispatcher("WEB-INF/ui-asiento/AgregarAsiento.jsp").forward(request, response);
+				break;
+			}
+			case "eliminarAsiento": {
+				int idavion = Integer.parseInt(request.getParameter("idAvion"));
+				String fila = request.getParameter("fila");
+				String numero = request.getParameter("numero");
+				Asiento asi = new Asiento();
+				asi.setFila(fila);
+				asi.setNumero(numero);
+				asi.setAvion(new Avion());
+				asi.getAvion().setIdAvion(idavion);
+				cas.delete(asi);
+				Avion a = new Avion();
+				a.setIdAvion(idavion);
+				Avion avi = ca.getById(a);
+				request.setAttribute("avion", avi);
 				request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
 				break;
 			}
@@ -82,6 +111,7 @@ public class AvionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CtrlAvion ca = new CtrlAvion();
+		CtrlAsiento cas = new CtrlAsiento();
 		String accion = request.getParameter("accion");
 		if (accion != null) {
 			switch (accion) {
@@ -96,13 +126,25 @@ public class AvionServlet extends HttpServlet {
 				ca.add(avion);
 				break;
 			}
-			/*
-			 * case "editarAvion": { int idAvion =
-			 * Integer.parseInt(request.getParameter("idAvion")); int cantAsientos =
-			 * Integer.parseInt(request.getParameter("cantidadAsientos")); Avion a = new
-			 * Avion(); a.setIdAvion(idAvion); a.setCantAsientos(cantAsientos); new
-			 * CtrlAvion().edit(a); break; }
-			 */
+			case "insertarAsiento": {
+				int idavion = Integer.parseInt(request.getParameter("IdAvion"));
+				String fila = request.getParameter("inputFila");
+				String numero = request.getParameter("inputNumero");
+				String tipo = request.getParameter("tipo");
+				Asiento asi = new Asiento();
+				asi.setFila(fila);
+				asi.setNumero(numero);
+				asi.setTipo(tipo);
+				asi.setAvion(new Avion());
+				asi.getAvion().setIdAvion(idavion);
+				cas.add(asi);
+				Avion a = new Avion();
+				a.setIdAvion(idavion);
+				Avion avi = ca.getById(a);
+				request.setAttribute("avion", avi);
+				request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
+				break;
+			}
 
 			}
 			doGet(request, response);
