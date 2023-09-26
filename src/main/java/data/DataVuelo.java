@@ -18,6 +18,7 @@ public class DataVuelo {
 	public LinkedList<Vuelo> getAll() {
 		Statement stmt = null;
 		ResultSet rs = null;
+		DataPasaje dp = new DataPasaje();
 		LinkedList<Vuelo> vuelos = new LinkedList<>();
 		try {
 			stmt = DbConnector.getInstancia().getConn().createStatement();
@@ -29,7 +30,7 @@ public class DataVuelo {
 					+ " inner join ciudad ciuO on ciuO.codPostal = aeroO.codPostal "
 					+ " inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal "
 					+ " inner join pais pO on pO.idpais = ciuO.idPais"
-					+ " inner join pais pD on pD.idpais = ciuD.idPais");
+					+ " inner join pais pD on pD.idpais = ciuD.idPais ");
 			if (rs != null) {
 				while (rs.next()) {
 					Vuelo v = new Vuelo();
@@ -52,6 +53,7 @@ public class DataVuelo {
 					v.getAeropuertoDestino().getCiudad().setNombre(rs.getString("nCiudadD"));
 					v.getAeropuertoOrigen().getCiudad().getPais().setNombre(rs.getString("nPaisO"));
 					v.getAeropuertoDestino().getCiudad().getPais().setNombre(rs.getString("nPaisD"));
+					v.setPasajes(dp.getByVuelo(v));
 					vuelos.add(v);
 				}
 			}
@@ -77,30 +79,33 @@ public class DataVuelo {
 		Vuelo vue = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		DataPasaje dp = new DataPasaje();
+		DataAvion da = new DataAvion();
 		try {
 			stmt = DbConnector.getInstancia().getConn()
 					.prepareStatement("select vue.*, ciuO.nombre as nCiudadO, "
-							+ "ciuD.nombre as nCiudadD, aeroO.nombre as nAeroO, aeroD.nombre as nAeroD,"
+							+ " ciuD.nombre as nCiudadD, aeroO.nombre as nAeroO, aeroD.nombre as nAeroD, "
 							+ " pO.nombre as nPaisO, pD.nombre as nPaisD " + " from vuelo vue "
 							+ " inner join aeropuerto aeroO on aeroO.idaeropuerto = vue.idAeropuertoOrigen"
 							+ " inner join aeropuerto aeroD on aeroD.idaeropuerto = vue.idAeropuertoDestino"
 							+ " inner join ciudad ciuO on ciuO.codPostal = aeroO.codPostal "
 							+ " inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal "
 							+ " inner join pais pO on pO.idpais = ciuO.idPais"
-							+ " inner join pais pD on pD.idpais = ciuD.idPais "
-							+ " inner join avion av on av.idavion = vue.idavion " + " where vue.idvuelo = ?");
+							+ " inner join pais pD on pD.idpais = ciuD.idPais " + " where vue.idvuelo = ?");
 
 			stmt.setInt(1, v.getIdvuelo());
 			rs = stmt.executeQuery();
 			if (rs != null && rs.next()) {
 				vue = new Vuelo();
+				Avion av = new Avion();
+				av.setIdAvion(rs.getInt("vue.idavion"));
 				vue.setAeropuertoDestino(new Aeropuerto());
 				vue.setAeropuertoOrigen(new Aeropuerto());
 				vue.getAeropuertoDestino().setCiudad(new Ciudad());
 				vue.getAeropuertoOrigen().setCiudad(new Ciudad());
 				vue.getAeropuertoDestino().getCiudad().setPais(new Pais());
 				vue.getAeropuertoOrigen().getCiudad().setPais(new Pais());
-				vue.setAvion(new Avion());
+				// vue.setAvion(new Avion());
 				vue.setIdvuelo(rs.getInt("idVuelo"));
 				vue.setPrecioGeneral(rs.getDouble("precioGeneral"));
 				vue.setPrecioPrimeraClase(rs.getDouble("precioPrimeraClase"));
@@ -114,7 +119,9 @@ public class DataVuelo {
 				vue.getAeropuertoDestino().getCiudad().setNombre(rs.getString("nCiudadD"));
 				vue.getAeropuertoOrigen().getCiudad().getPais().setNombre(rs.getString("nPaisO"));
 				vue.getAeropuertoDestino().getCiudad().getPais().setNombre(rs.getString("nPaisD"));
-				vue.getAvion().setIdAvion(rs.getInt("idAvion"));
+				// vue.getAvion().setIdAvion(rs.getInt("idAvion"));
+				vue.setAvion(da.getById(av));
+				vue.setPasajes(dp.getByVuelo(vue));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -138,6 +145,7 @@ public class DataVuelo {
 		Vuelo vue = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		DataPasaje dp = new DataPasaje();
 		LinkedList<Vuelo> vuelos = new LinkedList<>();
 		try {
 			stmt = DbConnector.getInstancia().getConn()
@@ -176,6 +184,7 @@ public class DataVuelo {
 				vue.getAeropuertoDestino().getCiudad().setNombre(rs.getString("nCiudadD"));
 				vue.getAeropuertoOrigen().getCiudad().getPais().setNombre(rs.getString("nPaisO"));
 				vue.getAeropuertoDestino().getCiudad().getPais().setNombre(rs.getString("nPaisD"));
+				v.setPasajes(dp.getByVuelo(vue));
 				vuelos.add(vue);
 			}
 		} catch (SQLException e) {

@@ -1,6 +1,7 @@
 package entities;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 
 public class Vuelo {
 	private int idvuelo;
@@ -11,6 +12,15 @@ public class Vuelo {
 	private Avion avion;
 	private double precioPrimeraClase;
 	private double precioGeneral;
+	private LinkedList<Pasaje> pasajes;
+
+	public LinkedList<Pasaje> getPasajes() {
+		return pasajes;
+	}
+
+	public void setPasajes(LinkedList<Pasaje> pasajes) {
+		this.pasajes = pasajes;
+	}
 
 	public double getPrecioPrimeraClase() {
 		return precioPrimeraClase;

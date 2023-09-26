@@ -53,8 +53,7 @@ public class DataAsiento {
 		try {
 			stmt = DbConnector.getInstancia().getConn()
 					.prepareStatement("select av.idavion, asi.fila, asi.numero, asi.tipo from asiento asi"
-							+ " inner join avion av on asi.idavion = av.idavion where av.idAvion =  ? "
-							+ " order by asi.fila asc");
+							+ " inner join avion av on asi.idavion = av.idavion where av.idAvion =  ? ");
 			stmt.setInt(1, a.getIdAvion());
 			rs = stmt.executeQuery();
 			if (rs != null) {

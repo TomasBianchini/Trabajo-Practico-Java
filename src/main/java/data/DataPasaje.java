@@ -269,7 +269,7 @@ public class DataPasaje {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
-					"insert into vuelo(Estado, idVuelo, fila, numero, idAvion, dni) values(?,?,?,?,?,?)");
+					"insert into pasaje(Estado, idVuelo, fila, numero, idAvion, dni) values(?,?,?,?,?,?)");
 			stmt.setString(1, p.getEstado());
 			stmt.setInt(2, p.getVuelo().getIdvuelo());
 			stmt.setString(3, p.getAsiento().getFila());

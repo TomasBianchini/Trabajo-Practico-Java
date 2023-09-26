@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@page import="entities.Vuelo"%>
 <%@page import="entities.Pasajero"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="entities.Asiento"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,8 +12,10 @@
     <%
     	Vuelo vue = (Vuelo)request.getAttribute("Vuelo");
 		Pasajero p = (Pasajero)request.getSession().getAttribute("pasajero");
+		HashMap<String,Asiento> asientosDisponibles = (HashMap<String,Asiento>)request.getAttribute("asientosDisponibles");
    		request.getSession().setAttribute("pasajero", p);
     %>
+ 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Detalles del Pasaje</title>
     <style>
         body {
@@ -98,11 +102,60 @@
                     <th>Precio Primera Clase</th>
                     <td><%=vue.getPrecioPrimeraClase()%></td>
                 </tr>
+                <tr>
+			   <tr>
+                	 <th>Asiento</th>
+                	 <td> 
+						<select id="asiento" class="form-control">
+							<%for (HashMap.Entry<String, Asiento> asi: asientosDisponibles.entrySet()) {%>
+		                        	<option value="<%= asi.getValue().getFila() + ' ' + asi.getValue().getNumero() + ' ' + asi.getValue().getTipo() %>"><%=asi.getValue().getFila()%> <%=asi.getValue().getNumero()%> <%=asi.getValue().getTipo()%> </option>
+		                    <%} %>
+                   		 </select>
+					</td>
+				</tr>
+
             </table>
-            <td><a class="bg-primary text-white" href=""><button type="button" class="btn btn-primary">Comprar Asiento General</button></a></td>
-            <td><a class="bg-primary text-white" href=""><button type="button" class="btn btn-primary">Comprar Asiento Primera Clase</button></a></td>
+            <a class="bg-primary text-white" href="#" onclick="comprarPasaje()">
+    				<button type="button" class="btn btn-primary">Comprar</button>
+			</a>
+            <td><a class="bg-primary text-white" href="PasajeServlet?accion=compra&dniPasajero=<%=p.getDni()%>&idvuelo=<%=vue.getIdvuelo()%>>"><button type="button" class="btn btn-primary">Comprar</button></a></td>
             <td><a class="bg-danger text-red" href="VueloServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
         </div>
     </div>
+<script>
+function comprarPasaje() {
+    // Obtiene el elemento select
+    var selectElement = document.getElementById("asiento");
+
+    // Obtiene el valor seleccionado
+    var selectedValue = selectElement.value;
+
+    // Verifica si se ha seleccionado un valor
+    if (selectedValue) {
+        // Obtiene el valor del DNI del pasajero y del ID del vuelo de las variables que ya tienes disponibles
+        var dniPasajero = '<%=p.getDni()%>';
+        var idVuelo = '<%=vue.getIdvuelo()%>';
+        var idavion = '<%=vue.getAvion().getIdAvion()%>'
+        
+        // Obtiene la fila, el número y el tipo de asiento del valor seleccionado
+        var asientoParts = selectedValue.split(' '); // Suponemos que los valores están separados por espacios
+        var fila = asientoParts[0];
+        var numero = asientoParts[1];
+        var tipo = asientoParts[2];
+        
+        // Construye la URL con los valores seleccionados
+        var url = 'PasajeServlet?accion=compra&dniPasajero=' + dniPasajero + '&idvuelo=' + idVuelo +
+            '&fila=' + fila + '&numero=' + numero + '&tipo=' + tipo + '&idavion=' + idavion  ;
+
+        // Redirige a la URL construida
+        window.location.href = url;
+    } else {
+        // Si no se ha seleccionado un valor, muestra un mensaje de error o toma la acción adecuada.
+        alert("Por favor, seleccione un asiento antes de comprar.");
+    }
+}
+</script>
 </body>
+
 </html>
+
