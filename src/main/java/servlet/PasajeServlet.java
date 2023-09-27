@@ -80,7 +80,7 @@ public class PasajeServlet extends HttpServlet {
 			pasaje.setPasajero(pas);
 			pasaje.setAsiento(asiento);
 
-			cpas.add(pasaje);
+			Pasaje p = cpas.add(pasaje);
 			request.getRequestDispatcher("MenuPrincipal.jsp").forward(request, response);
 			break;
 		}

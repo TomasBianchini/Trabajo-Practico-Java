@@ -32,7 +32,9 @@ public class CtrlPasaje {
 
 			if (pasajes != null) {
 				for (Pasaje pas : pasajes) {
-					if (pas.getAsiento() == p.getAsiento()) {
+					if (pas.getAsiento().getNumero() == p.getAsiento().getNumero()
+							&& pas.getAsiento().getFila() == p.getAsiento().getFila()
+							&& pas.getAsiento().getAvion().getIdAvion() == p.getAsiento().getAvion().getIdAvion()) {
 						return p;
 					}
 				}

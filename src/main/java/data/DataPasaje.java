@@ -176,8 +176,8 @@ public class DataPasaje {
 		LinkedList<Pasaje> pasajes = new LinkedList<>();
 		try {
 			stmt = DbConnector.getInstancia().getConn()
-					.prepareStatement("select pas.idPasaje, pas.estado, pa.dni, pa.nombre, pa.apellido," + " asi.* "
-							+ " pO.nombre as nPaisO, pD.nombre as nPaisD, ciuD.nombre as nCiudadD, vue.*, ciuO.nombre as nCiudadO "
+					.prepareStatement("select pas.idPasaje, pas.estado, pa.dni, pa.nombre, pa.apellido," + " asi.*, "
+							+ " pO.nombre as nPaisO, pD.nombre as nPaisD, ciuD.nombre as nCiudadD, vue.*, ciuO.nombre as nCiudadO, "
 							+ " aeroO.nombre as nAeroO, aeroD.nombre as nAeroD " + " from pasaje pas "
 							+ " inner join vuelo vue on vue.idVuelo = pas.idVuelo"
 							+ " inner join pasajero pa on pa.dni = pas.dni"
