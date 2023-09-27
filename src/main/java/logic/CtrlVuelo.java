@@ -40,9 +40,10 @@ public class CtrlVuelo {
 	}
 
 	public HashMap<String, Asiento> getAsientosDisponibles(Vuelo vue) {
+		CtrlPasaje cPasaje = new CtrlPasaje();
 		HashMap<String, Asiento> asientosDisponibles = new HashMap<>();
 		Vuelo vuelo = getById(vue);
-		LinkedList<Pasaje> pasajes = vuelo.getPasajes();
+		LinkedList<Pasaje> pasajes = cPasaje.getByVuelo(vuelo);
 		asientosDisponibles = vuelo.getAvion().getAsientos();
 		if (pasajes != null) {
 			for (Pasaje pas : pasajes) {

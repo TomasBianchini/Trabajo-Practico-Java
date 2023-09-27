@@ -105,12 +105,17 @@
                 <tr>
 			   <tr>
                 	 <th>Asiento</th>
-                	 <td> 
-						<select id="asiento" class="form-control">
-							<%for (HashMap.Entry<String, Asiento> asi: asientosDisponibles.entrySet()) {%>
-		                        	<option value="<%= asi.getValue().getFila() + ' ' + asi.getValue().getNumero() + ' ' + asi.getValue().getTipo() %>"><%=asi.getValue().getFila()%> <%=asi.getValue().getNumero()%> <%=asi.getValue().getTipo()%> </option>
-		                    <%} %>
-                   		 </select>
+                	 <td> 	
+                		 <select id="asiento" class="form-control">
+							<%if (asientosDisponibles.isEmpty()){%>
+								<option> No hay asientos disponibles </option>
+							<%}else{%>
+						
+								<%for (HashMap.Entry<String, Asiento> asi: asientosDisponibles.entrySet()) {%>
+		                  	      	<option value="<%= asi.getValue().getFila() + ' ' + asi.getValue().getNumero() + ' ' + asi.getValue().getTipo() %>"><%=asi.getValue().getFila()%> <%=asi.getValue().getNumero()%> <%=asi.getValue().getTipo()%> </option>
+		                  		<%} %>
+		                  	<%} %>
+                   		</select>
 					</td>
 				</tr>
 
@@ -118,7 +123,7 @@
             <a class="bg-primary text-white" href="#" onclick="comprarPasaje()">
     				<button type="button" class="btn btn-primary">Comprar</button>
 			</a>
-            <td><a class="bg-primary text-white" href="PasajeServlet?accion=compra&dniPasajero=<%=p.getDni()%>&idvuelo=<%=vue.getIdvuelo()%>>"><button type="button" class="btn btn-primary">Comprar</button></a></td>
+           
             <td><a class="bg-danger text-red" href="VueloServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
         </div>
     </div>

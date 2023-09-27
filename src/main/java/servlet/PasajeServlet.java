@@ -50,7 +50,6 @@ public class PasajeServlet extends HttpServlet {
 			v = cv.getById(vue);
 			request.setAttribute("Vuelo", v);
 			HashMap<String, Asiento> asientosDisponibles = cv.getAsientosDisponibles(v);
-			System.out.println(asientosDisponibles);
 			request.setAttribute("asientosDisponibles", asientosDisponibles);
 			break;
 		}

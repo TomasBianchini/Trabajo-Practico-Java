@@ -53,7 +53,6 @@ public class DataVuelo {
 					v.getAeropuertoDestino().getCiudad().setNombre(rs.getString("nCiudadD"));
 					v.getAeropuertoOrigen().getCiudad().getPais().setNombre(rs.getString("nPaisO"));
 					v.getAeropuertoDestino().getCiudad().getPais().setNombre(rs.getString("nPaisD"));
-					v.setPasajes(dp.getByVuelo(v));
 					vuelos.add(v);
 				}
 			}
@@ -105,7 +104,6 @@ public class DataVuelo {
 				vue.getAeropuertoOrigen().setCiudad(new Ciudad());
 				vue.getAeropuertoDestino().getCiudad().setPais(new Pais());
 				vue.getAeropuertoOrigen().getCiudad().setPais(new Pais());
-				// vue.setAvion(new Avion());
 				vue.setIdvuelo(rs.getInt("idVuelo"));
 				vue.setPrecioGeneral(rs.getDouble("precioGeneral"));
 				vue.setPrecioPrimeraClase(rs.getDouble("precioPrimeraClase"));
@@ -119,9 +117,7 @@ public class DataVuelo {
 				vue.getAeropuertoDestino().getCiudad().setNombre(rs.getString("nCiudadD"));
 				vue.getAeropuertoOrigen().getCiudad().getPais().setNombre(rs.getString("nPaisO"));
 				vue.getAeropuertoDestino().getCiudad().getPais().setNombre(rs.getString("nPaisD"));
-				// vue.getAvion().setIdAvion(rs.getInt("idAvion"));
 				vue.setAvion(da.getById(av));
-				vue.setPasajes(dp.getByVuelo(vue));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -184,7 +180,6 @@ public class DataVuelo {
 				vue.getAeropuertoDestino().getCiudad().setNombre(rs.getString("nCiudadD"));
 				vue.getAeropuertoOrigen().getCiudad().getPais().setNombre(rs.getString("nPaisO"));
 				vue.getAeropuertoDestino().getCiudad().getPais().setNombre(rs.getString("nPaisD"));
-				v.setPasajes(dp.getByVuelo(vue));
 				vuelos.add(vue);
 			}
 		} catch (SQLException e) {

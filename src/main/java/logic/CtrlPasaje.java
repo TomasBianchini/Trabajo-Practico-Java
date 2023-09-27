@@ -28,8 +28,7 @@ public class CtrlPasaje {
 			p.setVuelo(vuelo);
 			p.setAsiento(asiento);
 			p.setEstado("Comprado");
-			LinkedList<Pasaje> pasajes = vuelo.getPasajes();
-
+			LinkedList<Pasaje> pasajes = this.getByVuelo(vuelo);
 			if (pasajes != null) {
 				for (Pasaje pas : pasajes) {
 					if (pas.getAsiento().getNumero() == p.getAsiento().getNumero()
@@ -38,12 +37,15 @@ public class CtrlPasaje {
 						return p;
 					}
 				}
-				dp.add(p);
 			}
+			dp.add(p);
 
 		}
 		return p;
+	}
 
+	public LinkedList<Pasaje> getByVuelo(Vuelo vue) {
+		return dp.getByVuelo(vue);
 	}
 
 }
