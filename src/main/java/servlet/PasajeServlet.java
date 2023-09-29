@@ -51,6 +51,7 @@ public class PasajeServlet extends HttpServlet {
 			request.setAttribute("Vuelo", v);
 			HashMap<String, Asiento> asientosDisponibles = cv.getAsientosDisponibles(v);
 			request.setAttribute("asientosDisponibles", asientosDisponibles);
+			request.getRequestDispatcher("WEB-INF/ui-pasaje/ComprarPasaje.jsp").forward(request, response);
 			break;
 		}
 		case "compra": {
@@ -81,12 +82,11 @@ public class PasajeServlet extends HttpServlet {
 
 			Pasaje p = cpas.add(pasaje);
 			request.getRequestDispatcher("MenuPrincipal.jsp").forward(request, response);
+
 			break;
 		}
 
 		}
-
-		request.getRequestDispatcher("WEB-INF/ui-pasaje/ComprarPasaje.jsp").forward(request, response);
 
 	}
 

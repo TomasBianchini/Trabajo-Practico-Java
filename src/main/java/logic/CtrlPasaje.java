@@ -16,30 +16,30 @@ public class CtrlPasaje {
 	}
 
 	public Pasaje add(Pasaje pasaje) {
-		Pasaje p = new Pasaje();
 		CtrlPasajero cPasajero = new CtrlPasajero();
 		CtrlVuelo cVuelo = new CtrlVuelo();
 		CtrlAsiento cAsiento = new CtrlAsiento();
 		Pasajero pasajero = cPasajero.getByDni(pasaje.getPasajero());
 		Vuelo vuelo = cVuelo.getById(pasaje.getVuelo());
 		Asiento asiento = cAsiento.getOne(pasaje.getAsiento());
-		if (pasajero != null || vuelo != null) {
+		Pasaje p = new Pasaje();
+		if (pasajero != null && vuelo != null && asiento != null) {
 			p.setPasajero(pasajero);
 			p.setVuelo(vuelo);
 			p.setAsiento(asiento);
 			p.setEstado("Comprado");
+
 			LinkedList<Pasaje> pasajes = this.getByVuelo(vuelo);
-			if (pasajes != null) {
+			if (!pasajes.isEmpty()) {
 				for (Pasaje pas : pasajes) {
-					if (pas.getAsiento().getNumero() == p.getAsiento().getNumero()
-							&& pas.getAsiento().getFila() == p.getAsiento().getFila()
+					if (pas.getAsiento().getNumero().equalsIgnoreCase(p.getAsiento().getNumero())
+							&& pas.getAsiento().getFila().equalsIgnoreCase(p.getAsiento().getFila())
 							&& pas.getAsiento().getAvion().getIdAvion() == p.getAsiento().getAvion().getIdAvion()) {
 						return p;
 					}
 				}
 			}
 			dp.add(p);
-
 		}
 		return p;
 	}
