@@ -14,7 +14,7 @@ public class CtrlAsiento {
 
 	public LinkedList<Asiento> getAll() {
 		return da.getAll();
-	}
+	}d
 
 	public Asiento getOne(Asiento a) {
 		return da.getOne(a);

@@ -45,6 +45,7 @@ public class CtrlVuelo {
 		Vuelo vuelo = getById(vue);
 		LinkedList<Pasaje> pasajes = cPasaje.getByVuelo(vuelo);
 		asientosDisponibles = vuelo.getAvion().getAsientos();
+
 		if (pasajes != null) {
 			for (Pasaje pas : pasajes) {
 				String clave = pas.getAsiento().getFila() + pas.getAsiento().getNumero();

@@ -28,18 +28,21 @@ public class CtrlPasaje {
 			p.setVuelo(vuelo);
 			p.setAsiento(asiento);
 			p.setEstado("Comprado");
-
+			int bandera = 0;
 			LinkedList<Pasaje> pasajes = this.getByVuelo(vuelo);
 			if (!pasajes.isEmpty()) {
 				for (Pasaje pas : pasajes) {
 					if (pas.getAsiento().getNumero().equalsIgnoreCase(p.getAsiento().getNumero())
 							&& pas.getAsiento().getFila().equalsIgnoreCase(p.getAsiento().getFila())
 							&& pas.getAsiento().getAvion().getIdAvion() == p.getAsiento().getAvion().getIdAvion()) {
-						return p;
+						bandera = 1;
 					}
 				}
 			}
-			dp.add(p);
+			if (bandera == 0) {
+				dp.add(p);
+			}
+
 		}
 		return p;
 	}

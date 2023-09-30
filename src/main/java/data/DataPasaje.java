@@ -115,7 +115,7 @@ public class DataPasaje {
 							+ " inner join pais pD on pD.idpais = ciuD.idPais" + " where pas.dni = ?");
 			stmt.setString(1, pa.getDni());
 			rs = stmt.executeQuery();
-			if (rs != null && rs.next()) {
+			if (rs != null) {
 				while (rs.next()) {
 					Pasaje p = new Pasaje();
 					p.setIdPasaje(rs.getInt("idPasaje"));
@@ -190,7 +190,7 @@ public class DataPasaje {
 							+ " inner join pais pD on pD.idpais = ciuD.idPais" + " where vue.idVuelo = ?");
 			stmt.setInt(1, vue.getIdvuelo());
 			rs = stmt.executeQuery();
-			if (rs != null && rs.next()) {
+			if (rs != null /* && rs.next() */) {
 				while (rs.next()) {
 					Pasaje p = new Pasaje();
 					p.setIdPasaje(rs.getInt("idPasaje"));
