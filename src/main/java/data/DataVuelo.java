@@ -154,33 +154,34 @@ public class DataVuelo {
 							+ " inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal "
 							+ " inner join pais pO on pO.idpais = ciuO.idPais"
 							+ " inner join pais pD on pD.idpais = ciuD.idPais"
-							+ " where vue.idAeropuertoOrigen = ? and vue.idAeropuertoDestino = ?");
-
-			stmt.setInt(1, v.getAeropuertoOrigen().getIdAeropuerto());
-			stmt.setInt(2, v.getAeropuertoDestino().getIdAeropuerto());
+							+ " where aeroO.nombre like ? and  aeroD.nombre like ?");
+			stmt.setString(1, "%" + v.getAeropuertoOrigen().getNombre() + "%");
+			stmt.setString(2, "%" + v.getAeropuertoDestino().getNombre() + "%");
 			rs = stmt.executeQuery();
-			if (rs != null && rs.next()) {
-				vue = new Vuelo();
-				vue.setAeropuertoDestino(new Aeropuerto());
-				vue.setAeropuertoOrigen(new Aeropuerto());
-				vue.getAeropuertoDestino().setCiudad(new Ciudad());
-				vue.getAeropuertoOrigen().setCiudad(new Ciudad());
-				vue.getAeropuertoDestino().getCiudad().setPais(new Pais());
-				vue.getAeropuertoOrigen().getCiudad().setPais(new Pais());
-				vue.setIdvuelo(rs.getInt("idVuelo"));
-				vue.setPrecioGeneral(rs.getDouble("precioGeneral"));
-				vue.setPrecioPrimeraClase(rs.getDouble("precioPrimeraClase"));
-				vue.setFechaHoraSalida(rs.getObject("fechaHoraSalida", LocalDateTime.class));
-				vue.setFechaHoraLlegada(rs.getObject("fechaHoraLlegada", LocalDateTime.class));
-				vue.getAeropuertoOrigen().setIdAeropuerto(rs.getInt("idAeropuertoOrigen"));
-				vue.getAeropuertoOrigen().setNombre(rs.getString("nAeroO"));
-				vue.getAeropuertoDestino().setIdAeropuerto(rs.getInt("idAeropuertoDestino"));
-				vue.getAeropuertoDestino().setNombre(rs.getString("nAeroD"));
-				vue.getAeropuertoOrigen().getCiudad().setNombre(rs.getString("nCiudadO"));
-				vue.getAeropuertoDestino().getCiudad().setNombre(rs.getString("nCiudadD"));
-				vue.getAeropuertoOrigen().getCiudad().getPais().setNombre(rs.getString("nPaisO"));
-				vue.getAeropuertoDestino().getCiudad().getPais().setNombre(rs.getString("nPaisD"));
-				vuelos.add(vue);
+			if (rs != null) {
+				while (rs.next()) {
+					vue = new Vuelo();
+					vue.setAeropuertoDestino(new Aeropuerto());
+					vue.setAeropuertoOrigen(new Aeropuerto());
+					vue.getAeropuertoDestino().setCiudad(new Ciudad());
+					vue.getAeropuertoOrigen().setCiudad(new Ciudad());
+					vue.getAeropuertoDestino().getCiudad().setPais(new Pais());
+					vue.getAeropuertoOrigen().getCiudad().setPais(new Pais());
+					vue.setIdvuelo(rs.getInt("idVuelo"));
+					vue.setPrecioGeneral(rs.getDouble("precioGeneral"));
+					vue.setPrecioPrimeraClase(rs.getDouble("precioPrimeraClase"));
+					vue.setFechaHoraSalida(rs.getObject("fechaHoraSalida", LocalDateTime.class));
+					vue.setFechaHoraLlegada(rs.getObject("fechaHoraLlegada", LocalDateTime.class));
+					vue.getAeropuertoOrigen().setIdAeropuerto(rs.getInt("idAeropuertoOrigen"));
+					vue.getAeropuertoOrigen().setNombre(rs.getString("nAeroO"));
+					vue.getAeropuertoDestino().setIdAeropuerto(rs.getInt("idAeropuertoDestino"));
+					vue.getAeropuertoDestino().setNombre(rs.getString("nAeroD"));
+					vue.getAeropuertoOrigen().getCiudad().setNombre(rs.getString("nCiudadO"));
+					vue.getAeropuertoDestino().getCiudad().setNombre(rs.getString("nCiudadD"));
+					vue.getAeropuertoOrigen().getCiudad().getPais().setNombre(rs.getString("nPaisO"));
+					vue.getAeropuertoDestino().getCiudad().getPais().setNombre(rs.getString("nPaisD"));
+					vuelos.add(vue);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

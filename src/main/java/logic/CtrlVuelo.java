@@ -23,8 +23,8 @@ public class CtrlVuelo {
 		return dv.getById(v);
 	}
 
-	public Vuelo getByOrigenyDestino(Vuelo v) {
-		return dv.getById(v);
+	public LinkedList<Vuelo> getByOrigenYDestino(Vuelo v) {
+		return dv.getByOrigenYDestino(v);
 	}
 
 	public void add(Vuelo v) {

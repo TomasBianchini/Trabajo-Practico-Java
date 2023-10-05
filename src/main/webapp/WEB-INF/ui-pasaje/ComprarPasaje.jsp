@@ -76,7 +76,7 @@
             <table>
                  <tr>
                     <th>DNI</th>
-                    <td><%=p.getDni()%></td>
+                    <td> <input type="text" id="dniInput" required class="form-control" placeholder="Dni"></td>
                 </tr>
                 <tr>
                     <th>Origen</th>
@@ -131,14 +131,14 @@
 function comprarPasaje() {
     // Obtiene el elemento select
     var selectElement = document.getElementById("asiento");
-
+	var dniInput = document.getElementById("dniInput");
     // Obtiene el valor seleccionado
     var selectedValue = selectElement.value;
-
+    var dni = dniInput.value;
     // Verifica si se ha seleccionado un valor
     if (selectedValue) {
         // Obtiene el valor del DNI del pasajero y del ID del vuelo de las variables que ya tienes disponibles
-        var dniPasajero = '<%=p.getDni()%>';
+        var dniPasajero = dni;
         var idVuelo = '<%=vue.getIdvuelo()%>';
         var idavion = '<%=vue.getAvion().getIdAvion()%>'
         

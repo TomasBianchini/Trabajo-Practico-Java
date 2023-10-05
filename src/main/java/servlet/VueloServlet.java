@@ -64,6 +64,20 @@ public class VueloServlet extends HttpServlet {
 				request.getRequestDispatcher("WEB-INF/ui-vuelo/EditarVuelo.jsp").forward(request, response);
 				break;
 			}
+			case "filtrar": {
+				String origen = request.getParameter("origen");
+				String destino = request.getParameter("destino");
+				LinkedList<Vuelo> vuelos = new LinkedList<>();
+				Vuelo v = new Vuelo();
+				v.setAeropuertoOrigen(new Aeropuerto());
+				v.setAeropuertoDestino(new Aeropuerto());
+				v.getAeropuertoOrigen().setNombre(origen);
+				v.getAeropuertoDestino().setNombre(destino);
+				vuelos = cv.getByOrigenYDestino(v);
+				request.setAttribute("listaVuelos", vuelos);
+				request.getRequestDispatcher("WEB-INF/ui-vuelo/ListarVuelo.jsp").forward(request, response);
+				break;
+			}
 			}
 		}
 		LinkedList<Vuelo> vuelos = cv.getAll();
