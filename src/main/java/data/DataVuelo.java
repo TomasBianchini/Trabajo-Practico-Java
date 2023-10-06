@@ -18,7 +18,6 @@ public class DataVuelo {
 	public LinkedList<Vuelo> getAll() {
 		Statement stmt = null;
 		ResultSet rs = null;
-		DataPasaje dp = new DataPasaje();
 		LinkedList<Vuelo> vuelos = new LinkedList<>();
 		try {
 			stmt = DbConnector.getInstancia().getConn().createStatement();
@@ -78,7 +77,6 @@ public class DataVuelo {
 		Vuelo vue = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		DataPasaje dp = new DataPasaje();
 		DataAvion da = new DataAvion();
 		try {
 			stmt = DbConnector.getInstancia().getConn()
@@ -141,7 +139,6 @@ public class DataVuelo {
 		Vuelo vue = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		DataPasaje dp = new DataPasaje();
 		LinkedList<Vuelo> vuelos = new LinkedList<>();
 		try {
 			stmt = DbConnector.getInstancia().getConn()

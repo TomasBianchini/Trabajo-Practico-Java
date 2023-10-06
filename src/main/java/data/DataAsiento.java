@@ -3,48 +3,12 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import entities.Asiento;
 import entities.Avion;
 
 public class DataAsiento {
-	public LinkedList<Asiento> getAll() {
-		Statement stmt = null;
-		ResultSet rs = null;
-		LinkedList<Asiento> asientos = new LinkedList<>();
-		try {
-			stmt = DbConnector.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("select av.idavion, asi.fila, asi.numero, asi.tipo " + " from asiento asi"
-					+ " inner join avion av on asi.idavion = av.idavion");
-			if (rs != null) {
-				while (rs.next()) {
-					Asiento a = new Asiento();
-					a.setAvion(new Avion());
-					a.setFila(rs.getString("fila"));
-					a.setNumero(rs.getString("numero"));
-					a.setTipo(rs.getString("tipo"));
-					a.getAvion().setIdAvion(rs.getInt("idavion"));
-					asientos.add(a);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (stmt != null)
-					stmt.close();
-				DbConnector.getInstancia().releaseConn();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return asientos;
-	}
 
 	public HashMap<String, Asiento> getByAvion(Avion a) {
 		PreparedStatement stmt = null;

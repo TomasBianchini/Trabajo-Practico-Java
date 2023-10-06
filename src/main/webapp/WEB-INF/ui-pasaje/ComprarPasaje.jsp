@@ -13,7 +13,6 @@
     	Vuelo vue = (Vuelo)request.getAttribute("Vuelo");
 		Pasajero p = (Pasajero)request.getSession().getAttribute("pasajero");
 		HashMap<String,Asiento> asientosDisponibles = (HashMap<String,Asiento>)request.getAttribute("asientosDisponibles");
-   		request.getSession().setAttribute("pasajero", p);
     %>
  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Detalles del Pasaje</title>
@@ -129,21 +128,20 @@
     </div>
 <script>
 function comprarPasaje() {
-    // Obtiene el elemento select
-    var selectElement = document.getElementById("asiento");
+
+    var asientoInput = document.getElementById("asiento");
 	var dniInput = document.getElementById("dniInput");
-    // Obtiene el valor seleccionado
-    var selectedValue = selectElement.value;
+
+    var selectedValue = asientoInput.value;
     var dni = dniInput.value;
-    // Verifica si se ha seleccionado un valor
+
     if (selectedValue) {
-        // Obtiene el valor del DNI del pasajero y del ID del vuelo de las variables que ya tienes disponibles
         var dniPasajero = dni;
         var idVuelo = '<%=vue.getIdvuelo()%>';
         var idavion = '<%=vue.getAvion().getIdAvion()%>'
         
-        // Obtiene la fila, el número y el tipo de asiento del valor seleccionado
-        var asientoParts = selectedValue.split(' '); // Suponemos que los valores están separados por espacios
+        
+        var asientoParts = selectedValue.split(' ');
         var fila = asientoParts[0];
         var numero = asientoParts[1];
         var tipo = asientoParts[2];
