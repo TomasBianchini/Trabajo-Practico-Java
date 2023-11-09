@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="entities.Vuelo"%>
-<%@page import="entities.Pasajero"%>
+<%@page import="entities.Usuario"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="entities.Asiento"%>
 <!DOCTYPE html>
@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%
     	Vuelo vue = (Vuelo)request.getAttribute("Vuelo");
-		Pasajero p = (Pasajero)request.getSession().getAttribute("pasajero");
+    	Usuario p = (Usuario)request.getSession().getAttribute("usuario");
 		HashMap<String,Asiento> asientosDisponibles = (HashMap<String,Asiento>)request.getAttribute("asientosDisponibles");
     %>
  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">

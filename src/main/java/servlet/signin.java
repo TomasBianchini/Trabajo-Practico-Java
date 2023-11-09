@@ -60,7 +60,7 @@ public class signin extends HttpServlet {
 
 		if (usu != null) {
 			request.getSession().setAttribute("usuario", usu);
-			request.getRequestDispatcher("MenuPrincipal.jsp").forward(request, response);
+			request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
 		} else {
 			request.getRequestDispatcher("index.html").forward(request, response);
 		}

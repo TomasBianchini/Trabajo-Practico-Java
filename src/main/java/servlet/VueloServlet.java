@@ -74,14 +74,14 @@ public class VueloServlet extends HttpServlet {
 				v.getAeropuertoDestino().setNombre(destino);
 				vuelos = cv.getByOrigenYDestino(v);
 				request.setAttribute("listaVuelos", vuelos);
-				request.getRequestDispatcher("WEB-INF/ui-vuelo/ListarVuelo.jsp").forward(request, response);
+				request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
 				break;
 			}
 			}
 		}
 		LinkedList<Vuelo> vuelos = cv.getAll();
 		request.setAttribute("listaVuelos", vuelos);
-		request.getRequestDispatcher("WEB-INF/ui-vuelo/ListarVuelo.jsp").forward(request, response);
+		request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
 
 	}
 

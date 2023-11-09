@@ -29,6 +29,20 @@
     </ul>
 </nav>
 </article>
+	<form>
+	  <div class="grid">
+   		 <label for="origenInput">
+    	  Origen
+     	  <input type="text" id="origenInput" placeholder="Origen" required>
+    	</label>
+
+    	<label for="destinoInput">
+    	  Destino
+   	  		 <input type="text" id="destinoInput"  placeholder="Destino" required>
+   		</label>
+		<a href="#" onclick="filtarVuelos()" role="button">Filtar</a>
+ 	 </div>
+	</form>
   <table>
   <thead>
     <tr>
@@ -60,5 +74,34 @@
   </tbody>
   </table>
  <a href="VueloServlet?accion=AgregarVuelo"><button >Agregar vuelo</button></a>
+ 
+ 
+ <script>
+function filtarVuelos() {
+    // Obtiene el elemento select
+    var oInput = document.getElementById("origenInput");
+    var dInput = document.getElementById("destinoInput");
+    
+    // Obtiene el valor seleccionado
+    var origen = oInput.value;
+    var destino = dInput.value;
+
+    // Verifica si se ha seleccionado un valor
+    if (origen && destino) {
+
+        // Construye la URL con los valores seleccionados
+        var url = 'VueloServlet?accion=filtrar&origen=' +origen + '&destino=' + destino ;
+
+        // Redirige a la URL construida
+        window.location.href = url;
+    } else {
+        // Si no se ha seleccionado un valor, muestra un mensaje de error o toma la acción adecuada.
+        alert("Por favor, ingrese origen y destino ");
+    }
+}
+</script>
+
+
+
 </body>
 </html>
