@@ -14,6 +14,7 @@ import entities.Aeropuerto;
 import entities.Avion;
 import entities.Usuario;
 import entities.Vuelo;
+import logic.CtrlAeropuerto;
 import logic.CtrlVuelo;
 
 /**
@@ -50,6 +51,9 @@ public class VueloServlet extends HttpServlet {
 				break;
 			}
 			case "AgregarVuelo": {
+				CtrlAeropuerto ca = new CtrlAeropuerto();
+				LinkedList<Aeropuerto> aeropuertos = ca.getAll();
+				request.setAttribute("listaAeropuertos", aeropuertos);
 				request.getRequestDispatcher("WEB-INF/ui-vuelo/AgregarVuelo.jsp").forward(request, response);
 				break;
 			}

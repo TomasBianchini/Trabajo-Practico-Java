@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import entities.Aeropuerto;
 import entities.Ciudad;
 import logic.CtrlAeropuerto;
+import logic.CtrlCiudad;
 
 /**
  * Servlet implementation class AeropuertoServlet
@@ -55,6 +56,9 @@ public class AeropuertoServlet extends HttpServlet {
 				break;
 			}
 			case "AgregarAeropuerto": {
+				CtrlCiudad cc = new CtrlCiudad();
+				LinkedList<Ciudad> ciudades = cc.getAll();
+				request.setAttribute("listaCiudades", ciudades);
 				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/AgregarAeropuerto.jsp").forward(request, response);
 				break;
 			}

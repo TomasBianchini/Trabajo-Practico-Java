@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import entities.Ciudad;
 import entities.Pais;
 import logic.CtrlCiudad;
+import logic.CtrlPais;
 
 /**
  * Servlet implementation class CiudadServlet
@@ -54,13 +55,16 @@ public class CiudadServlet extends HttpServlet {
 			}
 
 			case "AgregarCiudad": {
+				CtrlPais cp = new CtrlPais();
+				LinkedList<Pais> paises = cp.getAll();
+				request.setAttribute("listaPaises", paises);
 				request.getRequestDispatcher("WEB-INF/ui-ciudad/AgregarCiudad.jsp").forward(request, response);
 				break;
 			}
 			}
 		}
-		LinkedList<Ciudad> ciudadades = cc.getAll();
-		request.setAttribute("listaCiudades", ciudadades);
+		LinkedList<Ciudad> ciudades = cc.getAll();
+		request.setAttribute("listaCiudades", ciudades);
 		request.getRequestDispatcher("WEB-INF/ui-ciudad/ListarCiudad.jsp").forward(request, response);
 	}
 
