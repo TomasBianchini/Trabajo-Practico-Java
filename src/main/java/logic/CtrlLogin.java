@@ -1,19 +1,18 @@
 package logic;
 
-import entities.Pasajero;
-import data.DataPasajero;
+import data.DataUsuario;
+import entities.Usuario;
 
 public class CtrlLogin {
-	private DataPasajero dp;
-	
+	private DataUsuario du;
+
 	public CtrlLogin() {
-		dp=new DataPasajero();
+		du = new DataUsuario();
 	}
-	
-	
-	public Pasajero validate(Pasajero p) {
-		return dp.getByEmail(p);
-	
+
+	public Usuario validate(Usuario usu) {
+		return du.getByEmail(usu);
+
 	}
-	
+
 }

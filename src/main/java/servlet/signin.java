@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Pasajero;
+import entities.Usuario;
+import entities.Vuelo;
 import logic.CtrlLogin;
+import logic.CtrlVuelo;
 
 /**
  * Servlet implementation class signin
@@ -42,18 +45,21 @@ public class signin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Pasajero pas = new Pasajero();
+		Usuario usu = new Usuario();
 		String email = request.getParameter("email");
 		String contrasenia = request.getParameter("contrasenia");
-		pas.setEmail(email);
-		pas.setContrasenia(contrasenia);
+		usu.setEmail(email);
+		usu.setContrasenia(contrasenia);
 
 		CtrlLogin ctrl = new CtrlLogin();
 
-		pas = ctrl.validate(pas);
+		usu = ctrl.validate(usu);
+		CtrlVuelo cv = new CtrlVuelo();
+		LinkedList<Vuelo> vuelos = cv.getAll();
+		request.setAttribute("listaVuelos", vuelos);
 
-		if (pas != null) {
-			request.getSession().setAttribute("pasajero", pas);
+		if (usu != null) {
+			request.getSession().setAttribute("usuario", usu);
 			request.getRequestDispatcher("MenuPrincipal.jsp").forward(request, response);
 		} else {
 			request.getRequestDispatcher("index.html").forward(request, response);

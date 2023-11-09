@@ -5,7 +5,7 @@ public class Pasaje {
 	private String estado;
 	private Vuelo vuelo;
 	private Asiento asiento;
-	private Pasajero pasajero;
+	private Usuario usuario;
 
 	public int getIdPasaje() {
 		return idPasaje;
@@ -39,12 +39,12 @@ public class Pasaje {
 		this.asiento = asiento;
 	}
 
-	public Pasajero getPasajero() {
-		return pasajero;
+	public Usuario getUsuario() {
+		return this.usuario;
 	}
 
-	public void setPasajero(Pasajero pasajero) {
-		this.pasajero = pasajero;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

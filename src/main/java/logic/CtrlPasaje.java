@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import data.DataPasaje;
 import entities.Asiento;
 import entities.Pasaje;
-import entities.Pasajero;
+import entities.Usuario;
 import entities.Vuelo;
 
 public class CtrlPasaje {
@@ -16,15 +16,15 @@ public class CtrlPasaje {
 	}
 
 	public Pasaje add(Pasaje pasaje) {
-		CtrlPasajero cPasajero = new CtrlPasajero();
+		CtrlUsuario cUsuario = new CtrlUsuario();
 		CtrlVuelo cVuelo = new CtrlVuelo();
 		CtrlAsiento cAsiento = new CtrlAsiento();
-		Pasajero pasajero = cPasajero.getByDni(pasaje.getPasajero());
+		Usuario usuario = cUsuario.getByDocumento(pasaje.getUsuario());
 		Vuelo vuelo = cVuelo.getById(pasaje.getVuelo());
 		Asiento asiento = cAsiento.getOne(pasaje.getAsiento());
 		Pasaje p = new Pasaje();
-		if (pasajero != null && vuelo != null && asiento != null) {
-			p.setPasajero(pasajero);
+		if (usuario != null && vuelo != null && asiento != null) {
+			p.setUsuario(usuario);
 			p.setVuelo(vuelo);
 			p.setAsiento(asiento);
 			p.setEstado("Comprado");

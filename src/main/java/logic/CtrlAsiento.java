@@ -1,7 +1,5 @@
 package logic;
 
-import java.util.LinkedList;
-
 import data.DataAsiento;
 import entities.Asiento;
 
@@ -10,10 +8,6 @@ public class CtrlAsiento {
 
 	public CtrlAsiento() {
 		da = new DataAsiento();
-	}
-
-	public LinkedList<Asiento> getAll() {
-		return da.getAll();
 	}
 
 	public Asiento getOne(Asiento a) {

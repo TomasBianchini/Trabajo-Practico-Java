@@ -1,70 +1,52 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
-        }
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Iniciar Sesion</title>
+    <meta name="description" content="A minimalist layout for Login pages. Built with Pico CSS." />
+    <link rel="canonical" href="https://picocss.com/examples/sign-in/" />
 
-        h1 {
-            color: #333;
-        }
+    <!-- Pico.css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+    <link rel="stylesheet" href="custom.css" />
+    
+  </head>
 
-        .login-container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+  <body>
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+    <!-- Main -->
+    <main class="container">
+      <article class="grid">
+        <div>
+          <hgroup>
+            <h1>Sign in</h1>
+          </hgroup>
+          <form action="signin" method="post">
+            <input
+              type="email"
+              name="email"
+              placeholder="Login"
+              aria-label="Login"
+              required
+            />
+            <input
+              type="password"
+              name="contrasenia"
+              placeholder="Password"
+              aria-label="Password"
+              required
+            />
+            <button type="submit" class="contrast">Login</button>
+          </form>
+        </div>
+      </article>
+    </main>
 
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
 
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <h1>Iniciar Sesión</h1>
-    <div class="login-container">
-        <form class="form-signin" action="signin" method="post">
-    	 <label for="inputEmail" class="sr-only">Email</label>
-    	 <input id="inputEmail" name="email" class="form-control" placeholder="Email" required autofocus type="email">
-      	 <label for="inputPassword" class="sr-only">Contraseña</label>
-         <input id="inputPassword" name="contrasenia" class="form-control" placeholder="Contraseña" required type="password">
-         <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-    	</form>
-    </div>
-</body>
+  </body>
 </html>
+
 
 

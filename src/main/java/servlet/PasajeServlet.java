@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import entities.Asiento;
 import entities.Avion;
 import entities.Pasaje;
-import entities.Pasajero;
+import entities.Usuario;
 import entities.Vuelo;
 import logic.CtrlPasaje;
 import logic.CtrlVuelo;
@@ -59,9 +59,9 @@ public class PasajeServlet extends HttpServlet {
 			Vuelo vue = new Vuelo();
 			vue.setIdvuelo(idvuelo);
 
-			String dniPasajero = request.getParameter("dniPasajero");
-			Pasajero pas = new Pasajero();
-			pas.setDni(dniPasajero);
+			int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+			Usuario usu = new Usuario();
+			usu.setIdUsuario(idUsuario);
 			int idAvion = Integer.parseInt(request.getParameter("idavion"));
 			String fila = request.getParameter("fila");
 			String numero = request.getParameter("numero");
@@ -77,7 +77,7 @@ public class PasajeServlet extends HttpServlet {
 			CtrlPasaje cpas = new CtrlPasaje();
 			Pasaje pasaje = new Pasaje();
 			pasaje.setVuelo(vue);
-			pasaje.setPasajero(pas);
+			pasaje.setUsuario(usu);
 			pasaje.setAsiento(asiento);
 
 			Pasaje p = cpas.add(pasaje);

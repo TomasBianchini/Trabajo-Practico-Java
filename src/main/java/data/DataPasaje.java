@@ -13,7 +13,7 @@ import entities.Avion;
 import entities.Ciudad;
 import entities.Pais;
 import entities.Pasaje;
-import entities.Pasajero;
+import entities.Usuario;
 import entities.Vuelo;
 
 public class DataPasaje {
@@ -25,18 +25,20 @@ public class DataPasaje {
 		LinkedList<Pasaje> pasajes = new LinkedList<>();
 		try {
 			stmt = DbConnector.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("select pas.idPasaje, pas.estado, pa.dni, pa.nombre, pa.apellido," + " asi.* "
-					+ " pO.nombre as nPaisO, pD.nombre as nPaisD, ciuD.nombre as nCiudadD, vue.*, ciuO.nombre as nCiudadO "
-					+ " aeroO.nombre as nAeroO, aeroD.nombre as nAeroD " + " from pasaje pas "
-					+ " inner join vuelo vue on vue.idVuelo = pas.idVuelo"
-					+ " inner join pasajero pa on pa.dni = pas.dni"
-					+ "	inner join asiento asi on asi.fila = pas.fila and asi.numero = pas.numero and asi.idAvion = pas.idAvion "
-					+ " inner join aeropuerto aeroO on aeroO.idaeropuerto = vue.idAeropuertoOrigen"
-					+ " inner join aeropuerto aeroD on aeroD.idaeropuerto = vue.idAeropuertoDestino"
-					+ " inner join ciudad ciuO on ciuO.codPostal = aeroO.codPostal "
-					+ " inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal "
-					+ " inner join pais pO on pO.idpais = ciuO.idPais"
-					+ " inner join pais pD on pD.idpais = ciuD.idPais");
+			rs = stmt.executeQuery(
+					"select pas.idPasaje, pas.estado, usu.tipoDocumento, usu.nroDocumento, usu.nombre, usu.apellido,"
+							+ " asi.* "
+							+ " pO.nombre as nPaisO, pD.nombre as nPaisD, ciuD.nombre as nCiudadD, vue.*, ciuO.nombre as nCiudadO "
+							+ " aeroO.nombre as nAeroO, aeroD.nombre as nAeroD " + " from pasaje pas "
+							+ " inner join vuelo vue on vue.idVuelo = pas.idVuelo"
+							+ " inner join usuario usu on usu.idUsuario = pas.idUsuario"
+							+ "	inner join asiento asi on asi.fila = pas.fila and asi.numero = pas.numero and asi.idAvion = pas.idAvion "
+							+ " inner join aeropuerto aeroO on aeroO.idaeropuerto = vue.idAeropuertoOrigen"
+							+ " inner join aeropuerto aeroD on aeroD.idaeropuerto = vue.idAeropuertoDestino"
+							+ " inner join ciudad ciuO on ciuO.codPostal = aeroO.codPostal "
+							+ " inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal "
+							+ " inner join pais pO on pO.idpais = ciuO.idPais"
+							+ " inner join pais pD on pD.idpais = ciuD.idPais");
 
 			if (rs != null) {
 				while (rs.next()) {
@@ -49,10 +51,11 @@ public class DataPasaje {
 					p.getAsiento().setFila(rs.getString("asi.fila"));
 					p.getAsiento().setNumero(rs.getString("asi.numero"));
 					p.getAsiento().setTipo(rs.getString("asi.tipo"));
-					p.setPasajero(new Pasajero());
-					p.getPasajero().setDni(rs.getString("pa.dni"));
-					p.getPasajero().setNombre(rs.getString("pa.nombre"));
-					p.getPasajero().setApellido(rs.getString("pa.apellido"));
+					p.setUsuario(new Usuario());
+					p.getUsuario().setNroDocumento(rs.getString("usu.nroDocumento"));
+					p.getUsuario().setTipoDocumento(rs.getString("usu.tipoDocumento"));
+					p.getUsuario().setNombre(rs.getString("usu.nombre"));
+					p.getUsuario().setApellido(rs.getString("usu.apellido"));
 					p.setVuelo(new Vuelo());
 					p.getVuelo().setAeropuertoDestino(new Aeropuerto());
 					p.getVuelo().setAeropuertoOrigen(new Aeropuerto());
@@ -95,25 +98,26 @@ public class DataPasaje {
 		return pasajes;
 	}
 
-	public LinkedList<Pasaje> getByDni(Pasajero pa) {
+	public LinkedList<Pasaje> getByDni(Usuario usu) {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		LinkedList<Pasaje> pasajes = new LinkedList<>();
 		try {
-			stmt = DbConnector.getInstancia().getConn()
-					.prepareStatement("select pas.idPasaje, pas.estado, pa.dni, pa.nombre, pa.apellido," + " asi.* "
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(
+					"select pas.idPasaje, pas.estado, usu.tipoDocumento, usu.nroDocumento, usu.nombre, usu.apellido,"
+							+ " asi.* "
 							+ " pO.nombre as nPaisO, pD.nombre as nPaisD, ciuD.nombre as nCiudadD, vue.*, ciuO.nombre as nCiudadO "
 							+ " aeroO.nombre as nAeroO, aeroD.nombre as nAeroD " + " from pasaje pas "
 							+ " inner join vuelo vue on vue.idVuelo = pas.idVuelo"
-							+ " inner join pasajero pa on pa.dni = pas.dni"
+							+ " inner join usuario usu on usu.idUsuario = pas.idUsuario"
 							+ "	inner join asiento asi on asi.fila = pas.fila and asi.numero = pas.numero and asi.idAvion = pas.idAvion "
 							+ " inner join aeropuerto aeroO on aeroO.idaeropuerto = vue.idAeropuertoOrigen"
 							+ " inner join aeropuerto aeroD on aeroD.idaeropuerto = vue.idAeropuertoDestino"
 							+ " inner join ciudad ciuO on ciuO.codPostal = aeroO.codPostal "
 							+ " inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal "
 							+ " inner join pais pO on pO.idpais = ciuO.idPais"
-							+ " inner join pais pD on pD.idpais = ciuD.idPais" + " where pas.dni = ?");
-			stmt.setString(1, pa.getDni());
+							+ " inner join pais pD on pD.idpais = ciuD.idPais" + " where pas.idUsuario = ?");
+			stmt.setInt(1, usu.getIdUsuario());
 			rs = stmt.executeQuery();
 			if (rs != null) {
 				while (rs.next()) {
@@ -126,10 +130,11 @@ public class DataPasaje {
 					p.getAsiento().setFila(rs.getString("asi.fila"));
 					p.getAsiento().setNumero(rs.getString("asi.numero"));
 					p.getAsiento().setTipo(rs.getString("asi.tipo"));
-					p.setPasajero(new Pasajero());
-					p.getPasajero().setDni(rs.getString("pa.dni"));
-					p.getPasajero().setNombre(rs.getString("pa.nombre"));
-					p.getPasajero().setApellido(rs.getString("pa.apellido"));
+					p.setUsuario(new Usuario());
+					p.getUsuario().setNroDocumento(rs.getString("usu.nroDocumento"));
+					p.getUsuario().setTipoDocumento(rs.getString("usu.tipoDocumento"));
+					p.getUsuario().setNombre(rs.getString("usu.nombre"));
+					p.getUsuario().setApellido(rs.getString("usu.apellido"));
 					p.setVuelo(new Vuelo());
 					p.getVuelo().setAeropuertoDestino(new Aeropuerto());
 					p.getVuelo().setAeropuertoOrigen(new Aeropuerto());
@@ -175,12 +180,13 @@ public class DataPasaje {
 		ResultSet rs = null;
 		LinkedList<Pasaje> pasajes = new LinkedList<>();
 		try {
-			stmt = DbConnector.getInstancia().getConn()
-					.prepareStatement("select pas.idPasaje, pas.estado, pa.dni, pa.nombre, pa.apellido," + " asi.*, "
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(
+					"select pas.idPasaje, pas.estado, usu.tipoDocumento, usu.nroDocumento, usu.nombre, usu.apellido,"
+							+ " asi.*, "
 							+ " pO.nombre as nPaisO, pD.nombre as nPaisD, ciuD.nombre as nCiudadD, vue.*, ciuO.nombre as nCiudadO, "
 							+ " aeroO.nombre as nAeroO, aeroD.nombre as nAeroD " + " from pasaje pas "
 							+ " inner join vuelo vue on vue.idVuelo = pas.idVuelo"
-							+ " inner join pasajero pa on pa.dni = pas.dni"
+							+ " inner join usuario usu on usu.idUsuario = pas.idUsuario"
 							+ "	inner join asiento asi on asi.fila = pas.fila and asi.numero = pas.numero and asi.idAvion = pas.idAvion "
 							+ " inner join aeropuerto aeroO on aeroO.idaeropuerto = vue.idAeropuertoOrigen"
 							+ " inner join aeropuerto aeroD on aeroD.idaeropuerto = vue.idAeropuertoDestino"
@@ -201,10 +207,11 @@ public class DataPasaje {
 					p.getAsiento().setFila(rs.getString("asi.fila"));
 					p.getAsiento().setNumero(rs.getString("asi.numero"));
 					p.getAsiento().setTipo(rs.getString("asi.tipo"));
-					p.setPasajero(new Pasajero());
-					p.getPasajero().setDni(rs.getString("pa.dni"));
-					p.getPasajero().setNombre(rs.getString("pa.nombre"));
-					p.getPasajero().setApellido(rs.getString("pa.apellido"));
+					p.setUsuario(new Usuario());
+					p.getUsuario().setNroDocumento(rs.getString("usu.nroDocumento"));
+					p.getUsuario().setTipoDocumento(rs.getString("usu.tipoDocumento"));
+					p.getUsuario().setNombre(rs.getString("usu.nombre"));
+					p.getUsuario().setApellido(rs.getString("usu.apellido"));
 					p.setVuelo(new Vuelo());
 					p.getVuelo().setAeropuertoDestino(new Aeropuerto());
 					p.getVuelo().setAeropuertoOrigen(new Aeropuerto());
@@ -269,13 +276,13 @@ public class DataPasaje {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
-					"insert into pasaje(Estado, idVuelo, fila, numero, idAvion, dni) values(?,?,?,?,?,?)");
+					"insert into pasaje(Estado, idVuelo, fila, numero, idAvion, idUsuario) values(?,?,?,?,?,?)");
 			stmt.setString(1, p.getEstado());
 			stmt.setInt(2, p.getVuelo().getIdvuelo());
 			stmt.setString(3, p.getAsiento().getFila());
 			stmt.setString(4, p.getAsiento().getNumero());
 			stmt.setInt(5, p.getAsiento().getAvion().getIdAvion());
-			stmt.setString(6, p.getPasajero().getDni());
+			stmt.setInt(6, p.getUsuario().getIdUsuario());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

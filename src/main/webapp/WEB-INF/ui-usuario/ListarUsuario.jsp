@@ -1,4 +1,4 @@
-<%@page import="entities.Pasajero"%>
+<%@page import="entities.Usuario"%>
 <%@page import="java.util.LinkedList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -11,7 +11,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	    <meta name="description" content="">
 	    <meta name="author" content="">
-<title>Lista Pasajero</title>
+<title>Lista Usuario</title>
   <!-- Bootstrap core CSS -->
     <link href="styles/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -20,7 +20,7 @@
     <link href="styles/signin.css" rel="stylesheet">
     <link href="styles/bootstrap.min.css" rel="stylesheet">
 	<%
-    	LinkedList<Pasajero> listaPas = (LinkedList<Pasajero>)request.getAttribute("listaPasajero");
+    	LinkedList<Usuario> listaUsu = (LinkedList<Usuario>)request.getAttribute("listaUsuario");
     %>
 </head>
 <body style="background-color:rgb(251, 252, 255);">
@@ -34,13 +34,13 @@
 	<br>
 <div class="container">
 	<div class="mt-4 p-5 bg-info text-white rounded">
-	  <h1>Lista de Pasajeros</h1>
+	  <h1>Lista de Usuarios</h1>
 	</div>
    <!-- Lista Pasajero -->
   <table class="table table-fixed table-condensed">
     <thead class="table-dark">
       <tr>
-        <th>Dni Pasajero</th>
+        <th>Dni Usuario</th>
         <th>Apellido</th>
         <th>Nombre</th>
         <th>Email</th>
@@ -49,21 +49,21 @@
       </tr>
     </thead>
     <tbody>
-    <%for(Pasajero pas: listaPas){ %>
+    <%for(Usuario usu: listaUsu){ %>
       <tr>
-        <td><%=pas.getDni() %> </td>
-        <td><%=pas.getApellido() %></td>
-        <td><%=pas.getNombre() %></td>
-        <td><%=pas.getEmail() %></td>
-        <td><a class="bg-primary text-white" href="PasajeroServlet?accion=editar&dniPasajero=<%=pas.getDni()%>"><button type="button" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"> <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/> <pah fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg></button></a></td>
-        <td><a class="bg-danger text-white" href="PasajeroServlet?accion=eliminar&dniPasajero=<%=pas.getDni()%>"><button type="button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg></button></a></td>
+        <td><%=usu.getIdUsuario() %> </td>
+        <td><%=usu.getApellido() %></td>
+        <td><%=usu.getNombre() %></td>
+        <td><%=usu.getEmail() %></td>
+        <td><a class="bg-primary text-white" href="UsuarioServlet?accion=editar&idUsuario=<%=usu.getIdUsuario()%>"><button type="button" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"> <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/> <pah fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg></button></a></td>
+        <td><a class="bg-danger text-white" href="UsuarioServlet?accion=eliminar&idUsuario=<%=usu.getIdUsuario()%>"><button type="button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg></button></a></td>
 
       </tr>
       <%} %>
 
     </tbody>
   </table>
-   <a class="bg-danger text-white" href="PasajeroServlet?accion=AgregarPasajero"><button type="button" class="btn btn-primary">Agregar pasajero</button></a>
+   <a class="bg-danger text-white" href="UsuarioServlet?accion=AgregarUsuario"><button type="button" class="btn btn-primary">Agregar usuario</button></a>
 </div>
 </div>
 
