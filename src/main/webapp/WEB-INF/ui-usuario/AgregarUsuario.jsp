@@ -6,7 +6,7 @@
 	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 	 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	 <meta charset="UTF-8">
-	 <link rel="stylesheet" href="Styles/AgregarUsuario.css">
+	 <link rel="stylesheet" href="Styles/Agregar.css">
 <title>Agregar Usuario</title>
 </head>
 <body>
@@ -55,7 +55,7 @@
     </label>
 	<div class="grid">
          <button type="submit">Aceptar</button>
-         <a href="UsuarioServlet"><button type="button" class="cancelar">Cancelar</button></a>
+         <a href="UsuarioServlet"><button type="button">Cancelar</button></a>
     </div>
    </form>
  

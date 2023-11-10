@@ -1,24 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 <head>
-
-	
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	    <meta name="description" content="">
-	    <meta name="author" content="">
+	 	<link rel="stylesheet" href="Styles/Agregar.css">
 <meta charset="UTF-8">
 <title>Agregar Pais</title>
 </head>
 <body>
-  <form class="form-signin" action="PaisServlet?accion=insertar" method="post">
-  		 <label for="inputName" class="sr-only">Nombre del Pais</label>
-    	 <input id="inputName" name="nombre" class="form-control" placeholder="Nombre" required="" autofocus="" type="text">
- 		 <button class="btn btn-lg btn-primary btn-block" type="submit">Agregar</button>
+  <form action="PaisServlet?accion=insertar" method="post">
+  		 <label for="nombre">Nombre del Pais</label>
+    	 <input id="nombre" name="nombre" placeholder="Nombre" required type="text">
+    	 <div class="grid">
+        	 <button type="submit">Agregar</button>
+        	 <a href="PaisServlet"><button type="button">Cancelar</button></a>
+  		  </div>
   </form>
-  <td><a class="bg-danger text-white" href="PaisServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
 </body>
 </html>

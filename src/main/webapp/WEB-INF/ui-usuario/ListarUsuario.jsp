@@ -29,7 +29,7 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <!-- Brand/logo -->
-	  <a class="navbar-brand mb-0 h1" href="MenuPrincipal.jsp">Menu Principal</a>
+	  <a class="navbar-brand mb-0 h1" href="VueloServlet">Menu Principal</a>
 	</nav>
 	<br>
 <div class="container">

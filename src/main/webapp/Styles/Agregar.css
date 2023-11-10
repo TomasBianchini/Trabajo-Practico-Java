@@ -35,6 +35,6 @@ button {
   border-radius: 4px;
   cursor: pointer;
 }
-.cancelar{
+button[type="button"]{
 	  background: #E74C3C;
 }

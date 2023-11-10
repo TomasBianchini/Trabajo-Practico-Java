@@ -81,12 +81,15 @@ public class CiudadServlet extends HttpServlet {
 			case "insertar": {
 				String codPostal = request.getParameter("codPostal");
 				String nombre = request.getParameter("nombre");
-				int idPais = Integer.parseInt(request.getParameter("idPais"));
+				String nombrePais = request.getParameter("pais");
 				Ciudad ciu = new Ciudad();
+				Pais pais = new Pais();
+				CtrlPais cp = new CtrlPais();
+				pais.setNombre(nombrePais);
+				pais = cp.getByNombre(pais);
 				ciu.setNombre(nombre);
 				ciu.setCodPostal(codPostal);
-				ciu.setPais(new Pais());
-				ciu.getPais().setIdPais(idPais);
+				ciu.setPais(pais);
 				cc.add(ciu);
 				break;
 			}
