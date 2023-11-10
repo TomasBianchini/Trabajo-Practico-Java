@@ -15,6 +15,47 @@
 	%>
 
 
+<style>
+    .filter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 400px;
+        margin: 20px auto;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px 15px;
+        text-align: center;
+        text-decoration: none;
+        background-color: #4caf50;
+        color: white;
+        border: 1px solid #4caf50;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .button.primary {
+        background-color: #3498db;
+        border: 1px solid #3498db;
+    }
+</style>
+
 </head>
 <body>
 <article>
@@ -30,18 +71,15 @@
 </nav>
 </article>
 	<form>
-	  <div class="grid">
-   		 <label for="origenInput">
-    	  Origen
-     	  <input type="text" id="origenInput" placeholder="Origen" required>
-    	</label>
+<div class="filter-form">
+    <label for="origenInput" class="form-label">Origen</label>
+    <input type="text" id="origenInput" placeholder="Ingrese origen" required class="form-input">
 
-    	<label for="destinoInput">
-    	  Destino
-   	  		 <input type="text" id="destinoInput"  placeholder="Destino" required>
-   		</label>
-		<a href="#" onclick="filtarVuelos()" role="button">Filtar</a>
- 	 </div>
+    <label for="destinoInput" class="form-label">Destino</label>
+    <input type="text" id="destinoInput" placeholder="Ingrese destino" required class="form-input">
+
+    <button class="button primary" onclick="filtrarVuelos()">Filtrar</button>
+</div>
 	</form>
   <table>
   <thead>
