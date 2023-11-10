@@ -21,7 +21,6 @@
 	%>
 
 
-
 </head>
 <body>
 
@@ -39,13 +38,15 @@
 
 <div class="filter-container">
   <form>
-    <label for="origenInput">Origen</label>
-    <input type="text" id="origenInput" placeholder="Origen" required>
-
-    <label for="destinoInput">Destino</label>
-    <input type="text" id="destinoInput" placeholder="Destino" required>
- 	<a  href="#" onclick="filtarVuelos()" role="button" >Filtrar</a>
- 	 <button  onclick="filtarVuelos()" role="button" >Filtrar</button>
+    <label for="origenInput">
+    	Origen
+   		 <input type="text" id="origenInput" placeholder="Origen" required>
+    </label>
+    <label for="destinoInput">
+    	Destino
+  	    <input type="text" id="destinoInput" placeholder="Destino" required>
+    </label>
+ 	<button type="button" onclick="filtrarVuelos()" id="filtrarButton">Filtrar</button>
   </form>
 
 <a href="VueloServlet?accion=AgregarVuelo"><button>Agregar vuelo</button></a>
@@ -85,7 +86,7 @@
  
  
  <script>
-function filtarVuelos() {
+function filtrarVuelos() {
     // Obtiene el elemento select
     var oInput = document.getElementById("origenInput");
     var dInput = document.getElementById("destinoInput");

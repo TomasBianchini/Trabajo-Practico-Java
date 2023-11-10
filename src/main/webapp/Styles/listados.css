@@ -8,23 +8,30 @@ body {
 .filter-container {
 
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
-
     padding: 10px;
     margin: 20px;
 
 
 }
-
+#filtrarButton {
+    max-height: 80px;
+    max-width: 100px;
+    align-self: flex-end;
+    align-items: center;
+    text-align: center; 
+}
   form {
     display: flex;
     gap: 15px;
-    align-items: center;
+    align-items: flex-end;
     padding: 1px;
     margin: 1px;
   }
-
+input {
+    max-height: 50px; 
+}
 
 .navbar {
     color: #fff;
