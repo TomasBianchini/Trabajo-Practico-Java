@@ -14,46 +14,71 @@
  	   Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
 	%>
 
-
 <style>
-    .filter-form {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        max-width: 400px;
-        margin: 20px auto;
-    }
 
-    .form-label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
+  .filter-container {
+    display: flex;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin: 20px;
+  }
 
-    .form-input {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
+  form {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin: 20px;
+  }
 
-    .button {
-        display: inline-block;
-        padding: 10px 15px;
-        text-align: center;
-        text-decoration: none;
-        background-color: #4caf50;
-        color: white;
-        border: 1px solid #4caf50;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+  input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+  }
 
-    .button.primary {
-        background-color: #3498db;
-        border: 1px solid #3498db;
-    }
+  a, button {
+    text-decoration: none;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+  button {
+    color: #fff;
+    border: none;
+  }
+
+
+article {
+    padding: 20px;
+  }
+
+  .container-fluid {
+    display: flex;
+    justify-content: center;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  li {
+    margin-right: 10px;
+  }
+
+  a {
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+
+
+
 </style>
 
 </head>
@@ -70,17 +95,23 @@
     </ul>
 </nav>
 </article>
-	<form>
-<div class="filter-form">
-    <label for="origenInput" class="form-label">Origen</label>
-    <input type="text" id="origenInput" placeholder="Ingrese origen" required class="form-input">
+	
+<div class="filter-container">
+  <form>
+    <label for="origenInput">Origen</label>
+    <input type="text" id="origenInput" placeholder="Origen" required>
 
-    <label for="destinoInput" class="form-label">Destino</label>
-    <input type="text" id="destinoInput" placeholder="Ingrese destino" required class="form-input">
+    <label for="destinoInput">Destino</label>
+    <input type="text" id="destinoInput" placeholder="Destino" required>
 
-    <button class="button primary" onclick="filtrarVuelos()">Filtrar</button>
+    <a href="#" onclick="filtarVuelos()" ><button>Filtrar</button></a>
+  </form>
+  
+ <div class="filter-container">
+<a href="VueloServlet?accion=AgregarVuelo"><button>Agregar vuelo</button></a>
 </div>
-	</form>
+</div>
+	
   <table>
   <thead>
     <tr>
@@ -111,7 +142,7 @@
      
   </tbody>
   </table>
- <a href="VueloServlet?accion=AgregarVuelo"><button >Agregar vuelo</button></a>
+
  
  
  <script>
