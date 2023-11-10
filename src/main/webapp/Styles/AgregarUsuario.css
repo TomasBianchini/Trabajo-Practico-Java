@@ -35,3 +35,6 @@ button {
   border-radius: 4px;
   cursor: pointer;
 }
+.cancelar{
+	  background: #E74C3C;
+}
