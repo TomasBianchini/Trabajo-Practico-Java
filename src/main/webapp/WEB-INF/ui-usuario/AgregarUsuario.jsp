@@ -38,7 +38,11 @@
   	   </label>
       	<label for="tipo" >
       		Tipo usuario
-    	 	<input id="tipo" name="tipo"placeholder="Tipo usuario" required type="text" >
+		    <select id="tipo" name="tipo" required>
+		   	  <option value="" selected>Elegir tipo de usuario..</option>
+		      <option value="admin">Admin</option>
+		      <option value="user">Usuario</option>
+		    </select>
     	 </label>
 	 </div>
     <label for="email">
@@ -51,7 +55,7 @@
     </label>
 	<div class="grid">
          <button type="submit">Aceptar</button>
-         <a href="UsuarioServlet"><button>Cancelar</button></a>
+         <a href="UsuarioServlet"><button type="button" class="cancelar">Cancelar</button></a>
     </div>
    </form>
  
