@@ -44,7 +44,8 @@
 
     <label for="destinoInput">Destino</label>
     <input type="text" id="destinoInput" placeholder="Destino" required>
-  <a  href="#" onclick="filtarVuelos()" role="button" >Filtrar</a> <button  onclick="filtarVuelos()" role="button" >Filtrar</button>
+ 	<a  href="#" onclick="filtarVuelos()" role="button" >Filtrar</a>
+ 	 <button  onclick="filtarVuelos()" role="button" >Filtrar</button>
   </form>
 
 <a href="VueloServlet?accion=AgregarVuelo"><button>Agregar vuelo</button></a>
