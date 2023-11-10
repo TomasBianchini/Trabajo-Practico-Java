@@ -1,40 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="dark">
 <head>
-
-	
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	    <meta charset="utf-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	    <meta name="description" content="">
-	    <meta name="author" content="">
-<meta charset="UTF-8">
+	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+	 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	 <meta charset="UTF-8">
+	 <link rel="stylesheet" href="Styles/AgregarUsuario.css">
 <title>Agregar Usuario</title>
 </head>
 <body>
-  <form class="form-signin" action="UsuarioServlet?accion=insertarUsuario" method="post">
-    	<label for="inputTipoDocumento" class="sr-only">Tipo documento:</label>
-        <input id="inputTipoDocumento" name="tipoDocumento" class="form-control" placeholder="Tipo Documento" required="" autofocus="" type="text">
-        <label for="inputTipoDocumento" class="sr-only">Numero documento:</label>
-        <input id="inputTipoDocumento" name="nroDocumento" class="form-control" placeholder="Numero Documento" required="" autofocus="" type="text">
-    
- 		 <label for="inputName" class="sr-only">Nombre</label>
-    	 <input id="inputName" name="nombre" class="form-control" placeholder="Nombre" required autofocus type="text" >
-    	 <label for="inputApellido" class="sr-only">Apellido</label>
-    	 <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required autofocus type="text" >
-    	 <label for="inputEmail" class="sr-only">Email</label>
-    	 <input id="inputEmail" name="email" class="form-control" placeholder="Email" required autofocus type="email">
- 		 <label for="inputContrasenia" class="sr-only">Contraseña</label>
-    	 <input id="inputContrasenia" name="contrasenia" class="form-control" placeholder="contraseña" required autofocus type="password">
- 		 <label for="inputFechaNacimiento" class="sr-only">Fecha de Nacimiento</label>
-    	 <input id="inputFechaNacimiento" name="fechaNacimiento" class="form-control" placeholder="Fecha de nacimiento" required autofocus type="date" >
- 		 <label for="inputTipo" class="sr-only">Tipo usuario</label>
-    	 <input id="inputTipo" name="tipo" class="form-control" placeholder="Tipo usuario" required autofocus type="text" >
- 
-         <button class="btn btn-lg btn-primary btn-block" type="submit">Agregar</button>
+  <form action="UsuarioServlet?accion=insertarUsuario" method="post">
+    <div class="grid">
+    	<label for="tipoDocumento">
+    		Tipo documento:
+       		<input id="tipoDocumento" name="tipoDocumento" placeholder="Tipo Documento" required type="text">
+        </label>
+        <label for="nroDocumento" >
+        	Numero documento:
+       		 <input id="nroDocumento" name="nroDocumento" placeholder="Numero Documento" required type="text">
+    	</label>
+    </div>
+    <div class="grid">
+ 		 <label for="nombre" >
+ 		 	Nombre
+    	 	<input id="nombre" name="nombre" placeholder="Nombre" required type="text" >
+    	</label>
+    	 <label for="apellido">
+    	 	Apellido
+    	    <input id="apellido" name="apellido"  placeholder="Apellido" required type="text" >
+     	</label>
+     </div>
+     <div class="grid">
+       <label for="fechaNacimiento">
+       		Fecha de Nacimiento
+ 		   <input id="fechaNacimiento" name="fechaNacimiento"  required  type="date" >
+  	   </label>
+      	<label for="tipo" >
+      		Tipo usuario
+    	 	<input id="tipo" name="tipo"placeholder="Tipo usuario" required type="text" >
+    	 </label>
+	 </div>
+    <label for="email">
+    	Email
+        <input id="email" name="email"  placeholder="Email" required type="email">
+    </label>
+ 	<label for="contrasenia" >
+ 		Contraseña
+    	<input id="contrasenia" name="contrasenia" placeholder="contraseña" required type="password">
+    </label>
+	<div class="grid">
+         <button type="submit">Aceptar</button>
+         <a href="UsuarioServlet"><button>Cancelar</button></a>
+    </div>
    </form>
-   <td><a class="bg-danger text-white" href="UsuarioServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
+ 
 </body>
 </html>
+
+
+
