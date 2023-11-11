@@ -2,8 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@page import="entities.Ciudad"%>
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 <head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="Styles/Agregar.css">
 	<%
     	Ciudad ciudad = (Ciudad)request.getAttribute("Ciudad");
     %>
@@ -13,17 +18,22 @@
 <body>
 	<h1>Editar Ciudad</h1>
 	
-	  <form class="form-signin" action="CiudadServlet?accion=editarCiudad" method="post">
-        <label for="idpais">Codigo Postal del Ciudad:</label>
-        <input type="text"  name="codPostal" value="<%= ciudad.getCodPostal() %>" readonly>
-         <br></br>
-  		 <label for="inputName" class="sr-only">Nombre de la ciudad</label>
-    	 <input id="inputName" name="nombre" class="form-control" placeholder="Nombre" required="" autofocus="" type="text" value="<%= ciudad.getNombre() %>" >
- 		 <button class="btn btn-lg btn-primary btn-block" type="submit">Actualizar</button>
- 	 </form>
- 
-<td><a class="bg-danger text-white" href="CiudadServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
+	  <form action="CiudadServlet?accion=editarCiudad" method="post">
+	  	<h1>Pais: <%= ciudad.getPais().getNombre()%></h1>
+        <label for="codPostal">
+        	Codigo Postal
+       		<input type="text" id="codPostal" name="codPostal" autofocus value="<%= ciudad.getCodPostal() %>">
+        </label>
+  		<label for="nombre">
+  			Nombre
+  			<input id="nombre" name="nombre" required type="text" value="<%= ciudad.getNombre() %>" >
+  		</label>
 
+ 		<div class="grid">
+         	<button type="submit">Actualizar</button>
+        	<a href="CiudadServlet"><button type="button">Cancelar</button></a>
+  		</div>
+ 	 </form>
 
 </body>
 </html>

@@ -128,8 +128,8 @@ public class AvionServlet extends HttpServlet {
 			}
 			case "insertarAsiento": {
 				int idavion = Integer.parseInt(request.getParameter("IdAvion"));
-				String fila = request.getParameter("inputFila");
-				String numero = request.getParameter("inputNumero");
+				String fila = request.getParameter("fila");
+				String numero = request.getParameter("numero");
 				String tipo = request.getParameter("tipo");
 				Asiento asi = new Asiento();
 				asi.setFila(fila);

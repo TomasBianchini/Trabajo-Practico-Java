@@ -1,32 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="entities.Avion"%>
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	    <meta charset="utf-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	    <meta name="description" content="">
-	    <meta name="author" content="">
-		<meta charset="UTF-8">
+<html data-theme="dark">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="Styles/Agregar.css">
 	    <% Avion avi = (Avion)request.getAttribute("avion");%>
-		<title>Agregar Asiento</title>
-	</head>
-	<body>
-  		<form class="form-signin" action="AvionServlet?accion=insertarAsiento" method="post">
- 			<label>ID Avion</label>
-    	 	<input  name="IdAvion" class="form-control" type="text" value="<%= avi.getIdAvion() %>" readonly >
- 	  	 	
- 	  	 	<label>Fila</label>
-    	 	<input id="inputFila" name="inputFila" class="form-control" required autofocus type="text">
- 		 	
- 		 	<label>Numero</label>
-    	 	<input id="inputNumero" name="inputNumero" class="form-control" required autofocus type="text">
-    	 	<label>Tipo</label>
-    	 	<input id="tipo" name="tipo" class="form-control" required autofocus type="text">
- 		 	
- 		 	<button class="btn btn-lg btn-primary btn-block" type="submit">Agregar</button>
-  		</form>
-  		<td><a class="bg-danger text-white" href="AvionServlet?accion=listarAsientos&idAvion=<%=avi.getIdAvion()%>"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
-	</body>
+	<title>Agregar Asiento</title>
+</head>
+
+<body>
+	<form action="AvionServlet?accion=insertarAsiento" method="post">
+		<input type="hidden" name="IdAvion" value="<%= avi.getIdAvion() %>">
+ 		<p>Avion: <%= avi.getIdAvion() %> </p>
+		<div class="grid">
+ 	  		<label for="fila">Fila
+    	 	<input id="fila" name="fila" required autofocus type="text">
+    		</label>
+    		
+    	 	<label for= "numero">Número
+    	 	<input id="numero" name="numero" required  type="text">
+    	 	</label>
+ 		</div>
+      	<label for="tipo" >
+      		Tipo asiento
+		    <select id="tipo" name="tipo" required>
+		   	  <option value="" selected>Elegir tipo de asiento..</option>
+		      <option value="Economico">Economico</option>
+		      <option value="Ejecutivo">Ejecutivo</option>
+		    </select>
+    	 </label>
+ 		 <div class="grid">
+        	<button type="submit">Agregar</button>
+        	<a href="AvionServlet?accion=listarAsientos&idAvion=<%=avi.getIdAvion()%>"><button type="button" >Cancelar</button></a>
+    	</div>
+  	</form>
+</body>
 </html>
