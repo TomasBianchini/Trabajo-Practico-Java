@@ -82,12 +82,15 @@ public class AeropuertoServlet extends HttpServlet {
 			case "insertar": {
 				String nombre = request.getParameter("nombre");
 				String desc = request.getParameter("descripcion");
-				String codPostal = request.getParameter("codPostal");
+				String nombreCiudad = request.getParameter("nombreCiudad");
 				Aeropuerto ae = new Aeropuerto();
+				CtrlCiudad cc = new CtrlCiudad();
+				Ciudad ciu = new Ciudad();
+				ciu.setNombre(nombreCiudad);
+				ciu = cc.getByNombre(ciu);
 				ae.setNombre(nombre);
 				ae.setDescAeropuerto(desc);
-				ae.setCiudad(new Ciudad());
-				ae.getCiudad().setCodPostal(codPostal);
+				ae.setCiudad(ciu);
 				ca.add(ae);
 				break;
 			}

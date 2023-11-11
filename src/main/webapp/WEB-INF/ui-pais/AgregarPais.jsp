@@ -14,7 +14,7 @@
 <body>
   <form action="PaisServlet?accion=insertar" method="post">
   		 <label for="nombre">Nombre del Pais</label>
-    	 <input id="nombre" name="nombre" placeholder="Nombre" required type="text">
+    	 <input id="nombre" name="nombre" placeholder="Nombre" required autofocus type="text">
     	 <div class="grid">
         	 <button type="submit">Agregar</button>
         	 <a href="PaisServlet"><button type="button">Cancelar</button></a>

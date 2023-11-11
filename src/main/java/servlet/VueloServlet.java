@@ -103,17 +103,24 @@ public class VueloServlet extends HttpServlet {
 				int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
 				LocalDateTime fechaHoraSalida = LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
 				LocalDateTime fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
-				int idAeropuertoOrigen = Integer.parseInt(request.getParameter("idAeropuertoOrigen"));
-				int idAeropuertoDestino = Integer.parseInt(request.getParameter("idAeropuertoDestino"));
+				String nombreAeropuertoOrigen = request.getParameter("nombreAeropuertoOrigen");
+				String nombreAeropuertoDestino = request.getParameter("nombreAeropuertoDestino");
+
 				int idAvion = Integer.parseInt(request.getParameter("idAvion"));
 				double precioGeneral = Double.parseDouble(request.getParameter("precioGeneral"));
 				double precioPrimeraclase = Double.parseDouble(request.getParameter("precioPrimeraClase"));
 				Vuelo vue = new Vuelo();
+				CtrlAeropuerto cAero = new CtrlAeropuerto();
+				Aeropuerto aeroOrigen = new Aeropuerto();
+				Aeropuerto aeroDestino = new Aeropuerto();
+				aeroOrigen.setNombre(nombreAeropuertoOrigen);
+				aeroOrigen = cAero.getByNombre(aeroOrigen);
+				aeroDestino.setNombre(nombreAeropuertoDestino);
+				aeroDestino = cAero.getByNombre(aeroDestino);
+
 				vue.setIdvuelo(idvuelo);
-				vue.setAeropuertoOrigen(new Aeropuerto());
-				vue.setAeropuertoDestino(new Aeropuerto());
-				vue.getAeropuertoOrigen().setIdAeropuerto(idAeropuertoOrigen);
-				vue.getAeropuertoDestino().setIdAeropuerto(idAeropuertoDestino);
+				vue.setAeropuertoOrigen(aeroOrigen);
+				vue.setAeropuertoDestino(aeroDestino);
 				vue.setFechaHoraLlegada(fechaHoraLlegada);
 				vue.setFechaHoraSalida(fechaHoraSalida);
 				vue.setAvion(new Avion());

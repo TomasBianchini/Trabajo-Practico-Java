@@ -1,38 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ page import="entities.Aeropuerto" %>
+ <%@ page import="java.util.LinkedList" %>
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 <head>
-
-	
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	    <meta charset="utf-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	    <meta name="description" content="">
-	    <meta name="author" content="">
-<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="Styles/Agregar.css">
+	<%
+    	LinkedList<Aeropuerto> listaAeropuertos= (LinkedList<Aeropuerto>)request.getAttribute("listaAeropuertos");
+	%>
 <title>Agregar Vuelo</title>
 </head>
 <body>
-  <form class="form-signin" action="VueloServlet?accion=insertar" method="post">
-  		 <label for="inputIdvuelo" class="sr-only">ID vuelo</label>
-    	 <input id="inputIdvuelo" name="idvuelo" class="form-control" placeholder="Id vuelo" required="" autofocus="" type="text">
- 		 <label for="inputFechaHoraSalida" class="sr-only">Fecha y hora de salida</label>
-    	 <input id="inputFechaHoraSalida" name="fechaHoraSalida" class="form-control" placeholder=" " required="" autofocus="" type="datetime-local"> 
-		 <label for="inputFechaHoraLlegada" class="sr-only">Fecha y hora de llegada</label>
-    	 <input id="inputFechaHoraLlegada" name="fechaHoraLlegada" class="form-control" placeholder=" " required="" autofocus="" type="datetime-local"> 	  
-    	 <label for="inputAeropuertoOrigen" class="sr-only">Id Aeropuerto de origen</label>
-    	 <input id="inputAeropuertoOrigen" name="idAeropuertoOrigen" class="form-control" placeholder="Aeropuerto de origen" required="" autofocus="" type="text">	
- 	     <label for="inputAeropuertoDestino" class="sr-only">Id Aeropuerto de destino</label>
-    	 <input id="inputAeropuertoDestino" name="idAeropuertoDestino" class="form-control" placeholder="Aeropuerto de destino" required="" autofocus="" type="text">		 
- 	     <label for="inputIdAvion" class="sr-only">Id del avion</label>
-    	 <input id="inputIdAvion" name="idAvion" class="form-control" placeholder="id del avion" required="" autofocus="" type="text"> 	
-    	 <label for="inputPrecioGeneral" class="sr-only">Precio General: </label>
-    	 <input id="inputPrecioGeneral" name="precioGeneral" class="form-control" required="" autofocus="" type="text"  >
-    	 <label for="inputPrecioPrimeraClase" class="sr-only">Precio Primera Clase: </label>
-    	 <input id="inputPrecioPrimeraClase" name="precioPrimeraClase" class="form-control" required="" autofocus="" type="text"  >
- 		 <button class="btn btn-lg btn-primary btn-block" type="submit">Agregar</button>
+  <form action="VueloServlet?accion=insertar" method="post">
+  		 <label for="idvuelo">
+  		 	ID vuelo
+    		<input id="idvuelo" name="idvuelo" placeholder="Id vuelo" required autofocus type="text">
+    	 </label>
+ 		 <label for="inputFechaHoraSalida">
+ 		 	Fecha y hora de salida
+    		 <input id="inputFechaHoraSalida" name="fechaHoraSalida"  required type="datetime-local"> 
+		</label>
+		 <label for="fechaHoraLlegada">
+		 	Fecha y hora de llegada
+    		<input id="fechaHoraLlegada" name="fechaHoraLlegada" required type="datetime-local"> 
+    	 </label>	  
+    	 <div class="grid">
+    	 	 <label for="nombreAeropuertoOrigen">
+	  		 	Aeropuerto de origen
+	 			<select id="nombreAeropuertoOrigen" name="nombreAeropuertoOrigen" required>
+	   				<option value="" selected>Elegir origen..</option>
+	   				<%for(Aeropuerto origen: listaAeropuertos){ %>
+	   	   				 <option value="<%=origen.getNombre()%>"><%=origen.getNombre()%></option>
+	   	   			 <%}%>
+	   			</select>
+			</label>
+			<label for="nombreAeropuertoDestino">
+	  		 	Aeropuerto de destino
+	 			<select id="nombreAeropuertoDestino" name="nombreAeropuertoDestino" required>
+	   				<option value="" selected>Elegir destino..</option>
+	   				<%for(Aeropuerto destino: listaAeropuertos){ %>
+	   	   				 <option value="<%=destino.getNombre()%>"><%=destino.getNombre()%></option>
+	   	   			 <%}%>
+	   			</select>
+			</label>
+ 		 </div>
+ 	     <label for="inputIdAvion">Id del avion</label>
+    	 <input id="inputIdAvion" name="idAvion" placeholder="id del avion" required type="text"> 	
+    
+		 <div class="grid">
+	    	 <label for="precioGeneral" >
+	    	 	Precio General:
+	    		<input id="precioGeneral" name="precioGeneral" required type="text"  >
+	    	 </label>
+	    	 <label for="precioPrimeraClase">
+	    	 	Precio Primera Clase: 
+	    	 <input id="precioPrimeraClase" name="precioPrimeraClase" required type="text"  >
+	    	 </label>
+    	 </div>
+ 		 <div class="grid">
+        	<button type="submit">Agregar</button>
+        	<a href="VueloServlet"><button type="button" >Cancelar</button></a>
+    	</div>
   </form>
-  		<td><a class="bg-danger text-white" href="VueloServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
 </body>
 </html>

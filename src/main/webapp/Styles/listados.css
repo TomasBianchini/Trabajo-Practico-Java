@@ -67,8 +67,8 @@ input {
     text-decoration: none;
     color: #fff;
     font-weight: bold;
-    padding: 8px 15px; /* Ajusta el relleno para el espaciado dentro del botón */
-    border-radius: 5px; /* Añade esquinas redondeadas para un estilo más suave */
+    padding: 8px 15px; 
+    border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 

@@ -36,7 +36,7 @@
     </ul>
 </nav>
 
-<div class="filter-container">
+<div class="filter-container" style="background: #696969;">
   <form>
     <label for="origenInput">
     	Origen

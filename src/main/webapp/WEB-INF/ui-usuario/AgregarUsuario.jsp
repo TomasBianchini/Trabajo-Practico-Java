@@ -14,7 +14,7 @@
     <div class="grid">
     	<label for="tipoDocumento">
     		Tipo documento:
-       		<input id="tipoDocumento" name="tipoDocumento" placeholder="Tipo Documento" required type="text">
+       		<input id="tipoDocumento" name="tipoDocumento" placeholder="Tipo Documento" required autofocus type="text">
         </label>
         <label for="nroDocumento" >
         	Numero documento:
