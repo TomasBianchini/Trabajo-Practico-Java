@@ -2,36 +2,49 @@
     pageEncoding="UTF-8"%>
 <%@page import="entities.Vuelo"%>
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 <head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="Styles/Agregar.css">
 	<%
 	    Vuelo vuelo = (Vuelo)request.getAttribute("Vuelo");
     %>
-<meta charset="UTF-8">
 <title>Editar Vuelo</title>
 </head>
 <body>
 	<h1>Editar Vuelo</h1>	
-	  <form class="form-signin" action="VueloServlet?accion=editarVuelo" method="post">
-         <label for="idVuelo">ID del Vuelo:</label>
-         <input type="text"  name="idVuelo" value="<%= vuelo.getIdvuelo() %>" readonly>
-         <br></br>
-  		 <label for="inputFechaHoraSalida" class="sr-only">Fecha y hora de Salida: </label>
-    	 <input id="inputFechaHoraSalida" name="fechaHoraSalida" class="form-control" required="" autofocus="" type="datetime-local" value="<%=vuelo.getFechaHoraSalida() %>" >
-		 <label for="inputFechaHoraLlegada" class="sr-only">Fecha y hora de Llegada: </label>
-    	 <input id="inputFechaHoraLlegada" name="fechaHoraLlegada" class="form-control" required="" autofocus="" type="datetime-local" value="<%= vuelo.getFechaHoraLlegada() %>" >
-    	 <label for="InputDesde" class="sr-only">Origen: </label>
-    	 <input  class="form-control" autofocus="" type="text" value="<%= vuelo.getAeropuertoOrigen().getNombre()%> , <%= vuelo.getAeropuertoOrigen().getCiudad().getNombre()%> , <%= vuelo.getAeropuertoOrigen().getCiudad().getPais().getNombre()%> " readonly>
- 		 <label for="InputDesde" class="sr-only">Destino: </label>
-    	 <input  class="form-control" autofocus="" type="text" value="<%= vuelo.getAeropuertoDestino().getNombre()%> , <%= vuelo.getAeropuertoDestino().getCiudad().getNombre()%> , <%= vuelo.getAeropuertoDestino().getCiudad().getPais().getNombre()%> " readonly>	
- 		 <label for="inputIdAvion" class="sr-only">Id Avion: </label>
-    	 <input id="inputIdAvion" name="idAvion" class="form-control" required="" autofocus="" type="text" value="<%= vuelo.getAvion().getIdAvion() %>" >
-    	 <label for="inputPrecioGeneral" class="sr-only">Precio General: </label>
-    	 <input id="inputPrecioGeneral" name="precioGeneral" class="form-control" required="" autofocus="" type="text" value="<%= vuelo.getPrecioGeneral()%>" >
-    	 <label for="inputPrecioPrimeraClase" class="sr-only">Precio Primera Clase: </label>
-    	 <input id="inputPrecioPrimeraClase" name="precioPrimeraClase" class="form-control" required="" autofocus="" type="text" value="<%= vuelo.getPrecioPrimeraClase() %>" >
- 		 <button class="btn btn-lg btn-primary btn-block" type="submit">Actualizar</button>
+	  <form action="VueloServlet?accion=editarVuelo" method="post">
+	 	 <input type="hidden" name="idVuelo" value="<%=vuelo.getIdvuelo()%>">
+		 <h1>Id Vuelo: <%=vuelo.getIdvuelo()%> </h1>
+
+    	  <h5>Origen: <%= vuelo.getAeropuertoOrigen().getNombre()%> , <%= vuelo.getAeropuertoOrigen().getCiudad().getNombre()%> , <%= vuelo.getAeropuertoOrigen().getCiudad().getPais().getNombre()%>  </h5>
+
+    	 <h5>Destino:<%= vuelo.getAeropuertoDestino().getNombre()%> , <%= vuelo.getAeropuertoDestino().getCiudad().getNombre()%> , <%= vuelo.getAeropuertoDestino().getCiudad().getPais().getNombre()%> </h5>
+		 <div class="grid">
+	  		 <label for="fechaHoraSalida" >Fecha y hora de Salida: 
+	    		 <input id="fechaHoraSalida" name="fechaHoraSalida" required type="datetime-local" value="<%=vuelo.getFechaHoraSalida() %>" >
+			 </label>
+			 <label for="fechaHoraLlegada" >Fecha y hora de Llegada:
+	    	 <input id="fechaHoraLlegada" name="fechaHoraLlegada" required type="datetime-local" value="<%= vuelo.getFechaHoraLlegada() %>" >
+	    	</label>
+    	</div>
+ 		 <label for="idAvion">Id Avion: 
+    	 	<input id="idAvion" name="idAvion" required type="text" value="<%= vuelo.getAvion().getIdAvion() %>" >
+    	 </label>
+    	 <div class="grid">
+	    	 <label for="precioGeneral">Precio General: 
+	    	 	<input id="precioGeneral" name="precioGeneral" required type="text" value="<%= vuelo.getPrecioGeneral()%>" >
+	    	 </label>
+	    	 <label for="inputPrecioPrimeraClase">Precio Primera Clase: 
+	    	  	<input id="inputPrecioPrimeraClase" name="precioPrimeraClase" required type="text" value="<%= vuelo.getPrecioPrimeraClase() %>" >
+	 		 </label>
+ 		 </div>
+ 		 <div class="grid">
+        	<button type="submit">Agregar</button>
+        	<a href="VueloServlet"><button type="button" >Cancelar</button></a>
+    	</div>
  	 </form>
- 	 <td><a class="bg-danger text-white" href="VueloServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
 </body>
 </html>

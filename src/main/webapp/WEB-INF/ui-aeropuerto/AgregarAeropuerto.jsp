@@ -8,7 +8,6 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta charset="UTF-8">
 	<link rel="stylesheet" href="Styles/Agregar.css">
 	<%
     	LinkedList<Ciudad> listaCiudades= (LinkedList<Ciudad>)request.getAttribute("listaCiudades");

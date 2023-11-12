@@ -2,8 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@page import="entities.Aeropuerto"%>
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 <head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="Styles/Agregar.css">
 	<%
 	Aeropuerto aero = (Aeropuerto)request.getAttribute("Aeropuerto");
     %>
@@ -13,20 +18,21 @@
 </head>
 <body>
 	<h1>Editar Aeropuerto</h1>	
-
-	  <form class="form-signin" action="AeropuertoServlet?accion=editarAeropuerto" method="post">
-         <label for="idAeropuerto">ID del Aeropuerto:</label>
-         <input type="text"  name="idAeropuerto" value="<%= aero.getIdAeropuerto() %>" readonly>
-         <br></br>
-  		 <label for="inputName" class="sr-only">Nombre del Aeropuerto: </label>
-    	 <input id="inputName" name="nombre"  placeholder="Nombre" required="" autofocus="" type="text" value="<%= aero.getNombre() %>" >
- 		 <label for="inputDescripcion" class="sr-only">Descripcion del Aeropuerto: </label>
-    	 <input id="inputDescripcion" name="descAeropuerto"  placeholder="Descripcion" required="" autofocus="" type="text" value="<%= aero.getDescAeropuerto() %>" >
-    	 <label for="InputUbicacion" class="sr-only">Ubicación: </label>
-    	 <input autofocus="" type="text" value="<%= aero.getCiudad().getNombre()%> , <%= aero.getCiudad().getPais().getNombre()%> " readonly>
- 		 <button type="submit">Actualizar</button>
+	  <form action="AeropuertoServlet?accion=editarAeropuerto" method="post">
+	 	 <input type="hidden" name="idAeropuerto" value="<%=aero.getIdAeropuerto() %>">
+		 <h1>Ubicación <%=aero.getCiudad().getNombre()%>, <%=aero.getCiudad().getPais().getNombre()%></h1>
+  		 <label for="nombre" >	
+  		 	 Nombre del Aeropuerto: 
+    		 <input id="nombre" name="nombre"   required autofocus type="text" value="<%= aero.getNombre() %>" >
+    	 </label>
+ 		 <label for="descAeropuerto">
+ 		 	Descripcion del Aeropuerto: 
+    	 	<input id="descAeropuerto" name="descAeropuerto"  placeholder="Descripcion" required type="text" value="<%= aero.getDescAeropuerto() %>">
+    	 </label>
+ 		 <div class="grid">
+         	<button type="submit">Actualizar</button>
+        	<a href="AeropuertoServlet"><button type="button">Cancelar</button></a>
+  	     </div>
  	 </form>
- 	 </div>
- 	 <td><a href="AeropuertoServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
 </body>
 </html>

@@ -2,42 +2,60 @@
     pageEncoding="UTF-8"%>
 <%@page import="entities.Usuario"%>
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 <head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="Styles/Agregar.css">
 	<%
 	Usuario usu = (Usuario)request.getAttribute("Usuario");
     %>
-<meta charset="UTF-8">
 <title>Editar Usuario</title>
 </head>
 <body>
 	<h1>Editar Usuario</h1>
 	
-	  <form class="form-signin" action="UsuarioServlet?accion=editarUsuario" method="post">
-	    <label for="inputTipoDocumento">Id Usuario:</label>
-        <input type="text"  name="idUsuario" value="<%= usu.getIdUsuario() %>" readonly>
-        <label for="inputTipoDocumento">Tipo documento:</label>
-        <input type="text"  name="tipoDocumento" value="<%= usu.getTipoDocumento() %>" readonly>
-        <label for="dniPasajero">Numero de documento:</label>
-        <input type="text"  name="nroDocumento" value="<%= usu.getNroDocumento() %>" readonly>
-         <br></br>
- 		 <label for="inputName" class="sr-only">Nombre</label>
-    	 <input id="inputName" name="nombre" class="form-control" placeholder="Nombre" required autofocus type="text" value="<%= usu.getNombre() %>" >
-    	 <label for="inputApellido" class="sr-only">Apellido</label>
-    	 <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required autofocus type="text" value="<%= usu.getApellido() %>" >
-    	 <label for="inputEmail" class="sr-only">Email</label>
-    	 <input id="inputEmail" name="email" class="form-control" placeholder="Email" required autofocus type="email" value="<%= usu.getEmail() %>" >
- 		 <label for="inputContrasenia" class="sr-only">Contraseña</label>
-    	 <input id="inputContrasenia" name="contrasenia" class="form-control" placeholder="contraseña" required autofocus type="password" value="<%= usu.getContrasenia() %>" >
- 		 <label for="inputFechaNacimiento" class="sr-only">Fecha de Nacimiento</label>
-    	 <input id="inputFechaNacimiento" name="fechaNacimiento" class="form-control" placeholder="Fecha de nacimiento" required autofocus type="text" value="<%= usu.getFechaNacimiento() %>" >
- 		 <label for="inputTipo" class="sr-only">Tipo usuario</label>
-    	 <input id="inputTipo" name="tipo" class="form-control" placeholder="Tipo usuario" required autofocus type="text" value="<%= usu.getTipo() %>" >
- 		
- 		 <button class="btn btn-lg btn-primary btn-block" type="submit">Actualizar</button>
-
+	  <form action="UsuarioServlet?accion=editarUsuario" method="post">
+	 	<input type="hidden" name="idUsuario" value="<%= usu.getIdUsuario() %>">
+	    <h1>Usuario: <%= usu.getIdUsuario() %></h1>
+		<div class="grid">
+	        <label for="tipoDocumento">Tipo documento:
+	       		<input type="text" id="tipoDocumento" name="tipoDocumento" required value="<%= usu.getTipoDocumento() %>">
+	       	</label>
+	        <label for="dniPasajero">Numero de documento:
+	       		<input type="text"  name="nroDocumento" required value="<%= usu.getNroDocumento() %>" >
+	        </label>
+		 </div>
+		 <div class="grid">
+	 		 <label for="inputName">Nombre
+	    	 	<input id="inputName" name="nombre" required  type="text" value="<%= usu.getNombre() %>" >
+	    	 </label>
+	    	 <label for="apellido">Apellido	 
+	    		 <input id="apellido" name="apellido" required  type="text" value="<%= usu.getApellido() %>" >
+	    	 </label> 
+    	 </div>
+    	 <label for="fechaNacimiento">Fecha de Nacimiento
+    		 <input id="fechaNacimiento" name="fechaNacimiento" required  type="date" value="<%= usu.getFechaNacimiento() %>" >
+ 		 </label>
+      	 <label for="tipo" >
+      		Tipo usuario
+		    <select id="tipo" name="tipo" required>
+		   	  <option value="" selected>Elegir tipo de usuario..</option>
+		      <option value="admin">Admin</option>
+		      <option value="user">Usuario</option>
+		    </select>
+    	 </label>
+    	 <label for="email">Email
+    	 <input id="email" name="email"  placeholder="Email" required  type="email" value="<%= usu.getEmail() %>" >
+ 		 </label>
+ 		 <label for="contrasenia" >Contraseña
+    	 <input id="contrasenia" name="contrasenia"required  type="password" value="<%= usu.getContrasenia() %>" >
+		 </label>
+		 <div class="grid">
+        	<button type="submit">Agregar</button>
+        	<a href="UsuarioServlet"><button type="button" >Cancelar</button></a>
+    	</div>
  	 </form>
- <td><a class="bg-danger text-white" href="UsuarioServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
-
 </body>
 </html>
