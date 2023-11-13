@@ -5,7 +5,7 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="entities.Asiento"%>
 <!DOCTYPE html>
-<html lang="es">
+<html data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
