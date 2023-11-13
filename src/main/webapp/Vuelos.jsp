@@ -37,7 +37,12 @@
     </ul>
 </nav>
 
-<div class="filter-container" style="background: #696969;">
+	<div class="mt-4 p-5 bg-info text-white rounded">
+		<h1>Lista de Asientos de vuelos</h1>
+	</div>
+
+
+<div class="filter-container" style="background: #34343F;">
   <form>
     <label for="origenInput">
     	Origen
