@@ -21,6 +21,14 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	
 }
+.conteiner-table{ 
+	max-width: 1500px;
+	margin: 0 auto;
+	padding: 20px; 
+	border-radius: 8px;  
+	background: #212F3D;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
 #filtrarButton {
     max-height: 80px;
@@ -43,11 +51,10 @@ input {
 .navbar {
     color: #fff;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     padding: 10px 20px;
 }
-
 
 .nav-links {
     list-style: none;
