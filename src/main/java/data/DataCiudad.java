@@ -121,7 +121,7 @@ public class DataCiudad {
 		return ciu;
 	}
 
-	public void add(Ciudad c) throws Exception {
+	public void add(Ciudad c) throws SQLException {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn()
@@ -131,14 +131,14 @@ public class DataCiudad {
 			stmt.setInt(3, c.getPais().getIdPais());
 			stmt.executeUpdate();
 		} catch (Exception e) {
-			throw new Error("Ups! ocurrio un error");
+			throw e;
 		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				throw new Error("Ups! ocurrio un error");
+				throw e;
 			}
 		}
 	}

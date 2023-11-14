@@ -18,6 +18,7 @@
 <title>Agregar Ciudad</title>
 </head>
 <body>
+	
   <form action="CiudadServlet?accion=insertar" method="post" >
   	<div class="grid">
 		<label for="codPostal">
@@ -43,14 +44,6 @@
          <a href="CiudadServlet"><button type="button" >Cancelar</button></a>
     </div>
   </form>
-  
-<script>
-message = request.getAttribute("message");
-if(message != null){
- resultado = window.confirm(message);
 
-}
-
-</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package logic;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import data.DataCiudad;
@@ -24,9 +25,8 @@ public class CtrlCiudad {
 		return dc.getByNombre(c);
 	}
 
-	public void add(Ciudad c) throws Exception {
+	public void add(Ciudad c) throws SQLException {
 		dc.add(c);
-
 	}
 
 	public void edit(Ciudad c) {

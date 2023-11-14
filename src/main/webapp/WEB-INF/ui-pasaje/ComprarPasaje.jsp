@@ -4,6 +4,7 @@
 <%@page import="entities.Usuario"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="entities.Asiento"%>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html data-theme="dark">
 <head>
@@ -26,7 +27,7 @@
 		<h5>Datos personales:</h5>
 		<div class="grid" >		
 			<h5>Pasajero
-                  <p><%= usu.getApellido()%> ,  <%= usu.getNombre()%> </p></h5>
+                  <p><%= usu.getApellido()%>,  <%= usu.getNombre()%> </p></h5>
            <h5>Fecha de nacimiento
                   <p><%= usu.getFechaNacimiento()%></p></h5>      
          </div>                        
@@ -41,16 +42,20 @@
 		 <h5>Detalles del vuelo:</h5>
 		 <div class="grid" >	
 			<h5>Origen
-                  <p><%= vue.getAeropuertoOrigen().getCiudad().getNombre()%> , <%=vue.getAeropuertoOrigen().getCiudad().getPais().getNombre()%> </p></h5>
+                  <p><%= vue.getAeropuertoOrigen().getCiudad().getNombre()%>, <%=vue.getAeropuertoOrigen().getCiudad().getPais().getNombre()%> </p></h5>
            <h5>Destino
-                  <p><%= vue.getAeropuertoDestino().getCiudad().getNombre()%> , <%=vue.getAeropuertoDestino().getCiudad().getPais().getNombre()%></p></h5>    
+                  <p><%= vue.getAeropuertoDestino().getCiudad().getNombre()%>, <%=vue.getAeropuertoDestino().getCiudad().getPais().getNombre()%></p></h5>    
          </div>                          
          <div class="grid" >
             <h5>Fecha y hora de salida
-            	<p><%= vue.getFechaHoraSalida() %></p>
+            	<p><time datetime="<%=vue.getFechaHoraSalida()%>">
+ 				  <%=vue.getFechaHoraSalida().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) %>
+			</time> </p>
             </h5>
             <h5>Fecha y Hora de llegada
-           		<p><%= vue.getFechaHoraLlegada() %></p>
+           		<p><time datetime="<%=vue.getFechaHoraSalida()%>">
+ 				  <%=vue.getFechaHoraLlegada().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) %>
+			</time> </p>
            	</h5>
          </div>
          <div class="grid" >
@@ -74,115 +79,41 @@
            </select>
 		</label>
  		<div class="grid">
-        	<button type="submit">Agregar</button>
+        	<button type="submit">Comprar</button>
         	<a href="VueloServlet"><button type="button" >Cancelar</button></a>
     	</div>
  	 </form>
- </div>
-            <table role="grid">
-                 <tr>
-                    <th>Datos personales</th>
-                </tr>
-                <tr>
-                    <th>Pasajero</th>
-                    <td><%= usu.getApellido()%>,  <%= usu.getNombre()%> </td>
-                </tr>
-                <tr>
-                    <th>Tipo documento</th>
-                    <td><%= usu.getTipoDocumento() %> </td>
-                </tr>
-               	<tr>
-                    <th>Nro documento</th>
-                    <td><%= usu.getNroDocumento() %> </td>
-                </tr>
-                <tr>
-                    <th>Fecha de nacimiento</th>
-                    <td><%= usu.getFechaNacimiento()%> </td>               
-                </tr>
-                
-                <tr>
-                    <th>Origen</th>
-                    <td><%=vue.getAeropuertoOrigen().getCiudad().getNombre()%>, <%=vue.getAeropuertoOrigen().getCiudad().getPais().getNombre()%></td>
-                </tr>
-                <tr>
-                    <th>Destino</th>
-                    <td><%=vue.getAeropuertoDestino().getCiudad().getNombre()%>, <%=vue.getAeropuertoDestino().getCiudad().getPais().getNombre()%></td>
-                </tr>
-                <tr>
-                    <th>Fecha y hora de salida</th>
-                    <td><%=vue.getFechaHoraSalida()%></td>
-                </tr>
-                <tr>
-                    <th>Fecha y Hora de llegada</th>
-                    <td><%=vue.getFechaHoraLlegada()%></td>
-                </tr>
-                <tr>
-                    <th>Precio General</th>
-                    <td><%=vue.getPrecioGeneral()%></td>
-                </tr>
-                <tr>
-                    <th>Precio Primera Clase</th>
-                    <td><%=vue.getPrecioPrimeraClase()%></td>
-                </tr>
-                <tr>
-			   <tr>
-                	 <th>Asiento</th>
-                	 <td> 	
-                		 <select id="asiento" >
-							<%if (asientosDisponibles.isEmpty()){%>
-								<option> No hay asientos disponibles </option>
-							<%}else{%>
-						
-								<%for (HashMap.Entry<String, Asiento> asi: asientosDisponibles.entrySet()) {%>
-		                  	      	<option value="<%= asi.getValue().getFila() + ' ' + asi.getValue().getNumero() + ' ' + asi.getValue().getTipo() %>"><%=asi.getValue().getFila()%> <%=asi.getValue().getNumero()%> <%=asi.getValue().getTipo()%> </option>
-		                  		<%} %>
-		                  	<%} %>
-                       </select>
-					</td>
-				</tr>
-
-            </table>
-            
-         <div class="grid">
-             <a  href="#" onclick="comprarPasaje()">
-    				<button type="submit" >Comprar</button>
-			</a>
-        	<a href="VueloServlet"><button type="button" >Cancelar</button></a>
-    	</div>
-     
-   
-<script>
-function comprarPasaje() {
-
-    var asientoInput = document.getElementById("asiento");
-
-    var selectedValue = asientoInput.value;
-
-
-    if (selectedValue) {
-    	var idUsuario = '<%=usu.getIdUsuario()%>';
-        var idVuelo = '<%=vue.getIdvuelo()%>' ;
-        var idavion = '<%=vue.getAvion().getIdAvion()%>' ;
-        
-        
-        var asientoParts = selectedValue.split(' ');
-        var fila = asientoParts[0];
-        var numero = asientoParts[1];
-        var tipo = asientoParts[2];
-        
-        // Construye la URL con los valores seleccionados
-        var url = 'PasajeServlet?accion=compra&idUsuario=' + idUsuario + '&idvuelo=' + idVuelo +
-            '&fila=' + fila + '&numero=' + numero + '&tipo=' + tipo + '&idavion=' + idavion  ;
-
-        // Redirige a la URL construida
-        window.location.href = url;
-    } else {
-        // Si no se ha seleccionado un valor, muestra un mensaje de error o toma la acción adecuada.
-        alert("Por favor, seleccione un asiento antes de comprar.");
-    }
-}
-</script>
+	<script>
+	function comprarPasaje() {
+	
+	    var asientoInput = document.getElementById("asiento");
+	
+	    var selectedValue = asientoInput.value;
+	
+	
+	    if (selectedValue) {
+	    	var idUsuario = '<%=usu.getIdUsuario()%>';
+	        var idVuelo = '<%=vue.getIdvuelo()%>' ;
+	        var idavion = '<%=vue.getAvion().getIdAvion()%>' ;
+	        
+	        
+	        var asientoParts = selectedValue.split(' ');
+	        var fila = asientoParts[0];
+	        var numero = asientoParts[1];
+	        var tipo = asientoParts[2];
+	        
+	        // Construye la URL con los valores seleccionados
+	        var url = 'PasajeServlet?accion=compra&idUsuario=' + idUsuario + '&idvuelo=' + idVuelo +
+	            '&fila=' + fila + '&numero=' + numero + '&tipo=' + tipo + '&idavion=' + idavion  ;
+	
+	        // Redirige a la URL construida
+	        window.location.href = url;
+	    } else {
+	        // Si no se ha seleccionado un valor, muestra un mensaje de error o toma la acción adecuada.
+	        alert("Por favor, seleccione un asiento antes de comprar.");
+	    }
+	}
+	</script>
 </body>
-
 </html>
 
