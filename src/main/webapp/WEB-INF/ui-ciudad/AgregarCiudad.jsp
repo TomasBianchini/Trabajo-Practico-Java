@@ -43,5 +43,14 @@
          <a href="CiudadServlet"><button type="button" >Cancelar</button></a>
     </div>
   </form>
+  
+<script>
+message = request.getAttribute("message");
+if(message != null){
+ resultado = window.confirm(message);
+
+}
+
+</script>
 </body>
 </html>

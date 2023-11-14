@@ -90,7 +90,13 @@ public class CiudadServlet extends HttpServlet {
 				ciu.setNombre(nombre);
 				ciu.setCodPostal(codPostal);
 				ciu.setPais(pais);
-				cc.add(ciu);
+				try {
+					cc.add(ciu);
+				} catch (Exception e) {
+					String message = "No se puede agregar la ciudad";
+					request.setAttribute("message", message);
+					request.getRequestDispatcher("WEB-INF/ui-ciudad/AgregarCiudad.jsp").forward(request, response);
+				}
 				break;
 			}
 			case "editarCiudad": {
