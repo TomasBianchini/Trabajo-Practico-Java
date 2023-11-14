@@ -38,3 +38,11 @@ button {
 button[type="button"]{
 	  background: #E74C3C;
 }
+.conteiner-table{ 
+	max-width: 1500px;
+	margin: 0 auto;
+	padding: 20px; 
+	border-radius: 8px;  
+	background: #212F3D;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

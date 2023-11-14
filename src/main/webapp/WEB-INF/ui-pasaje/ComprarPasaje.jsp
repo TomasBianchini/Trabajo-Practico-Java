@@ -14,68 +14,21 @@
     	Usuario p = (Usuario)request.getSession().getAttribute("usuario");
 		HashMap<String,Asiento> asientosDisponibles = (HashMap<String,Asiento>)request.getAttribute("asientosDisponibles");
     %>
- 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+ 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="Styles/Agregar.css">
     <title>Detalles del Pasaje</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        h1 {
-            font-size: 24px;
-            color: #333;
-        }
-
-        p {
-            font-size: 18px;
-            color: #555;
-        }
-
-        .flight-info {
-            margin-top: 20px;
-        }
-
-        .flight-info table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .flight-info th, .flight-info td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-
-        .flight-info th {
-            background-color: #f2f2f2;
-        }
-
-        .flight-info tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="conteiner-table">
         <h1>Detalles del Vuelo</h1>
         <p>A continuación se muestran los detalles del vuelo:</p>
 
-        <div class="flight-info">
-            <table>
+        <div >
+            <table role="grid">
                  <tr>
                     <th>DNI</th>
-                    <td> <input type="text" id="dniInput" required class="form-control" placeholder="Dni"></td>
+                    <td> <input type="text" id="dniInput" required  placeholder="Dni"></td>
                 </tr>
                 <tr>
                     <th>Origen</th>
@@ -105,7 +58,7 @@
 			   <tr>
                 	 <th>Asiento</th>
                 	 <td> 	
-                		 <select id="asiento" class="form-control">
+                		 <select id="asiento" >
 							<%if (asientosDisponibles.isEmpty()){%>
 								<option> No hay asientos disponibles </option>
 							<%}else{%>
@@ -114,16 +67,19 @@
 		                  	      	<option value="<%= asi.getValue().getFila() + ' ' + asi.getValue().getNumero() + ' ' + asi.getValue().getTipo() %>"><%=asi.getValue().getFila()%> <%=asi.getValue().getNumero()%> <%=asi.getValue().getTipo()%> </option>
 		                  		<%} %>
 		                  	<%} %>
-                   		</select>
+                       </select>
 					</td>
 				</tr>
 
             </table>
-            <a class="bg-primary text-white" href="#" onclick="comprarPasaje()">
-    				<button type="button" class="btn btn-primary">Comprar</button>
+            
+         <div class="grid">
+             <a  href="#" onclick="comprarPasaje()">
+    				<button type="submit" >Comprar</button>
 			</a>
-           
-            <td><a class="bg-danger text-red" href="VueloServlet"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
+        	<a href="VueloServlet"><button type="button" >Cancelar</button></a>
+    	</div>
+            
         </div>
     </div>
 <script>
