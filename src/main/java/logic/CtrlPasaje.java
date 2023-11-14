@@ -19,7 +19,7 @@ public class CtrlPasaje {
 		CtrlUsuario cUsuario = new CtrlUsuario();
 		CtrlVuelo cVuelo = new CtrlVuelo();
 		CtrlAsiento cAsiento = new CtrlAsiento();
-		Usuario usuario = cUsuario.getByDocumento(pasaje.getUsuario());
+		Usuario usuario = cUsuario.getById(pasaje.getUsuario());
 		Vuelo vuelo = cVuelo.getById(pasaje.getVuelo());
 		Asiento asiento = cAsiento.getOne(pasaje.getAsiento());
 		Pasaje p = new Pasaje();
