@@ -1,5 +1,6 @@
 package logic;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -31,11 +32,11 @@ public class CtrlVuelo {
 		dv.add(v);
 	}
 
-	public void edit(Vuelo v) {
+	public void edit(Vuelo v) throws SQLException {
 		dv.edit(v);
 	}
 
-	public void delete(Vuelo v) {
+	public void delete(Vuelo v) throws SQLException {
 		dv.delete(v);
 	}
 

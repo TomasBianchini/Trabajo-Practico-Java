@@ -84,7 +84,7 @@ public class DataAsiento {
 		return a;
 	}
 
-	public void add(Asiento a) {
+	public void add(Asiento a) throws SQLException {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn()
@@ -95,19 +95,19 @@ public class DataAsiento {
 			stmt.setInt(3, a.getAvion().getIdAvion());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
 
-	public void delete(Asiento a) {
+	public void delete(Asiento a) throws SQLException {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn()
@@ -117,14 +117,14 @@ public class DataAsiento {
 			stmt.setInt(3, a.getAvion().getIdAvion());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

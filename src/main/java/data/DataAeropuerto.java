@@ -135,7 +135,7 @@ public class DataAeropuerto {
 		return aero;
 	}
 
-	public void add(Aeropuerto a) {
+	public void add(Aeropuerto a) throws SQLException {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn()
@@ -145,19 +145,19 @@ public class DataAeropuerto {
 			stmt.setString(3, a.getCiudad().getCodPostal());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
 
-	public void delete(Aeropuerto a) {
+	public void delete(Aeropuerto a) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn()
@@ -165,19 +165,19 @@ public class DataAeropuerto {
 			pstmt.setInt(1, a.getIdAeropuerto());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (pstmt != null)
 					pstmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
 
-	public void edit(Aeropuerto a) {
+	public void edit(Aeropuerto a) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn()
@@ -187,14 +187,14 @@ public class DataAeropuerto {
 			pstmt.setString(2, a.getDescAeropuerto());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (pstmt != null)
 					pstmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

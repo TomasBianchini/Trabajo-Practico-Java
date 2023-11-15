@@ -15,7 +15,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<%
     	LinkedList<Pais> listaPais = (LinkedList<Pais>)request.getAttribute("listaPaises");
+
+        String message = (String)request.getAttribute("message");
     %>
+
+    
     <title>Lista Paises</title>
 </head>
 <body>
@@ -29,6 +33,12 @@
 	      <li><a href="VueloServlet"  >Vuelos</a></li>
 	    </ul>
   </nav>
+
+    <div class="mensaje">
+        <% if (message != null && !message.isEmpty()) { %>
+            <p class="mensaje-texto <%= message.startsWith("Error") ? "mensaje-error" : "mensaje-exito" %>"><%= message %></p>
+        <% } %>
+    </div>
 
 
 <div class="conteiner-table">

@@ -16,11 +16,15 @@
     <%
     	Vuelo vue = (Vuelo)request.getAttribute("Vuelo");
     	Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
-		HashMap<String,Asiento> asientosDisponibles = (HashMap<String,Asiento>)request.getAttribute("asientosDisponibles");
+		HashMap<String,Asiento> asientosDisponibles = (HashMap<String,Asiento>)request.getAttribute("asientosDisponibles");   
+	
     %>
     <title>Detalles del Pasaje</title>
 </head>
 <body>
+
+   
+	
 	<form onsubmit="comprarPasaje()">
 		<input type="hidden" id="idUsuario" name="idUsuario" value="<%= usu.getIdUsuario() %>">
 		<h1>Detalles del pasaje:</h1>

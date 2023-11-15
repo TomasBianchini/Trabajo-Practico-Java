@@ -41,8 +41,15 @@ public class PaisServlet extends HttpServlet {
 				int idPais = Integer.parseInt(request.getParameter("idPais"));
 				Pais pa = new Pais();
 				pa.setIdPais(idPais);
-				cp.delete(pa);
+				try {
+					cp.delete(pa);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
+
 			}
 			case "AgregarPais": {
 				request.getRequestDispatcher("WEB-INF/ui-pais/AgregarPais.jsp").forward(request, response);
@@ -77,8 +84,16 @@ public class PaisServlet extends HttpServlet {
 				String nombre = request.getParameter("nombre");
 				Pais pa = new Pais();
 				pa.setNombre(nombre);
-				cp.add(pa);
+
+				try {
+					cp.add(pa);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
+
 			}
 			case "editarPais": {
 				int idPais = Integer.parseInt(request.getParameter("idPais"));
@@ -86,7 +101,14 @@ public class PaisServlet extends HttpServlet {
 				Pais pa = new Pais();
 				pa.setIdPais(idPais);
 				pa.setNombre(nombre);
-				cp.edit(pa);
+
+				try {
+					cp.edit(pa);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
 			}
 			}

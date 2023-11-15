@@ -51,7 +51,14 @@ public class UsuarioServlet extends HttpServlet {
 				int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
 				Usuario usu = new Usuario();
 				usu.setIdUsuario(idUsuario);
-				cu.delete(usu);
+
+				try {
+					cu.delete(usu);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
 			}
 			case "AgregarUsuario": {
@@ -93,7 +100,14 @@ public class UsuarioServlet extends HttpServlet {
 				usuario.setContrasenia(contrasenia);
 				usuario.setTipo(tipo);
 				usuario.setFechaNacimiento(fechaNacimiento);
-				cu.add(usuario);
+
+				try {
+					cu.add(usuario);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
 			}
 			case "editarUsuario": {
@@ -116,7 +130,14 @@ public class UsuarioServlet extends HttpServlet {
 				usu.setContrasenia(contrasenia);
 				usu.setTipo(tipo);
 				usu.setFechaNacimiento(fechaNacimiento);
-				cu.edit(usu);
+
+				try {
+					cu.edit(usu);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
 			}
 			}

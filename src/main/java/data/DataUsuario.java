@@ -181,7 +181,7 @@ public class DataUsuario {
 		return us;
 	}
 
-	public void add(Usuario usu) {
+	public void add(Usuario usu) throws SQLException {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
@@ -198,19 +198,19 @@ public class DataUsuario {
 
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
 
-	public void edit(Usuario usu) {
+	public void edit(Usuario usu) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn()
@@ -227,19 +227,19 @@ public class DataUsuario {
 			pstmt.setInt(9, usu.getIdUsuario());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (pstmt != null)
 					pstmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
 
-	public void delete(Usuario usu) {
+	public void delete(Usuario usu) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement("delete from usuario where idUsuario=?");
@@ -247,14 +247,14 @@ public class DataUsuario {
 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (pstmt != null)
 					pstmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

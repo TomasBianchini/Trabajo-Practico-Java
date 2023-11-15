@@ -1,5 +1,6 @@
 package logic;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import data.DataAvion;
@@ -24,11 +25,11 @@ public class CtrlAvion {
 		return da.getById(a);
 	}
 
-	public void add(Avion a) {
+	public void add(Avion a) throws SQLException {
 		da.add(a);
 	}
 
-	public void delete(Avion a) {
+	public void delete(Avion a) throws SQLException {
 		da.delete(a);
 	}
 }

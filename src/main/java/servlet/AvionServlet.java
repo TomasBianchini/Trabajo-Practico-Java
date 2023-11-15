@@ -54,7 +54,14 @@ public class AvionServlet extends HttpServlet {
 				int idAvion = Integer.parseInt(request.getParameter("idAvion"));
 				Avion avi = new Avion();
 				avi.setIdAvion(idAvion);
-				ca.delete(avi);
+
+				try {
+					ca.delete(avi);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
 			}
 			case "AgregarAvion": {
@@ -88,13 +95,21 @@ public class AvionServlet extends HttpServlet {
 				asi.setNumero(numero);
 				asi.setAvion(new Avion());
 				asi.getAvion().setIdAvion(idavion);
-				cas.delete(asi);
-				Avion a = new Avion();
-				a.setIdAvion(idavion);
-				Avion avi = ca.getById(a);
-				request.setAttribute("avion", avi);
-				request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
+
+				try {
+					cas.delete(asi);
+					Avion a = new Avion();
+					a.setIdAvion(idavion);
+					Avion avi = ca.getById(a);
+					request.setAttribute("avion", avi);
+					request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
+
 			}
 			}
 		}
@@ -123,7 +138,14 @@ public class AvionServlet extends HttpServlet {
 				avion.setMarca(marca);
 				avion.setModelo(modelo);
 				avion.setAnio(anio);
-				ca.add(avion);
+
+				try {
+					ca.add(avion);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
 			}
 			case "insertarAsiento": {
@@ -137,13 +159,21 @@ public class AvionServlet extends HttpServlet {
 				asi.setTipo(tipo);
 				asi.setAvion(new Avion());
 				asi.getAvion().setIdAvion(idavion);
-				cas.add(asi);
-				Avion a = new Avion();
-				a.setIdAvion(idavion);
-				Avion avi = ca.getById(a);
-				request.setAttribute("avion", avi);
-				request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
+
+				try {
+					cas.add(asi);
+					Avion a = new Avion();
+					a.setIdAvion(idavion);
+					Avion avi = ca.getById(a);
+					request.setAttribute("avion", avi);
+					request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
+
 			}
 
 			}

@@ -13,7 +13,10 @@
   	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
  	<link rel="stylesheet" href="Styles/listados.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-	<% LinkedList<Avion> listaAviones = (LinkedList<Avion>)request.getAttribute("listaAviones");  %>
+	<% LinkedList<Avion> listaAviones = (LinkedList<Avion>)request.getAttribute("listaAviones"); 
+	 String message = (String)request.getAttribute("message");
+	
+	%>
 </head>
 <body>
 	<nav class="navbar">
@@ -26,6 +29,15 @@
 	      <li><a href="VueloServlet"  >Vuelos</a></li>
 	    </ul>
 	</nav>
+	
+	
+	    <div class="mensaje">
+        <% if (message != null && !message.isEmpty()) { %>
+            <p class="mensaje-texto <%= message.startsWith("Error") ? "mensaje-error" : "mensaje-exito" %>"><%= message %></p>
+        <% } %>
+    </div>
+	
+	
 	<div class="conteiner-table">
 		<div class="boton">
 		    <a href="AvionServlet?accion=AgregarAvion"><button>Agregar Avion</button></a>

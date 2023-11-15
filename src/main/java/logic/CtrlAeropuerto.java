@@ -1,5 +1,6 @@
 package logic;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import data.DataAeropuerto;
@@ -24,15 +25,15 @@ public class CtrlAeropuerto {
 		return da.getByNombre(a);
 	}
 
-	public void add(Aeropuerto a) {
+	public void add(Aeropuerto a) throws SQLException {
 		da.add(a);
 	}
 
-	public void edit(Aeropuerto a) {
+	public void edit(Aeropuerto a) throws SQLException {
 		da.edit(a);
 	}
 
-	public void delete(Aeropuerto a) {
+	public void delete(Aeropuerto a) throws SQLException {
 		da.delete(a);
 	}
 }

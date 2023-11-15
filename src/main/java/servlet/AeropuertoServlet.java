@@ -52,7 +52,14 @@ public class AeropuertoServlet extends HttpServlet {
 				int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
 				Aeropuerto ae = new Aeropuerto();
 				ae.setIdAeropuerto(idAeropuerto);
-				new CtrlAeropuerto().delete(ae);
+
+				try {
+					new CtrlAeropuerto().delete(ae);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
 			}
 			case "AgregarAeropuerto": {
@@ -91,7 +98,14 @@ public class AeropuertoServlet extends HttpServlet {
 				ae.setNombre(nombre);
 				ae.setDescAeropuerto(desc);
 				ae.setCiudad(ciu);
-				ca.add(ae);
+
+				try {
+					ca.add(ae);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
 			}
 			case "editarAeropuerto": {
@@ -102,7 +116,14 @@ public class AeropuertoServlet extends HttpServlet {
 				a.setIdAeropuerto(idAeropuerto);
 				a.setNombre(nombre);
 				a.setDescAeropuerto(descAeropuerto);
-				ca.edit(a);
+
+				try {
+					ca.edit(a);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
 			}
 			}

@@ -272,7 +272,7 @@ public class DataPasaje {
 		}
 	}
 
-	public void add(Pasaje p) {
+	public void add(Pasaje p) throws SQLException {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
@@ -285,14 +285,14 @@ public class DataPasaje {
 			stmt.setInt(6, p.getUsuario().getIdUsuario());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

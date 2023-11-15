@@ -29,11 +29,11 @@ public class CtrlCiudad {
 		dc.add(c);
 	}
 
-	public void edit(Ciudad c) {
+	public void edit(Ciudad c) throws SQLException {
 		dc.edit(c);
 	}
 
-	public void delete(Ciudad c) {
+	public void delete(Ciudad c) throws SQLException {
 		dc.delete(c);
 	}
 

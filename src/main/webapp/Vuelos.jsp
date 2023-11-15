@@ -16,6 +16,7 @@
 	<%
     	LinkedList<Vuelo> listaVuelos = (LinkedList<Vuelo>)request.getAttribute("listaVuelos");
  	   Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
+ 		String message = (String)request.getAttribute("message");
 	%>
 
 </head>
@@ -32,6 +33,12 @@
       <li><a href="VueloServlet"  class="active">Vuelos</a></li>
     </ul>
   </nav>
+
+	    <div class="mensaje">
+        <% if (message != null && !message.isEmpty()) { %>
+            <p class="mensaje-texto <%= message.startsWith("Error") ? "mensaje-error" : "mensaje-exito" %>"><%= message %></p>
+        <% } %>
+    </div>
 
 <div class="conteiner-table">
 	<div class="filter-container">

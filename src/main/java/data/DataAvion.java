@@ -86,7 +86,7 @@ public class DataAvion {
 		return a;
 	}
 
-	public void add(Avion p) {
+	public void add(Avion p) throws SQLException {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn()
@@ -96,33 +96,33 @@ public class DataAvion {
 			stmt.setString(3, p.getAnio());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
 
-	public void delete(Avion p) {
+	public void delete(Avion p) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement("delete from avion where idAvion=?");
 			pstmt.setInt(1, p.getIdAvion());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (pstmt != null)
 					pstmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

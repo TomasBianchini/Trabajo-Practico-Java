@@ -227,26 +227,26 @@ public class DataVuelo {
 		}
 	}
 
-	public void delete(Vuelo v) {
+	public void delete(Vuelo v) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement("delete from vuelo where idvuelo=?");
 			pstmt.setInt(1, v.getIdvuelo());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (pstmt != null)
 					pstmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
 
-	public void edit(Vuelo v) {
+	public void edit(Vuelo v) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn()
@@ -260,14 +260,14 @@ public class DataVuelo {
 			pstmt.setDouble(5, v.getPrecioGeneral());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (pstmt != null)
 					pstmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

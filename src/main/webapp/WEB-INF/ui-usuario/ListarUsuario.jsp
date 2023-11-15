@@ -14,6 +14,7 @@
 	<title>Lista Usuario</title>
 	<%
 		LinkedList<Usuario> listaUsu = (LinkedList<Usuario>)request.getAttribute("listaUsuario");
+	String message = (String)request.getAttribute("message");
     %>
 </head>
 <body>
@@ -27,6 +28,14 @@
 	      <li><a href="VueloServlet"  >Vuelos</a></li>
 	    </ul>
 	</nav>
+	
+	    <div class="mensaje">
+        <% if (message != null && !message.isEmpty()) { %>
+            <p class="mensaje-texto <%= message.startsWith("Error") ? "mensaje-error" : "mensaje-exito" %>"><%= message %></p>
+        <% } %>
+    </div>
+	
+	
 	 <div class="conteiner-table"> 
 		<div class="boton">
 		    <a href="UsuarioServlet?accion=AgregarUsuario"><button>Agregar usuario</button></a>

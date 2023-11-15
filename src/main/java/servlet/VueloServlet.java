@@ -47,7 +47,14 @@ public class VueloServlet extends HttpServlet {
 				int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
 				Vuelo vue = new Vuelo();
 				vue.setIdvuelo(idvuelo);
-				cv.delete(vue);
+
+				try {
+					cv.delete(vue);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
 			}
 			case "AgregarVuelo": {
@@ -146,7 +153,14 @@ public class VueloServlet extends HttpServlet {
 				vue.getAvion().setIdAvion(idAvion);
 				vue.setPrecioGeneral(precioGeneral);
 				vue.setPrecioPrimeraClase(precioPrimeraclase);
-				cv.edit(vue);
+
+				try {
+					cv.edit(vue);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
 			}
 			}

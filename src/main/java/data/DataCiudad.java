@@ -143,26 +143,26 @@ public class DataCiudad {
 		}
 	}
 
-	public void delete(Ciudad c) {
+	public void delete(Ciudad c) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn().prepareStatement("delete from ciudad where codPostal=?");
 			pstmt.setString(1, c.getCodPostal());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (pstmt != null)
 					pstmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
 
-	public void edit(Ciudad c) {
+	public void edit(Ciudad c) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn()
@@ -172,14 +172,14 @@ public class DataCiudad {
 			pstmt.setString(3, c.getCodPostal());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (pstmt != null)
 					pstmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

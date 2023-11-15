@@ -17,13 +17,11 @@
     	LinkedList<Ciudad> listaCiudades= (LinkedList<Ciudad>)request.getAttribute("listaCiudades");
 		String message = (String)request.getAttribute("message");
     %>
-        <script>
-        if ("<%= message %>" !== "" ) {
-            alert("Error!<%= message %>");
-        };
-    </script>
+
+
 </head>
 <body >
+
 	<nav class="navbar">
 	    <ul class="nav-links">
 	      <li > <a href="UsuarioServlet" >Usuarios</a></li>
@@ -34,6 +32,13 @@
 	      <li><a href="VueloServlet"  >Vuelos</a></li>
 	    </ul>
 	</nav>
+	
+    <div class="mensaje">
+        <% if (message != null && !message.isEmpty()) { %>
+            <p class="mensaje-texto <%= message.startsWith("Error") ? "mensaje-error" : "mensaje-exito" %>"><%= message %></p>
+        <% } %>
+    </div>
+	
 	<div class="conteiner-table">
 		 <div class="boton">
 		    <a href="CiudadServlet?accion=AgregarCiudad"><button>Agregar Ciudad</button></a>

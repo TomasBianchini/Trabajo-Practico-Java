@@ -42,8 +42,15 @@ public class CiudadServlet extends HttpServlet {
 				String codPostal = request.getParameter("codPostal");
 				Ciudad ciu = new Ciudad();
 				ciu.setCodPostal(codPostal);
-				cc.delete(ciu);
+				try {
+					cc.delete(ciu);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
+
 			}
 			case "editar": {
 				Ciudad p = new Ciudad();
@@ -95,7 +102,7 @@ public class CiudadServlet extends HttpServlet {
 				} catch (Exception e) {
 					String message = e.getMessage();
 					request.setAttribute("message", message);
-					System.out.println(message);
+
 				}
 				break;
 			}
@@ -105,8 +112,15 @@ public class CiudadServlet extends HttpServlet {
 				Ciudad pa = new Ciudad();
 				pa.setCodPostal(codPostal);
 				pa.setNombre(nombre);
-				cc.edit(pa);
+				try {
+					cc.edit(pa);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
 				break;
+
 			}
 			}
 		}

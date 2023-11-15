@@ -1,5 +1,6 @@
 package logic;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import data.DataUsuario;
@@ -29,15 +30,15 @@ public class CtrlUsuario {
 		return du.getById(usu);
 	}
 
-	public void add(Usuario usu) {
+	public void add(Usuario usu) throws SQLException {
 		du.add(usu);
 	}
 
-	public void edit(Usuario usu) {
+	public void edit(Usuario usu) throws SQLException {
 		du.edit(usu);
 	}
 
-	public void delete(Usuario usu) {
+	public void delete(Usuario usu) throws SQLException {
 		du.delete(usu);
 	}
 

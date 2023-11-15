@@ -8,168 +8,175 @@ import java.util.LinkedList;
 
 import entities.Pais;
 
-
 public class DataPais {
-	
-	public LinkedList<Pais> getAll(){
 
-		Statement stmt=null;
-		ResultSet rs=null;
+	public LinkedList<Pais> getAll() {
+
+		Statement stmt = null;
+		ResultSet rs = null;
 		LinkedList<Pais> pais = new LinkedList<>();
-		
-		try {
-			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select idPais, nombre from pais");
 
-			if(rs!=null) {
-				while(rs.next()) {
-					Pais p=new Pais();
+		try {
+			stmt = DbConnector.getInstancia().getConn().createStatement();
+			rs = stmt.executeQuery("select idPais, nombre from pais");
+
+			if (rs != null) {
+				while (rs.next()) {
+					Pais p = new Pais();
 					p.setIdPais(rs.getInt("IdPais"));
 					p.setNombre(rs.getString("nombre"));
-					
+
 					pais.add(p);
 				}
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
+
 		} finally {
 			try {
-				if(rs!=null) {rs.close();}
-				if(stmt!=null) {stmt.close();}
+				if (rs != null) {
+					rs.close();
+				}
+				if (stmt != null) {
+					stmt.close();
+				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		
+
 		return pais;
-}
-		
-				
-	public Pais getByNombre(Pais pa) {
-			Pais p=null;
-			PreparedStatement stmt=null;
-			ResultSet rs=null;
-			try {
-				stmt=DbConnector.getInstancia().getConn().prepareStatement(
-						"select IdPais,nombre from pais where nombre=? "
-						);
-				stmt.setString(1, pa.getNombre());
-				
-				rs=stmt.executeQuery();
-				if(rs!=null && rs.next()) {
-					p=new Pais();
-					p.setIdPais(rs.getInt("idPais"));
-					p.setNombre(rs.getString("nombre"));	
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				try {
-					if(rs!=null) {rs.close();}
-					if(stmt!=null) {stmt.close();}
-					DbConnector.getInstancia().releaseConn();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			
-			return p;		
-		
 	}
 
-	public Pais getById(Pais pa) {
-		Pais p=null;
-		PreparedStatement stmt=null;
-		ResultSet rs=null;
+	public Pais getByNombre(Pais pa) {
+		Pais p = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		try {
-			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select IdPais,nombre from pais where idPais=? "
-					);
-			stmt.setInt(1, pa.getIdPais());
-			
-			rs=stmt.executeQuery();
-			if(rs!=null && rs.next()) {
-				p=new Pais();
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement("select IdPais,nombre from pais where nombre=? ");
+			stmt.setString(1, pa.getNombre());
+
+			rs = stmt.executeQuery();
+			if (rs != null && rs.next()) {
+				p = new Pais();
 				p.setIdPais(rs.getInt("idPais"));
 				p.setNombre(rs.getString("nombre"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
-				if(rs!=null) {rs.close();}
-				if(stmt!=null) {stmt.close();}
+				if (rs != null) {
+					rs.close();
+				}
+				if (stmt != null) {
+					stmt.close();
+				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}	
-		return p;		
-}
+		}
 
-	public void add(Pais p) {
-			PreparedStatement stmt= null;
-			try {
-				stmt=DbConnector.getInstancia().getConn().
-						prepareStatement(
-								"insert into pais(nombre) values(?)");
+		return p;
 
-				stmt.setString(1, p.getNombre());
-				
-				stmt.executeUpdate();
-			}  catch (SQLException e) {
-	            e.printStackTrace();
-			} finally {
-	            try {
-	                if(stmt!=null)stmt.close();
-	                DbConnector.getInstancia().releaseConn();
-	            } catch (SQLException e) {
-	            	e.printStackTrace();
-	            }
+	}
+
+	public Pais getById(Pais pa) {
+		Pais p = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement("select IdPais,nombre from pais where idPais=? ");
+			stmt.setInt(1, pa.getIdPais());
+
+			rs = stmt.executeQuery();
+			if (rs != null && rs.next()) {
+				p = new Pais();
+				p.setIdPais(rs.getInt("idPais"));
+				p.setNombre(rs.getString("nombre"));
 			}
-	    }
-		
-	public void edit(Pais p) {
-			PreparedStatement pstmt = null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			try {
-				pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE pais SET nombre =? WHERE IdPais=?");
-				pstmt.setString(1, p.getNombre());
-				pstmt.setInt(2,p.getIdPais());
-				pstmt.executeUpdate();	
-			}  catch (SQLException e) {
-	            e.printStackTrace();
-			} finally {
-	            try {
-	                if(pstmt!=null)pstmt.close();
-	                DbConnector.getInstancia().releaseConn();
-	            } catch (SQLException e) {
-	            	e.printStackTrace();
-	            }
+				if (rs != null) {
+					rs.close();
+				}
+				if (stmt != null) {
+					stmt.close();
+				}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
-		
-	public void delete(Pais p) {
-			PreparedStatement pstmt = null;
-			try {
-				pstmt = DbConnector.getInstancia().getConn().prepareStatement(
-						"delete from pais where IdPais=?");
-				pstmt.setInt(1, p.getIdPais());
+		return p;
+	}
 
-				pstmt.executeUpdate();
-			}catch(SQLException e){
-				e.printStackTrace(); 
-			}finally{
-		            try {
-		                if(pstmt!=null)pstmt.close();
-		                DbConnector.getInstancia().releaseConn();
-		            } catch (SQLException e) {
-		            	e.printStackTrace();
-		            }
+	public void add(Pais p) throws SQLException {
+		PreparedStatement stmt = null;
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("insert into pais(nombre) values(?)");
+
+			stmt.setString(1, p.getNombre());
+
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
 			}
 		}
-		
+	}
+
+	public void edit(Pais p) throws SQLException {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE pais SET nombre =? WHERE IdPais=?");
+			pstmt.setString(1, p.getNombre());
+			pstmt.setInt(2, p.getIdPais());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+	}
+
+	public void delete(Pais p) throws SQLException {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = DbConnector.getInstancia().getConn().prepareStatement("delete from pais where IdPais=?");
+			pstmt.setInt(1, p.getIdPais());
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+	}
+
 }
