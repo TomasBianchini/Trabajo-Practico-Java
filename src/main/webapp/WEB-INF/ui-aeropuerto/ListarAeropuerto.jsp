@@ -31,7 +31,7 @@
 	</nav>
 	
 	
-	    <div class="mensaje">
+	 <div class="mensaje">
         <% if (message != null && !message.isEmpty()) { %>
             <p class="mensaje-texto <%= message.startsWith("Error") ? "mensaje-error" : "mensaje-exito" %>"><%= message %></p>
         <% } %>

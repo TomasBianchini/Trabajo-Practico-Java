@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.Pasaje;
 import entities.Usuario;
+import logic.CtrlPasaje;
 import logic.CtrlUsuario;
 
 /**
@@ -65,6 +67,15 @@ public class UsuarioServlet extends HttpServlet {
 				request.getRequestDispatcher("WEB-INF/ui-usuario/AgregarUsuario.jsp").forward(request, response);
 				break;
 			}
+			case "misPasajes":
+				Usuario us = new Usuario();
+				int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+				us.setIdUsuario(idUsuario);
+				CtrlPasaje cpasaje = new CtrlPasaje();
+				LinkedList<Pasaje> pasajes = cpasaje.getByIdUsuario(us);
+				request.setAttribute("listaPasajes", pasajes);
+				request.getRequestDispatcher("WEB-INF/ui-usuario/ListaPasajes.jsp").forward(request, response);
+				break;
 			}
 		}
 		LinkedList<Usuario> lu = cu.getAll();

@@ -33,8 +33,14 @@
       <li><a href="AeropuertoServlet"  >Aeropuertos</a></li>
        <% } %>
       <li><a href="VueloServlet"  class="active">Vuelos</a></li>
+      <li><a href="UsuarioServlet?accion=misPasajes&idUsuario=<%=usu.getIdUsuario()%>">Mis pasajes</a></li>
     </ul>
-  </nav>
+  </nav>		
+  	 <div class="mensaje">
+        <% if (message != null) { %>
+            <p><%= message %></p>
+        <% } %>
+    </div>
 
 	    <div class="mensaje">
         <% if (message != null && !message.isEmpty()) { %>

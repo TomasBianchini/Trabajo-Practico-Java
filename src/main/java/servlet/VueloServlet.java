@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import entities.Aeropuerto;
 import entities.Avion;
-import entities.Usuario;
 import entities.Vuelo;
 import logic.CtrlAeropuerto;
 import logic.CtrlVuelo;
@@ -40,7 +39,6 @@ public class VueloServlet extends HttpServlet {
 			throws ServletException, IOException {
 		CtrlVuelo cv = new CtrlVuelo();
 		String accion = request.getParameter("accion");
-		Usuario usu = (Usuario) request.getSession().getAttribute("pasajero");
 		if (accion != null) {
 			switch (accion) {
 			case "eliminar": {
@@ -89,6 +87,10 @@ public class VueloServlet extends HttpServlet {
 				break;
 			}
 			}
+		}
+		if (request.getAttribute("message") != null) {
+			String message = (String) request.getAttribute("message");
+			request.setAttribute("message", message);
 		}
 		LinkedList<Vuelo> vuelos = cv.getAll();
 		request.setAttribute("listaVuelos", vuelos);

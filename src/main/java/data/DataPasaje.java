@@ -27,8 +27,8 @@ public class DataPasaje {
 			stmt = DbConnector.getInstancia().getConn().createStatement();
 			rs = stmt.executeQuery(
 					"select pas.idPasaje, pas.estado, usu.tipoDocumento, usu.nroDocumento, usu.nombre, usu.apellido,"
-							+ " asi.* "
-							+ " pO.nombre as nPaisO, pD.nombre as nPaisD, ciuD.nombre as nCiudadD, vue.*, ciuO.nombre as nCiudadO "
+							+ " asi.*, "
+							+ " pO.nombre as nPaisO, pD.nombre as nPaisD, ciuD.nombre as nCiudadD, vue.*, ciuO.nombre as nCiudadO, "
 							+ " aeroO.nombre as nAeroO, aeroD.nombre as nAeroD " + " from pasaje pas "
 							+ " inner join vuelo vue on vue.idVuelo = pas.idVuelo"
 							+ " inner join usuario usu on usu.idUsuario = pas.idUsuario"
@@ -98,25 +98,25 @@ public class DataPasaje {
 		return pasajes;
 	}
 
-	public LinkedList<Pasaje> getByDni(Usuario usu) {
+	public LinkedList<Pasaje> getByIdUsuario(Usuario usu) {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		LinkedList<Pasaje> pasajes = new LinkedList<>();
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
-					"select pas.idPasaje, pas.estado, usu.tipoDocumento, usu.nroDocumento, usu.nombre, usu.apellido,"
-							+ " asi.* "
-							+ " pO.nombre as nPaisO, pD.nombre as nPaisD, ciuD.nombre as nCiudadD, vue.*, ciuO.nombre as nCiudadO "
-							+ " aeroO.nombre as nAeroO, aeroD.nombre as nAeroD " + " from pasaje pas "
-							+ " inner join vuelo vue on vue.idVuelo = pas.idVuelo"
-							+ " inner join usuario usu on usu.idUsuario = pas.idUsuario"
-							+ "	inner join asiento asi on asi.fila = pas.fila and asi.numero = pas.numero and asi.idAvion = pas.idAvion "
-							+ " inner join aeropuerto aeroO on aeroO.idaeropuerto = vue.idAeropuertoOrigen"
-							+ " inner join aeropuerto aeroD on aeroD.idaeropuerto = vue.idAeropuertoDestino"
-							+ " inner join ciudad ciuO on ciuO.codPostal = aeroO.codPostal "
-							+ " inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal "
-							+ " inner join pais pO on pO.idpais = ciuO.idPais"
-							+ " inner join pais pD on pD.idpais = ciuD.idPais" + " where pas.idUsuario = ?");
+					"select pas.idPasaje, pas.estado, usu.tipoDocumento, usu.idusuario, usu.nroDocumento, usu.nombre, usu.apellido, \r\n"
+							+ "							 asi.* ,\r\n"
+							+ "							 pO.nombre as nPaisO, pD.nombre as nPaisD, ciuD.nombre as nCiudadD, vue.*, ciuO.nombre as nCiudadO, \r\n"
+							+ "							 aeroO.nombre as nAeroO, aeroD.nombre as nAeroD from pasaje pas \r\n"
+							+ "							 inner join vuelo vue on vue.idVuelo = pas.idVuelo\r\n"
+							+ "						inner join usuario usu on usu.idUsuario = pas.idUsuario\r\n"
+							+ "								inner join asiento asi on asi.fila = pas.fila and asi.numero = pas.numero and asi.idAvion = pas.idAvion \r\n"
+							+ "							 inner join aeropuerto aeroO on aeroO.idaeropuerto = vue.idAeropuertoOrigen\r\n"
+							+ "							 inner join aeropuerto aeroD on aeroD.idaeropuerto = vue.idAeropuertoDestino\r\n"
+							+ "							 inner join ciudad ciuO on ciuO.codPostal = aeroO.codPostal \r\n"
+							+ "							 inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal \r\n"
+							+ "							 inner join pais pO on pO.idpais = ciuO.idPais \r\n"
+							+ "							 inner join pais pD on pD.idpais = ciuD.idPais  where pas.idUsuario = ?");
 			stmt.setInt(1, usu.getIdUsuario());
 			rs = stmt.executeQuery();
 			if (rs != null) {
@@ -131,6 +131,7 @@ public class DataPasaje {
 					p.getAsiento().setNumero(rs.getString("asi.numero"));
 					p.getAsiento().setTipo(rs.getString("asi.tipo"));
 					p.setUsuario(new Usuario());
+					p.getUsuario().setIdUsuario(rs.getInt("usu.idUsuario"));
 					p.getUsuario().setNroDocumento(rs.getString("usu.nroDocumento"));
 					p.getUsuario().setTipoDocumento(rs.getString("usu.tipoDocumento"));
 					p.getUsuario().setNombre(rs.getString("usu.nombre"));

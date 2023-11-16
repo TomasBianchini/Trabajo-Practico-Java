@@ -41,6 +41,8 @@ public class CtrlPasaje {
 			}
 			if (bandera == 0) {
 				dp.add(p);
+			} else {
+				p = null;
 			}
 
 		}
@@ -49,6 +51,10 @@ public class CtrlPasaje {
 
 	public LinkedList<Pasaje> getByVuelo(Vuelo vue) {
 		return dp.getByVuelo(vue);
+	}
+
+	public LinkedList<Pasaje> getByIdUsuario(Usuario usu) {
+		return dp.getByIdUsuario(usu);
 	}
 
 }

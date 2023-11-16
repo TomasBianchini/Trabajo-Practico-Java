@@ -76,20 +76,27 @@ public class PasajeServlet extends HttpServlet {
 				asiento.setNumero(numero);
 				asiento.setTipo(tipo);
 				asiento.getAvion().setIdAvion(idAvion);
-
 				CtrlPasaje cpas = new CtrlPasaje();
 				Pasaje pasaje = new Pasaje();
 				pasaje.setVuelo(vue);
 				pasaje.setUsuario(usu);
 				pasaje.setAsiento(asiento);
 				Pasaje p = cpas.add(pasaje);
+				if (p == null) {
+					String message = "No se pudo realizar la compra";
+					request.setAttribute("message", message);
+					System.out.println(message);
+				}
 				request.getRequestDispatcher("VueloServlet").forward(request, response);
 				break;
 			}
+			default:
+				request.getRequestDispatcher("VueloServlet").forward(request, response);
 			}
 
+		} else {
+			request.getRequestDispatcher("VueloServlet").forward(request, response);
 		}
-		request.getRequestDispatcher("VueloServlet").forward(request, response);
 
 	}
 

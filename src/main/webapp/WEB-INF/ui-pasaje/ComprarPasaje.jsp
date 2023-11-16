@@ -83,7 +83,9 @@
            </select>
 		</label>
  		<div class="grid">
-        	<button type="submit">Comprar</button>
+ 			<%if (!asientosDisponibles.isEmpty()){%>
+        		<button type="submit">Comprar</button>
+        	<%} %>
         	<a href="VueloServlet"><button type="button" >Cancelar</button></a>
     	</div>
  	 </form>

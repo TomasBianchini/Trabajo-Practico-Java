@@ -39,7 +39,7 @@ public class DataVuelo {
 					v.getAeropuertoOrigen().setCiudad(new Ciudad());
 					v.getAeropuertoDestino().getCiudad().setPais(new Pais());
 					v.getAeropuertoOrigen().getCiudad().setPais(new Pais());
-					v.setIdvuelo(rs.getInt("idVuelo"));
+					v.setIdvuelo(rs.getInt("idvuelo"));
 					v.setPrecioGeneral(rs.getDouble("precioGeneral"));
 					v.setPrecioPrimeraClase(rs.getDouble("precioPrimeraClase"));
 					v.setFechaHoraSalida(rs.getObject("fechaHoraSalida", LocalDateTime.class));

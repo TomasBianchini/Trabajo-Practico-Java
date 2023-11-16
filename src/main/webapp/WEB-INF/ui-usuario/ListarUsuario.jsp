@@ -14,7 +14,7 @@
 	<title>Lista Usuario</title>
 	<%
 		LinkedList<Usuario> listaUsu = (LinkedList<Usuario>)request.getAttribute("listaUsuario");
-	String message = (String)request.getAttribute("message");
+		String message = (String)request.getAttribute("message");
     %>
 </head>
 <body>
