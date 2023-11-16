@@ -18,7 +18,7 @@
     	Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
 		HashMap<String,Asiento> asientosDisponibles = (HashMap<String,Asiento>)request.getAttribute("asientosDisponibles");   
 	
-    %>
+    %> 
     <title>Detalles del Pasaje</title>
 </head>
 <body>

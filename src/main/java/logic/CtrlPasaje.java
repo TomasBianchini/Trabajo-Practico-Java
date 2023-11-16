@@ -1,6 +1,5 @@
 package logic;
 
-import java.sql.SQLException;
 import java.util.LinkedList;
 
 import data.DataPasaje;
@@ -16,7 +15,7 @@ public class CtrlPasaje {
 		dp = new DataPasaje();
 	}
 
-	public Pasaje add(Pasaje pasaje) throws SQLException {
+	public Pasaje add(Pasaje pasaje) {
 		CtrlUsuario cUsuario = new CtrlUsuario();
 		CtrlVuelo cVuelo = new CtrlVuelo();
 		CtrlAsiento cAsiento = new CtrlAsiento();

@@ -44,57 +44,46 @@ public class PasajeServlet extends HttpServlet {
 			switch (accion) {
 			case "compraPasaje": {
 
-				try {
-					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-					Vuelo vue = new Vuelo();
-					vue.setIdvuelo(idvuelo);
-					Vuelo v = new Vuelo();
-					v = cv.getById(vue);
-					request.setAttribute("Vuelo", v);
-					HashMap<String, Asiento> asientosDisponibles = cv.getAsientosDisponibles(v);
-					request.setAttribute("asientosDisponibles", asientosDisponibles);
-					request.getRequestDispatcher("WEB-INF/ui-pasaje/ComprarPasaje.jsp").forward(request, response);
-				} catch (Exception e) {
-					String message = e.getMessage();
-					request.setAttribute("message", message);
+				int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+				Vuelo vue = new Vuelo();
+				vue.setIdvuelo(idvuelo);
+				Vuelo v = new Vuelo();
+				v = cv.getById(vue);
+				request.setAttribute("Vuelo", v);
+				HashMap<String, Asiento> asientosDisponibles = cv.getAsientosDisponibles(v);
+				request.setAttribute("asientosDisponibles", asientosDisponibles);
+				request.getRequestDispatcher("WEB-INF/ui-pasaje/ComprarPasaje.jsp").forward(request, response);
 
-				}
 				break;
 			}
 			case "compra": {
 
-				try {
-					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-					Vuelo vue = new Vuelo();
-					vue.setIdvuelo(idvuelo);
+				int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+				Vuelo vue = new Vuelo();
+				vue.setIdvuelo(idvuelo);
 
-					int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-					Usuario usu = new Usuario();
-					usu.setIdUsuario(idUsuario);
-					int idAvion = Integer.parseInt(request.getParameter("idavion"));
-					String fila = request.getParameter("fila");
-					String numero = request.getParameter("numero");
-					String tipo = request.getParameter("tipo");
+				int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+				Usuario usu = new Usuario();
+				usu.setIdUsuario(idUsuario);
+				int idAvion = Integer.parseInt(request.getParameter("idavion"));
+				String fila = request.getParameter("fila");
+				String numero = request.getParameter("numero");
+				String tipo = request.getParameter("tipo");
 
-					Asiento asiento = new Asiento();
-					asiento.setAvion(new Avion());
-					asiento.setFila(fila);
-					asiento.setNumero(numero);
-					asiento.setTipo(tipo);
-					asiento.getAvion().setIdAvion(idAvion);
+				Asiento asiento = new Asiento();
+				asiento.setAvion(new Avion());
+				asiento.setFila(fila);
+				asiento.setNumero(numero);
+				asiento.setTipo(tipo);
+				asiento.getAvion().setIdAvion(idAvion);
 
-					CtrlPasaje cpas = new CtrlPasaje();
-					Pasaje pasaje = new Pasaje();
-					pasaje.setVuelo(vue);
-					pasaje.setUsuario(usu);
-					pasaje.setAsiento(asiento);
-					Pasaje p = cpas.add(pasaje);
-					request.getRequestDispatcher("VueloServlet").forward(request, response);
-				} catch (Exception e) {
-					String message = e.getMessage();
-					request.setAttribute("message", message);
-
-				}
+				CtrlPasaje cpas = new CtrlPasaje();
+				Pasaje pasaje = new Pasaje();
+				pasaje.setVuelo(vue);
+				pasaje.setUsuario(usu);
+				pasaje.setAsiento(asiento);
+				Pasaje p = cpas.add(pasaje);
+				request.getRequestDispatcher("VueloServlet").forward(request, response);
 				break;
 			}
 			}
