@@ -21,17 +21,31 @@
 </head>
 <body>
 	
-	<nav class="navbar">
-	    <ul class="nav-links">
-	      <li > <a href="UsuarioServlet" class="active">Usuarios</a></li>
-	      <li><a href="PaisServlet"  >Paises</a></li>
-	      <li><a href="CiudadServlet" >Ciudades</a></li>
-	      <li><a href="AvionServlet" >Aviones</a></li>
-	      <li> <a href="AeropuertoServlet" >Aeropuertos</a></li>
-	      <li><a href="VueloServlet"  >Vuelos</a></li>
-	      <li > <a href="UsuarioServlet?accion=misPasajes&idUsuario=<%=usu.getIdUsuario()%>" class="active">Mis Pasajes</a></li>
-	    </ul>
-	</nav>
+  <nav class="navbar">
+  <div > </div>
+    <ul class="nav-links">
+    <% if (usu.getTipo().equals("admin")) { %>
+      <li><a href="UsuarioServlet" >Usuarios</a></li>
+      <li><a href="PaisServlet"  >Paises</a></li>
+      <li><a href="CiudadServlet" >Ciudades</a></li>
+      <li><a href="AvionServlet" >Aviones</a></li>
+      <li><a href="AeropuertoServlet"  >Aeropuertos</a></li>
+       <% } %>
+      <li><a href="VueloServlet"  >Vuelos</a></li>
+      <% if (usu.getTipo().equals("user")) { %>
+      <li><a href="UsuarioServlet?accion=misPasajes&idUsuario=<%=usu.getIdUsuario()%>" class="active">Mis pasajes</a></li>
+       <% } %>
+    </ul>
+  </nav>	
+	
+        <% if (listaPasajes.isEmpty()) { %>
+            <div class="mensajeNoPasaje">
+                <p class="mensajeNo">No tienes pasajes comprados</p>
+            </div>
+        <% } %>
+	
+	
+	
 	 <%for(Pasaje pas: listaPasajes){ %>
 		<article>I'm a card!
 	 	

@@ -33,7 +33,9 @@
       <li><a href="AeropuertoServlet"  >Aeropuertos</a></li>
        <% } %>
       <li><a href="VueloServlet"  class="active">Vuelos</a></li>
+      <% if (usu.getTipo().equals("user")) { %>
       <li><a href="UsuarioServlet?accion=misPasajes&idUsuario=<%=usu.getIdUsuario()%>">Mis pasajes</a></li>
+       <% } %>
     </ul>
   </nav>		
   	 <div class="mensaje">
