@@ -27,6 +27,7 @@
 	      <li><a href="AvionServlet" class="active">Aviones</a></li>
 	      <li> <a href="AeropuertoServlet" >Aeropuertos</a></li>
 	      <li><a href="VueloServlet"  >Vuelos</a></li>
+	      <li><a href="UsuarioServlet?accion=cerrarSesion">Cerrar sesión</a></li>
 	    </ul>
 	</nav>
 	

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Pais;
+import entities.Usuario;
 import logic.CtrlPais;
 
 /**
@@ -35,34 +36,39 @@ public class PaisServlet extends HttpServlet {
 			throws ServletException, IOException {
 		CtrlPais cp = new CtrlPais();
 		String accion = request.getParameter("accion");
-		if (accion != null) {
-			switch (accion) {
-			case "eliminar": {
-				int idPais = Integer.parseInt(request.getParameter("idPais"));
-				Pais pa = new Pais();
-				pa.setIdPais(idPais);
-				try {
-					cp.delete(pa);
-				} catch (Exception e) {
-					String message = e.getMessage();
-					request.setAttribute("message", message);
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		if (usuario == null || !usuario.getTipo().equals("admin")) {
+			request.getRequestDispatcher("index.html").forward(request, response);
+		} else {
+			if (accion != null) {
+				switch (accion) {
+				case "eliminar": {
+					int idPais = Integer.parseInt(request.getParameter("idPais"));
+					Pais pa = new Pais();
+					pa.setIdPais(idPais);
+					try {
+						cp.delete(pa);
+					} catch (Exception e) {
+						String message = e.getMessage();
+						request.setAttribute("message", message);
+
+					}
+					break;
 
 				}
-				break;
-
-			}
-			case "AgregarPais": {
-				request.getRequestDispatcher("WEB-INF/ui-pais/AgregarPais.jsp").forward(request, response);
-				break;
-			}
-			case "editar": {
-				Pais p = new Pais();
-				int idPais = Integer.parseInt(request.getParameter("idPais"));
-				p.setIdPais(idPais);
-				Pais pa = cp.getById(p);
-				request.setAttribute("Pais", pa);
-				request.getRequestDispatcher("WEB-INF/ui-pais/EditarPais.jsp").forward(request, response);
-			}
+				case "AgregarPais": {
+					request.getRequestDispatcher("WEB-INF/ui-pais/AgregarPais.jsp").forward(request, response);
+					break;
+				}
+				case "editar": {
+					Pais p = new Pais();
+					int idPais = Integer.parseInt(request.getParameter("idPais"));
+					p.setIdPais(idPais);
+					Pais pa = cp.getById(p);
+					request.setAttribute("Pais", pa);
+					request.getRequestDispatcher("WEB-INF/ui-pais/EditarPais.jsp").forward(request, response);
+				}
+				}
 			}
 		}
 		LinkedList<Pais> paises = cp.getAll();
@@ -78,41 +84,46 @@ public class PaisServlet extends HttpServlet {
 			throws ServletException, IOException {
 		CtrlPais cp = new CtrlPais();
 		String accion = request.getParameter("accion");
-		if (accion != null) {
-			switch (accion) {
-			case "insertar": {
-				String nombre = request.getParameter("nombre");
-				Pais pa = new Pais();
-				pa.setNombre(nombre);
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		if (usuario == null || !usuario.getTipo().equals("admin")) {
+			request.getRequestDispatcher("index.html").forward(request, response);
+		} else {
+			if (accion != null) {
+				switch (accion) {
+				case "insertar": {
+					String nombre = request.getParameter("nombre");
+					Pais pa = new Pais();
+					pa.setNombre(nombre);
 
-				try {
-					cp.add(pa);
-				} catch (Exception e) {
-					String message = e.getMessage();
-					request.setAttribute("message", message);
+					try {
+						cp.add(pa);
+					} catch (Exception e) {
+						String message = e.getMessage();
+						request.setAttribute("message", message);
 
-				}
-				break;
-
-			}
-			case "editarPais": {
-				int idPais = Integer.parseInt(request.getParameter("idPais"));
-				String nombre = request.getParameter("nombre");
-				Pais pa = new Pais();
-				pa.setIdPais(idPais);
-				pa.setNombre(nombre);
-
-				try {
-					cp.edit(pa);
-				} catch (Exception e) {
-					String message = e.getMessage();
-					request.setAttribute("message", message);
+					}
+					break;
 
 				}
-				break;
+				case "editarPais": {
+					int idPais = Integer.parseInt(request.getParameter("idPais"));
+					String nombre = request.getParameter("nombre");
+					Pais pa = new Pais();
+					pa.setIdPais(idPais);
+					pa.setNombre(nombre);
+
+					try {
+						cp.edit(pa);
+					} catch (Exception e) {
+						String message = e.getMessage();
+						request.setAttribute("message", message);
+
+					}
+					break;
+				}
+				}
 			}
-			}
-			doGet(request, response);
 		}
+		doGet(request, response);
 	}
 }

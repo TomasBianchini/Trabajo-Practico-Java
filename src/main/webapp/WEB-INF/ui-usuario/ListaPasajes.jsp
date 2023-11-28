@@ -35,6 +35,7 @@
       <% if (usu.getTipo().equals("user")) { %>
       <li><a href="UsuarioServlet?accion=misPasajes&idUsuario=<%=usu.getIdUsuario()%>" class="active">Mis pasajes</a></li>
        <% } %>
+       <li><a href="UsuarioServlet?accion=cerrarSesion">Cerrar sesión</a></li>
     </ul>
   </nav>	
 	

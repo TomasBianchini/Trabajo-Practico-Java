@@ -18,6 +18,9 @@
  	   Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
  		String message = (String)request.getAttribute("message");
 	%>
+	<%  if(usu == null){
+			request.getRequestDispatcher("index.html").forward(request, response);
+	}%>
 
 </head>
 <body>
@@ -34,8 +37,9 @@
        <% } %>
       <li><a href="VueloServlet"  class="active">Vuelos</a></li>
       <% if (usu.getTipo().equals("user")) { %>
-      <li><a href="UsuarioServlet?accion=misPasajes&idUsuario=<%=usu.getIdUsuario()%>">Mis pasajes</a></li>
-       <% } %>
+     	 <li><a href="UsuarioServlet?accion=misPasajes&idUsuario=<%=usu.getIdUsuario()%>">Mis pasajes</a></li>
+      <% } %>
+      <li><a href="UsuarioServlet?accion=cerrarSesion">Cerrar sesión</a></li>
     </ul>
   </nav>		
   	 <div class="mensaje">
@@ -82,6 +86,10 @@
     </tr>
   </thead>
   <tbody>
+   <%if(listaVuelos == null || listaVuelos.isEmpty()){%>
+	  <tr>
+	   <td>No hay vuelos disponibles</td></tr>
+   <%}else{ %>
     <%for(Vuelo  vue: listaVuelos){ %>
       <tr>
         <td><%=vue.getAeropuertoOrigen().getNombre()%>, <%=vue.getAeropuertoOrigen().getCiudad().getNombre()%>, <%=vue.getAeropuertoOrigen().getCiudad().getPais().getNombre()%></td>
@@ -103,6 +111,7 @@
   	   
   	  </tr>   
       <%} %>
+     <%} %>
      
   </tbody>
   </table>
