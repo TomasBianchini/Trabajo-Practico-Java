@@ -103,6 +103,22 @@ public class PasajeServlet extends HttpServlet {
 					}
 					break;
 				}
+				case "cancelarPasaje": {
+					try {
+						Pasaje pas = new Pasaje();
+						CtrlPasaje cpas = new CtrlPasaje();
+						int id = Integer.parseInt(request.getParameter("idPasaje"));
+						pas.setIdPasaje(id);
+						pas.setEstado("Cancelado");
+						cpas.cambiarEstado(pas);
+
+					} catch (Exception e) {
+						String message = e.getMessage();
+						request.setAttribute("message", message);
+					}
+
+					break;
+				}
 
 				}
 

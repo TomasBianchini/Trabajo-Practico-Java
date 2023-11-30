@@ -107,17 +107,23 @@ public class UsuarioServlet extends HttpServlet {
 					request.getRequestDispatcher("index.html").forward(request, response);
 					break;
 				}
+
 			}
-		}
-		try {
-			LinkedList<Usuario> lu = cu.getAll();
-			request.setAttribute("listaUsuario", lu);
-		} catch (Exception e) {
-			String message = e.getMessage();
-			request.setAttribute("message", message);
 
 		}
-		request.getRequestDispatcher("WEB-INF/ui-usuario/ListarUsuario.jsp").forward(request, response);
+		if (usuario.getTipo().equals("admin")) {
+			try {
+				LinkedList<Usuario> lu = cu.getAll();
+				request.setAttribute("listaUsuario", lu);
+			} catch (Exception e) {
+				String message = e.getMessage();
+				request.setAttribute("message", message);
+
+			}
+			request.getRequestDispatcher("WEB-INF/ui-usuario/ListarUsuario.jsp").forward(request, response);
+		} else {
+			request.getRequestDispatcher("VueloServlet").forward(request, response);
+		}
 	}
 
 	/**
@@ -189,6 +195,9 @@ public class UsuarioServlet extends HttpServlet {
 						usu.setFechaNacimiento(fechaNacimiento);
 
 						cu.edit(usu);
+
+						request.getRequestDispatcher("VueloServlet").forward(request, response);
+
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);

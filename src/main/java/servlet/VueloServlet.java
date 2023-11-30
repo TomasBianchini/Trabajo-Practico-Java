@@ -131,7 +131,6 @@ public class VueloServlet extends HttpServlet {
 
 		}
 		request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
-
 	}
 
 	/**

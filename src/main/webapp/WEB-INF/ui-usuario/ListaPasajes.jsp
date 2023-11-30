@@ -48,6 +48,7 @@
 		 <%for(Pasaje pas: listaPasajes){ %>
 	   	 <article class="card">
 	        <header>
+	        	<h5>Estado: <%= pas.getEstado()%> </h5>
 	            <h1>Detalles del pasaje:</h1>
 	        </header>	
 		 	<section class="details">
@@ -86,6 +87,9 @@
 	           	</h5>
 	         </div>
 	         </section>
+	         <footer> 
+	         	<a href="PasajeServlet?accion=cancelarPasaje&idPasaje=<%= pas.getIdPasaje()%>"><button type="button" >Cancelar pasaje</button></a>
+	         </footer>
 	         
 		 	</article>
 		 	<br></br>

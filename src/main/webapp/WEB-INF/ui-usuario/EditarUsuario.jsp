@@ -38,14 +38,19 @@
     	 <label for="fechaNacimiento">Fecha de Nacimiento
     		 <input id="fechaNacimiento" name="fechaNacimiento" required  type="date" value="<%= usu.getFechaNacimiento() %>" >
  		 </label>
-      	 <label for="tipo" >
-      		Tipo usuario
-		    <select id="tipo" name="tipo" required>
-		   	  <option value="" selected>Elegir tipo de usuario..</option>
-		      <option value="admin">Admin</option>
-		      <option value="user">Usuario</option>
-		    </select>
-    	 </label>
+ 		 <% if (usu.getTipo().equals("admin")) { %>
+	      	 <label for="tipo" >
+	      		Tipo usuario
+			    <select id="tipo" name="tipo" required>
+			   	  <option value="" selected>Elegir tipo de usuario..</option>
+			      <option value="admin">Admin</option>
+			      <option value="user">Usuario</option>
+			    </select>
+	    	 </label>
+    	 <% }else{ %>
+    	 	<input type="hidden" name="tipo" value="user">
+    	 <%} %>
+    	 
     	 <label for="email">Email
     	 <input id="email" name="email"  placeholder="Email" required  type="email" value="<%= usu.getEmail() %>" >
  		 </label>
@@ -53,8 +58,8 @@
     	 <input id="contrasenia" name="contrasenia" required  type="password" value="<%= usu.getContrasenia() %>" >
 		 </label>
 		 <div class="grid">
-        	<button type="submit">Agregar</button>
-        	<a href="UsuarioServlet"><button type="button" >Cancelar</button></a>
+        	<button type="submit">Aceptar</button>
+        	<a href="VueloServlet"><button type="button" >Cancelar</button></a>
     	</div>
  	 </form>
 </body>

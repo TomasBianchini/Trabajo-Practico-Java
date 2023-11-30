@@ -36,11 +36,28 @@
       <li><a href="AeropuertoServlet"  >Aeropuertos</a></li>
        <% } %>
       <li><a href="VueloServlet"  class="active">Vuelos</a></li>
+
+    
+    
+    <li role="list" dir="rtl">
+      <a aria-haspopup="listbox">Perfil</a>
+      <ul >
+        
+        
       <% if (usu.getTipo().equals("user")) { %>
      	 <li><a href="UsuarioServlet?accion=misPasajes&idUsuario=<%=usu.getIdUsuario()%>">Mis pasajes</a></li>
       <% } %>
-      <li><a href="UsuarioServlet?accion=cerrarSesion">Cerrar sesión</a></li>
+   <li><a href="UsuarioServlet?accion=redirecEditar&idUsuario=<%=usu.getIdUsuario()%>" >Cambiar datos</a></li>
+ 
+  <li><a href="UsuarioServlet?accion=cerrarSesion" >Cerrar sesión</a></li>
+      </ul>
+    </li>
+    
     </ul>
+    
+    
+    
+    
   </nav>		
 
 	    <div class="mensaje">
