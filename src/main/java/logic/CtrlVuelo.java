@@ -16,19 +16,19 @@ public class CtrlVuelo {
 		dv = new DataVuelo();
 	}
 
-	public LinkedList<Vuelo> getAll() {
+	public LinkedList<Vuelo> getAll() throws SQLException {
 		return dv.getAll();
 	}
 
-	public Vuelo getById(Vuelo v) {
+	public Vuelo getById(Vuelo v) throws SQLException {
 		return dv.getById(v);
 	}
 
-	public LinkedList<Vuelo> getByOrigenYDestino(Vuelo v) {
+	public LinkedList<Vuelo> getByOrigenYDestino(Vuelo v) throws SQLException {
 		return dv.getByOrigenYDestino(v);
 	}
 
-	public void add(Vuelo v) {
+	public void add(Vuelo v) throws SQLException {
 		dv.add(v);
 	}
 
@@ -40,7 +40,7 @@ public class CtrlVuelo {
 		dv.delete(v);
 	}
 
-	public HashMap<String, Asiento> getAsientosDisponibles(Vuelo vue) {
+	public HashMap<String, Asiento> getAsientosDisponibles(Vuelo vue) throws SQLException {
 		CtrlPasaje cPasaje = new CtrlPasaje();
 		HashMap<String, Asiento> asientosDisponibles = new HashMap<>();
 		Vuelo vuelo = getById(vue);

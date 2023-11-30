@@ -29,7 +29,6 @@ public class VueloServlet extends HttpServlet {
 	 */
 	public VueloServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -57,7 +56,6 @@ public class VueloServlet extends HttpServlet {
 						} catch (Exception e) {
 							String message = e.getMessage();
 							request.setAttribute("message", message);
-
 						}
 					} else {
 						request.getRequestDispatcher("VueloServlet").forward(request, response);
@@ -67,8 +65,14 @@ public class VueloServlet extends HttpServlet {
 				case "redirecAgregarVuelo": {
 					if (usuario.getTipo().equals("admin")) {
 						CtrlAeropuerto ca = new CtrlAeropuerto();
-						LinkedList<Aeropuerto> aeropuertos = ca.getAll();
-						request.setAttribute("listaAeropuertos", aeropuertos);
+						try {
+							LinkedList<Aeropuerto> aeropuertos = ca.getAll();
+							request.setAttribute("listaAeropuertos", aeropuertos);
+						} catch (Exception e) {
+							String message = e.getMessage();
+							request.setAttribute("message", message);
+
+						}
 						request.getRequestDispatcher("WEB-INF/ui-vuelo/AgregarVuelo.jsp").forward(request, response);
 					} else {
 						request.getRequestDispatcher("VueloServlet").forward(request, response);
@@ -86,7 +90,8 @@ public class VueloServlet extends HttpServlet {
 							request.setAttribute("Vuelo", v);
 							request.getRequestDispatcher("WEB-INF/ui-vuelo/EditarVuelo.jsp").forward(request, response);
 						} catch (Exception e) {
-							// TODO manejar exception
+							String message = e.getMessage();
+							request.setAttribute("message", message);
 						}
 
 					} else {
@@ -103,16 +108,28 @@ public class VueloServlet extends HttpServlet {
 					v.setAeropuertoDestino(new Aeropuerto());
 					v.getAeropuertoOrigen().setNombre(origen);
 					v.getAeropuertoDestino().setNombre(destino);
-					vuelos = cv.getByOrigenYDestino(v);
-					request.setAttribute("listaVuelos", vuelos);
+					try {
+						vuelos = cv.getByOrigenYDestino(v);
+						request.setAttribute("listaVuelos", vuelos);
+					} catch (Exception e) {
+						String message = e.getMessage();
+						request.setAttribute("message", message);
+
+					}
 					request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
 					break;
 				}
 				}
 			}
 		}
-		LinkedList<Vuelo> vuelos = cv.getAll();
-		request.setAttribute("listaVuelos", vuelos);
+		try {
+			LinkedList<Vuelo> vuelos = cv.getAll();
+			request.setAttribute("listaVuelos", vuelos);
+		} catch (Exception e) {
+			String message = e.getMessage();
+			request.setAttribute("message", message);
+
+		}
 		request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
 
 	}
@@ -162,7 +179,8 @@ public class VueloServlet extends HttpServlet {
 						vue.setPrecioPrimeraClase(precioPrimeraclase);
 						cv.add(vue);
 					} catch (Exception e) {
-						// TODO manejar exception
+						String message = e.getMessage();
+						request.setAttribute("message", message);
 					}
 
 					break;
@@ -188,7 +206,6 @@ public class VueloServlet extends HttpServlet {
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
-
 					}
 					break;
 				}

@@ -49,8 +49,8 @@
     	 <label for="email">Email
     	 <input id="email" name="email"  placeholder="Email" required  type="email" value="<%= usu.getEmail() %>" >
  		 </label>
- 		 <label for="contrasenia" >Contraseña
-    	 <input id="contrasenia" name="contrasenia"required  type="password" value="<%= usu.getContrasenia() %>" >
+ 		 <label for="contrasenia">Contraseña
+    	 <input id="contrasenia" name="contrasenia" required  type="password" value="<%= usu.getContrasenia() %>" >
 		 </label>
 		 <div class="grid">
         	<button type="submit">Agregar</button>

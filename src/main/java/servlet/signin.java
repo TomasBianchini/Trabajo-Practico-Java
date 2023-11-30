@@ -52,11 +52,15 @@ public class signin extends HttpServlet {
 		usu.setContrasenia(contrasenia);
 
 		CtrlLogin ctrl = new CtrlLogin();
-
-		usu = ctrl.validate(usu);
-		CtrlVuelo cv = new CtrlVuelo();
-		LinkedList<Vuelo> vuelos = cv.getAll();
-		request.setAttribute("listaVuelos", vuelos);
+		try {
+			usu = ctrl.validate(usu);
+			CtrlVuelo cv = new CtrlVuelo();
+			LinkedList<Vuelo> vuelos = cv.getAll();
+			request.setAttribute("listaVuelos", vuelos);
+		} catch (Exception e) {
+			String message = e.getMessage();
+			request.setAttribute("message", message);
+		}
 
 		if (usu != null) {
 			request.getSession().setAttribute("usuario", usu);

@@ -29,7 +29,6 @@ public class PasajeServlet extends HttpServlet {
 	 */
 	public PasajeServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -58,7 +57,8 @@ public class PasajeServlet extends HttpServlet {
 						request.setAttribute("asientosDisponibles", asientosDisponibles);
 						request.getRequestDispatcher("WEB-INF/ui-pasaje/ComprarPasaje.jsp").forward(request, response);
 					} catch (Exception e) {
-						// TODO manejar exception
+						String message = e.getMessage();
+						request.setAttribute("message", message);
 					}
 					break;
 				}
@@ -92,21 +92,24 @@ public class PasajeServlet extends HttpServlet {
 							String message = "No se pudo realizar la compra";
 							request.setAttribute("message", message);
 							System.out.println(message);
+						} else {
+							String message = "Compra realizada con exito";
+							request.setAttribute("message", message);
+							System.out.println(message);
 						}
-						request.getRequestDispatcher("VueloServlet").forward(request, response);
 					} catch (Exception e) {
-						// TODO manejar exception
+						String message = e.getMessage();
+						request.setAttribute("message", message);
 					}
 					break;
 				}
-				default:
-					request.getRequestDispatcher("VueloServlet").forward(request, response);
+
 				}
 
-			} else {
-				request.getRequestDispatcher("VueloServlet").forward(request, response);
 			}
 		}
+		request.getRequestDispatcher("VueloServlet").forward(request, response);
+		// TODO arreglar esta poronga
 
 	}
 

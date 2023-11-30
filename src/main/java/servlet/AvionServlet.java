@@ -71,7 +71,8 @@ public class AvionServlet extends HttpServlet {
 						request.setAttribute("avion", avi);
 						request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
 					} catch (Exception e) {
-						// TODO manejar exception
+						String message = e.getMessage();
+						request.setAttribute("message", message);
 					}
 					break;
 				}
@@ -85,7 +86,8 @@ public class AvionServlet extends HttpServlet {
 						request.getRequestDispatcher("WEB-INF/ui-asiento/AgregarAsiento.jsp").forward(request,
 								response);
 					} catch (Exception e) {
-						// TODO manejar excetion
+						String message = e.getMessage();
+						request.setAttribute("message", message);
 					}
 					break;
 				}
@@ -117,8 +119,13 @@ public class AvionServlet extends HttpServlet {
 				}
 			}
 		}
-		LinkedList<Avion> la = ca.getAll();
-		request.setAttribute("listaAviones", la);
+		try {
+			LinkedList<Avion> la = ca.getAll();
+			request.setAttribute("listaAviones", la);
+		} catch (Exception e) {
+			String message = e.getMessage();
+			request.setAttribute("message", message);
+		}
 		request.getRequestDispatcher("WEB-INF/ui-avion/ListarAvion.jsp").forward(request, response);
 
 	}
@@ -139,16 +146,10 @@ public class AvionServlet extends HttpServlet {
 			if (accion != null) {
 				switch (accion) {
 				case "insertarAvion": {
-					String marca = request.getParameter("marca");
-					String modelo = request.getParameter("modelo");
-					String anio = request.getParameter("anio");
-					Avion avion = new Avion();
-					avion.setMarca(marca);
-					avion.setModelo(modelo);
-					avion.setAnio(anio);
 
 					try {
-						ca.add(avion);
+						Avion avi = verificarInput(request);
+						ca.add(avi);
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
@@ -178,7 +179,6 @@ public class AvionServlet extends HttpServlet {
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
-
 					}
 					break;
 
@@ -189,5 +189,25 @@ public class AvionServlet extends HttpServlet {
 
 		}
 		doGet(request, response);
+	}
+
+	private Avion verificarInput(HttpServletRequest request) {
+		Avion a = null;
+
+		String marca = request.getParameter("marca");
+		String modelo = request.getParameter("modelo");
+		String anio = request.getParameter("anio");
+
+		if (marca != null && modelo != null && anio != null) {
+			if (!marca.isEmpty() && !modelo.isEmpty() && !anio.isEmpty()) {
+
+				a = new Avion();
+				a.setMarca(marca);
+				a.setModelo(modelo);
+				a.setAnio(anio);
+
+			}
+		}
+		return a;
 	}
 }

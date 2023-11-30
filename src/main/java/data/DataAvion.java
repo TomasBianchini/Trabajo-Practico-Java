@@ -10,7 +10,7 @@ import entities.Avion;
 
 public class DataAvion {
 
-	public LinkedList<Avion> getAll() {
+	public LinkedList<Avion> getAll() throws SQLException {
 		DataAsiento da = new DataAsiento();
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -32,7 +32,7 @@ public class DataAvion {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -43,14 +43,14 @@ public class DataAvion {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 
 		return aviones;
 	}
 
-	public Avion getById(Avion av) {
+	public Avion getById(Avion av) throws SQLException {
 		Avion a = null;
 		DataAsiento da = new DataAsiento();
 		PreparedStatement stmt = null;
@@ -69,7 +69,7 @@ public class DataAvion {
 				a.setAsientos(da.getByAvion(a));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -80,7 +80,7 @@ public class DataAvion {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return a;

@@ -11,7 +11,7 @@ import entities.Usuario;
 
 public class DataUsuario {
 
-	public LinkedList<Usuario> getAll() {
+	public LinkedList<Usuario> getAll() throws SQLException {
 
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -39,7 +39,7 @@ public class DataUsuario {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 
 		} finally {
 			try {
@@ -51,14 +51,14 @@ public class DataUsuario {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 
 		return usuarios;
 	}
 
-	public Usuario getByEmail(Usuario usuario) {
+	public Usuario getByEmail(Usuario usuario) throws SQLException {
 		Usuario usu = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -82,7 +82,7 @@ public class DataUsuario {
 				usu.setContrasenia(rs.getString("contrasenia"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -93,21 +93,21 @@ public class DataUsuario {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 
 		return usu;
 	}
 
-	public Usuario getById(Usuario usu) {
+	public Usuario getById(Usuario usu) throws SQLException {
 		Usuario us = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
-					"select idUsuario,email,nombre,apellido, tipoDocumento,nroDocumento, fechaNacimiento, tipo "
-							+ "from usuario where idUsuario = ?");
+					"select idUsuario,email,nombre,apellido, tipoDocumento,nroDocumento, fechaNacimiento, "
+							+ " tipo, contrasenia " + "from usuario where idUsuario = ?");
 			stmt.setInt(1, usu.getIdUsuario());
 			rs = stmt.executeQuery();
 			if (rs != null && rs.next()) {
@@ -120,9 +120,10 @@ public class DataUsuario {
 				us.setNroDocumento(rs.getString("nroDocumento"));
 				us.setFechaNacimiento(rs.getObject("fechaNacimiento", LocalDate.class));
 				us.setTipo(rs.getString("tipo"));
+				us.setContrasenia(rs.getString("contrasenia"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -133,14 +134,14 @@ public class DataUsuario {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 
 		return us;
 	}
 
-	public Usuario getByDocumento(Usuario usu) {
+	public Usuario getByDocumento(Usuario usu) throws SQLException {
 		Usuario us = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -163,7 +164,7 @@ public class DataUsuario {
 				us.setTipo(rs.getString("tipo"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -174,7 +175,7 @@ public class DataUsuario {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 
@@ -215,7 +216,7 @@ public class DataUsuario {
 		try {
 			pstmt = DbConnector.getInstancia().getConn()
 					.prepareStatement("UPDATE usuario SET email=?, nombre = ?, apellido = ? , tipoDocumento = ?,"
-							+ " nroDocumento= ?, fechaNacimiento=?, tipo=?,contrasenia =? WHERE idUsuario = ?");
+							+ " nroDocumento= ?, fechaNacimiento=?, tipo=?, contrasenia =? WHERE idUsuario = ?");
 			pstmt.setString(1, usu.getEmail());
 			pstmt.setString(2, usu.getNombre());
 			pstmt.setString(3, usu.getApellido());
@@ -226,6 +227,7 @@ public class DataUsuario {
 			pstmt.setString(8, usu.getContrasenia());
 			pstmt.setInt(9, usu.getIdUsuario());
 			pstmt.executeUpdate();
+
 		} catch (SQLException e) {
 			throw e;
 		} finally {

@@ -42,11 +42,6 @@
       <li><a href="UsuarioServlet?accion=cerrarSesion">Cerrar sesión</a></li>
     </ul>
   </nav>		
-  	 <div class="mensaje">
-        <% if (message != null) { %>
-            <p><%= message %></p>
-        <% } %>
-    </div>
 
 	    <div class="mensaje">
         <% if (message != null && !message.isEmpty()) { %>

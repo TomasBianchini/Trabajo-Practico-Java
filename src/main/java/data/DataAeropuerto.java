@@ -12,7 +12,7 @@ import entities.Pais;
 
 public class DataAeropuerto {
 
-	public LinkedList<Aeropuerto> getAll() {
+	public LinkedList<Aeropuerto> getAll() throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
 		LinkedList<Aeropuerto> aeropuertos = new LinkedList<>();
@@ -38,7 +38,7 @@ public class DataAeropuerto {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -49,13 +49,13 @@ public class DataAeropuerto {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return aeropuertos;
 	}
 
-	public Aeropuerto getById(Aeropuerto a) {
+	public Aeropuerto getById(Aeropuerto a) throws SQLException {
 		Aeropuerto aero = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -78,7 +78,7 @@ public class DataAeropuerto {
 				aero.getCiudad().setNombre(rs.getString("ciu.nombre"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -89,13 +89,13 @@ public class DataAeropuerto {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return aero;
 	}
 
-	public Aeropuerto getByNombre(Aeropuerto a) {
+	public Aeropuerto getByNombre(Aeropuerto a) throws SQLException {
 		Aeropuerto aero = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -118,7 +118,7 @@ public class DataAeropuerto {
 				aero.getCiudad().setNombre(rs.getString("ciu.nombre"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -129,7 +129,7 @@ public class DataAeropuerto {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return aero;

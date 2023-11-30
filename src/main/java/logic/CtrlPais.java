@@ -13,11 +13,11 @@ public class CtrlPais {
 		dp = new DataPais();
 	}
 
-	public LinkedList<Pais> getAll() {
+	public LinkedList<Pais> getAll() throws SQLException {
 		return dp.getAll();
 	}
 
-	public Pais getByNombre(Pais p) {
+	public Pais getByNombre(Pais p) throws SQLException {
 		return dp.getByNombre(p);
 	}
 
@@ -25,7 +25,7 @@ public class CtrlPais {
 		dp.add(p);
 	}
 
-	public Pais getById(Pais p) {
+	public Pais getById(Pais p) throws SQLException {
 		return dp.getById(p);
 	}
 

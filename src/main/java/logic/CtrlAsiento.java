@@ -12,7 +12,7 @@ public class CtrlAsiento {
 		da = new DataAsiento();
 	}
 
-	public Asiento getOne(Asiento a) {
+	public Asiento getOne(Asiento a) throws SQLException {
 		return da.getOne(a);
 	}
 

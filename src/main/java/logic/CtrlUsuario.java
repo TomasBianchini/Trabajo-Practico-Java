@@ -13,20 +13,20 @@ public class CtrlUsuario {
 		du = new DataUsuario();
 	}
 
-	public LinkedList<Usuario> getAll() {
+	public LinkedList<Usuario> getAll() throws SQLException {
 		return du.getAll();
 	}
 
-	public Usuario getByEmail(Usuario uru) {
+	public Usuario getByEmail(Usuario uru) throws SQLException {
 		return du.getByEmail(uru);
 
 	}
 
-	public Usuario getByDocumento(Usuario usu) {
+	public Usuario getByDocumento(Usuario usu) throws SQLException {
 		return du.getByDocumento(usu);
 	}
 
-	public Usuario getById(Usuario usu) {
+	public Usuario getById(Usuario usu) throws SQLException {
 		return du.getById(usu);
 	}
 

@@ -10,7 +10,7 @@ import entities.Pais;
 
 public class DataPais {
 
-	public LinkedList<Pais> getAll() {
+	public LinkedList<Pais> getAll() throws SQLException {
 
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -31,7 +31,7 @@ public class DataPais {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 
 		} finally {
 			try {
@@ -43,14 +43,14 @@ public class DataPais {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 
 		return pais;
 	}
 
-	public Pais getByNombre(Pais pa) {
+	public Pais getByNombre(Pais pa) throws SQLException {
 		Pais p = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -66,7 +66,7 @@ public class DataPais {
 				p.setNombre(rs.getString("nombre"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -77,7 +77,7 @@ public class DataPais {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 
@@ -85,7 +85,7 @@ public class DataPais {
 
 	}
 
-	public Pais getById(Pais pa) {
+	public Pais getById(Pais pa) throws SQLException {
 		Pais p = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -101,7 +101,7 @@ public class DataPais {
 				p.setNombre(rs.getString("nombre"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -112,7 +112,7 @@ public class DataPais {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return p;

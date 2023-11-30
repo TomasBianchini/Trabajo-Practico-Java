@@ -18,7 +18,7 @@ import entities.Vuelo;
 
 public class DataPasaje {
 
-	public LinkedList<Pasaje> getAll() {
+	public LinkedList<Pasaje> getAll() throws SQLException {
 
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -79,7 +79,7 @@ public class DataPasaje {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 
 		} finally {
 			try {
@@ -91,14 +91,14 @@ public class DataPasaje {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 
 		return pasajes;
 	}
 
-	public LinkedList<Pasaje> getByIdUsuario(Usuario usu) {
+	public LinkedList<Pasaje> getByIdUsuario(Usuario usu) throws SQLException {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		LinkedList<Pasaje> pasajes = new LinkedList<>();
@@ -158,7 +158,7 @@ public class DataPasaje {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -169,14 +169,14 @@ public class DataPasaje {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return pasajes;
 
 	}
 
-	public LinkedList<Pasaje> getByVuelo(Vuelo vue) {
+	public LinkedList<Pasaje> getByVuelo(Vuelo vue) throws SQLException {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		LinkedList<Pasaje> pasajes = new LinkedList<>();
@@ -236,7 +236,7 @@ public class DataPasaje {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -247,13 +247,13 @@ public class DataPasaje {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return pasajes;
 	}
 
-	public void cambiarEstado(Pasaje p) {
+	public void cambiarEstado(Pasaje p) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn()
@@ -262,19 +262,19 @@ public class DataPasaje {
 			pstmt.setInt(2, p.getIdPasaje());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (pstmt != null)
 					pstmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
 
-	public void add(Pasaje p) {
+	public void add(Pasaje p) throws SQLException {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
@@ -287,14 +287,14 @@ public class DataPasaje {
 			stmt.setInt(6, p.getUsuario().getIdUsuario());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

@@ -10,7 +10,7 @@ import entities.Avion;
 
 public class DataAsiento {
 
-	public HashMap<String, Asiento> getByAvion(Avion a) {
+	public HashMap<String, Asiento> getByAvion(Avion a) throws SQLException {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		HashMap<String, Asiento> asientos = new HashMap<String, Asiento>();
@@ -32,7 +32,7 @@ public class DataAsiento {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null)
@@ -41,13 +41,13 @@ public class DataAsiento {
 					stmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return asientos;
 	}
 
-	public Asiento getOne(Asiento asi) {
+	public Asiento getOne(Asiento asi) throws SQLException {
 		Asiento a = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -69,7 +69,7 @@ public class DataAsiento {
 				a.getAvion().setIdAvion(rs.getInt("idavion"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null)
@@ -78,7 +78,7 @@ public class DataAsiento {
 					stmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return a;

@@ -40,58 +40,56 @@
     </ul>
   </nav>	
 	
-        <% if (listaPasajes.isEmpty()) { %>
-            <div class="mensajeNoPasaje">
-                <p class="mensajeNo">No tienes pasajes comprados</p>
-            </div>
-        <% } %>
-	
-	
-	
-	 <%for(Pasaje pas: listaPasajes){ %>
-   	 <article class="card">
-        <header>
-            <h1>Detalles del pasaje:</h1>
-        </header>	
-	 	<section class="details">
-		<h2>Datos personales:</h2>
-		<div class="grid" >		
-			<h5>Pasajero
-                  <p><%= usu.getApellido()%>,  <%= usu.getNombre()%> </p></h5>
-           <h5>Fecha de nacimiento
-                  <p><%= usu.getFechaNacimiento()%></p></h5>      
-         </div>                        
-         <div class="grid" >
-            <h5>Tipo documento
-            	<p><%= usu.getTipoDocumento()%></p>
-            </h5>
-            <h5>Nro documento
-           		<p><%= usu.getNroDocumento()%></p>
-           	</h5>
-         </div>
-		 <h2>Detalles del vuelo:</h2>
-		 <div class="grid" >	
-			<h5>Origen
-                  <p><%= pas.getVuelo().getAeropuertoOrigen().getCiudad().getNombre()%>, <%=pas.getVuelo().getAeropuertoOrigen().getCiudad().getPais().getNombre()%> </p></h5>
-           <h5>Destino
-                  <p><%= pas.getVuelo().getAeropuertoDestino().getCiudad().getNombre()%>, <%=pas.getVuelo().getAeropuertoDestino().getCiudad().getPais().getNombre()%></p></h5>    
-         </div>                          
-         <div class="grid" >
-            <h5>Fecha y hora de salida
-            	<p><time datetime="<%=pas.getVuelo().getFechaHoraSalida()%>">
- 				  <%=pas.getVuelo().getFechaHoraSalida().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) %>
-			</time> </p>
-            </h5>
-            <h5>Fecha y Hora de llegada
-           		<p><time datetime="<%=pas.getVuelo().getFechaHoraSalida()%>">
- 				  <%=pas.getVuelo().getFechaHoraLlegada().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) %>
-			</time> </p>
-           	</h5>
-         </div>
-         </section>
-         
-	 	</article>
-	 	<br></br>
+    <% if (listaPasajes.isEmpty()) { %>
+        <div class="mensajeNoPasaje">
+            <p class="mensajeNo">No tienes pasajes comprados</p>
+        </div>
+    <% }else{ %>
+		 <%for(Pasaje pas: listaPasajes){ %>
+	   	 <article class="card">
+	        <header>
+	            <h1>Detalles del pasaje:</h1>
+	        </header>	
+		 	<section class="details">
+			<h2>Datos personales:</h2>
+			<div class="grid" >		
+				<h5>Pasajero
+	                  <p><%= usu.getApellido()%>,  <%= usu.getNombre()%> </p></h5>
+	           <h5>Fecha de nacimiento
+	                  <p><%= usu.getFechaNacimiento()%></p></h5>      
+	         </div>                        
+	         <div class="grid" >
+	            <h5>Tipo documento
+	            	<p><%= usu.getTipoDocumento()%></p>
+	            </h5>
+	            <h5>Nro documento
+	           		<p><%= usu.getNroDocumento()%></p>
+	           	</h5>
+	         </div>
+			 <h2>Detalles del vuelo:</h2>
+			 <div class="grid" >	
+				<h5>Origen
+	                  <p><%= pas.getVuelo().getAeropuertoOrigen().getCiudad().getNombre()%>, <%=pas.getVuelo().getAeropuertoOrigen().getCiudad().getPais().getNombre()%> </p></h5>
+	           <h5>Destino
+	                  <p><%= pas.getVuelo().getAeropuertoDestino().getCiudad().getNombre()%>, <%=pas.getVuelo().getAeropuertoDestino().getCiudad().getPais().getNombre()%></p></h5>    
+	         </div>                          
+	         <div class="grid" >
+	            <h5>Fecha y hora de salida
+	            	<p><time datetime="<%=pas.getVuelo().getFechaHoraSalida()%>">
+	 				  <%=pas.getVuelo().getFechaHoraSalida().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) %>
+				</time> </p>
+	            </h5>
+	            <h5>Fecha y Hora de llegada
+	           		<p><time datetime="<%=pas.getVuelo().getFechaHoraSalida()%>">
+	 				  <%=pas.getVuelo().getFechaHoraLlegada().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) %>
+				</time> </p>
+	           	</h5>
+	         </div>
+	         </section>
+	         
+		 	</article>
+		 	<br></br>
+		 	<%} %>
 	 	<%} %>
 
 	

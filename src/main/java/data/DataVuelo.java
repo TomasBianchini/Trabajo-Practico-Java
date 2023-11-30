@@ -15,7 +15,7 @@ import entities.Vuelo;
 
 public class DataVuelo {
 
-	public LinkedList<Vuelo> getAll() {
+	public LinkedList<Vuelo> getAll() throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
 		LinkedList<Vuelo> vuelos = new LinkedList<>();
@@ -41,7 +41,7 @@ public class DataVuelo {
 					v.getAeropuertoOrigen().getCiudad().setPais(new Pais());
 					v.setIdvuelo(rs.getInt("idvuelo"));
 					v.setPrecioGeneral(rs.getDouble("precioGeneral"));
-					v.setPrecioPrimeraClase(rs.getDouble("precioPrimeraClase"));
+					v.setPrecioPrimeraClase(rs.getDouble("vue.precioPrimeraClase"));
 					v.setFechaHoraSalida(rs.getObject("fechaHoraSalida", LocalDateTime.class));
 					v.setFechaHoraLlegada(rs.getObject("fechaHoraLlegada", LocalDateTime.class));
 					v.getAeropuertoOrigen().setIdAeropuerto(rs.getInt("idAeropuertoOrigen"));
@@ -56,7 +56,7 @@ public class DataVuelo {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -67,13 +67,13 @@ public class DataVuelo {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return vuelos;
 	}
 
-	public Vuelo getById(Vuelo v) {
+	public Vuelo getById(Vuelo v) throws SQLException {
 		Vuelo vue = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -118,7 +118,7 @@ public class DataVuelo {
 				vue.setAvion(da.getById(av));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -129,13 +129,13 @@ public class DataVuelo {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return vue;
 	}
 
-	public LinkedList<Vuelo> getByOrigenYDestino(Vuelo v) {
+	public LinkedList<Vuelo> getByOrigenYDestino(Vuelo v) throws SQLException {
 		Vuelo vue = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -181,7 +181,7 @@ public class DataVuelo {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -192,13 +192,13 @@ public class DataVuelo {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return vuelos;
 	}
 
-	public void add(Vuelo v) {
+	public void add(Vuelo v) throws SQLException {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn()
@@ -215,14 +215,14 @@ public class DataVuelo {
 			stmt.setDouble(8, v.getPrecioGeneral());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

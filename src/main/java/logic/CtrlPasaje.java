@@ -1,5 +1,6 @@
 package logic;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -16,7 +17,7 @@ public class CtrlPasaje {
 		dp = new DataPasaje();
 	}
 
-	public Pasaje add(Pasaje pasaje) {
+	public Pasaje add(Pasaje pasaje) throws SQLException {
 		CtrlUsuario cUsuario = new CtrlUsuario();
 		CtrlVuelo cVuelo = new CtrlVuelo();
 		CtrlAsiento cAsiento = new CtrlAsiento();
@@ -50,15 +51,15 @@ public class CtrlPasaje {
 		return p;
 	}
 
-	public LinkedList<Pasaje> getByVuelo(Vuelo vue) {
+	public LinkedList<Pasaje> getByVuelo(Vuelo vue) throws SQLException {
 		return dp.getByVuelo(vue);
 	}
 
-	public LinkedList<Pasaje> getByIdUsuario(Usuario usu) {
+	public LinkedList<Pasaje> getByIdUsuario(Usuario usu) throws SQLException {
 		return dp.getByIdUsuario(usu);
 	}
 
-	public void cambiarEstado(Pasaje pas) {
+	public void cambiarEstado(Pasaje pas) throws SQLException {
 		String[] estados = { "Confirmado", "Finalizado", "Cancelado" };
 		boolean estadoValido = Arrays.asList(estados).contains(pas.getEstado());
 		if (estadoValido) {

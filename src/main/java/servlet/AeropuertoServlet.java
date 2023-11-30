@@ -27,7 +27,6 @@ public class AeropuertoServlet extends HttpServlet {
 	 */
 	public AeropuertoServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -55,7 +54,8 @@ public class AeropuertoServlet extends HttpServlet {
 								response);
 
 					} catch (Exception e) {
-						// TODO : manejar la exception
+						String message = e.getMessage();
+						request.setAttribute("message", message);
 					}
 
 					break;
@@ -75,8 +75,14 @@ public class AeropuertoServlet extends HttpServlet {
 				}
 				case "redirecAgregarAeropuerto": {
 					CtrlCiudad cc = new CtrlCiudad();
-					LinkedList<Ciudad> ciudades = cc.getAll();
-					request.setAttribute("listaCiudades", ciudades);
+					try {
+						LinkedList<Ciudad> ciudades = cc.getAll();
+						request.setAttribute("listaCiudades", ciudades);
+					} catch (Exception e) {
+						String message = e.getMessage();
+						request.setAttribute("message", message);
+
+					}
 					request.getRequestDispatcher("WEB-INF/ui-aeropuerto/AgregarAeropuerto.jsp").forward(request,
 							response);
 					break;
@@ -84,9 +90,16 @@ public class AeropuertoServlet extends HttpServlet {
 				}
 			}
 		}
-		LinkedList<Aeropuerto> aeropuertos = ca.getAll();
-		request.setAttribute("listaAeropuertos", aeropuertos);
+		try {
+			LinkedList<Aeropuerto> aeropuertos = ca.getAll();
+			request.setAttribute("listaAeropuertos", aeropuertos);
+
+		} catch (Exception e) {
+			String message = e.getMessage();
+			request.setAttribute("message", message);
+		}
 		request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
+
 	}
 
 	/**
@@ -116,13 +129,7 @@ public class AeropuertoServlet extends HttpServlet {
 				}
 				case "editarAeropuerto": {
 					try {
-						int idAeropuerto = verificarId(request);
-						String descAeropuerto = request.getParameter("descAeropuerto");
-						String nombre = request.getParameter("nombre");
-						Aeropuerto a = new Aeropuerto();
-						a.setIdAeropuerto(idAeropuerto);
-						a.setNombre(nombre);
-						a.setDescAeropuerto(descAeropuerto);
+						Aeropuerto a = verificarInputEditar(request);
 
 						ca.edit(a);
 					} catch (Exception e) {
@@ -138,7 +145,7 @@ public class AeropuertoServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private Aeropuerto verificarInput(HttpServletRequest request) {
+	private Aeropuerto verificarInput(HttpServletRequest request) throws Exception {
 		String nombre = request.getParameter("nombre");
 		String desc = request.getParameter("descripcion");
 		String nombreCiudad = request.getParameter("nombreCiudad");
@@ -169,4 +176,17 @@ public class AeropuertoServlet extends HttpServlet {
 		return id;
 	}
 
+	private Aeropuerto verificarInputEditar(HttpServletRequest request) {
+		String nombre = request.getParameter("nombre");
+		String descAeropuerto = request.getParameter("descAeropuerto");
+
+		Aeropuerto aero = null;
+
+		if (!nombre.isEmpty() && !descAeropuerto.isEmpty()) {
+			aero = new Aeropuerto();
+			aero.setNombre(nombre);
+			aero.setDescAeropuerto(descAeropuerto);
+		}
+		return aero;
+	}
 }

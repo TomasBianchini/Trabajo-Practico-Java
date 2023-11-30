@@ -13,15 +13,15 @@ public class CtrlAeropuerto {
 		da = new DataAeropuerto();
 	}
 
-	public LinkedList<Aeropuerto> getAll() {
+	public LinkedList<Aeropuerto> getAll() throws SQLException {
 		return da.getAll();
 	}
 
-	public Aeropuerto getById(Aeropuerto a) {
+	public Aeropuerto getById(Aeropuerto a) throws SQLException {
 		return da.getById(a);
 	}
 
-	public Aeropuerto getByNombre(Aeropuerto a) {
+	public Aeropuerto getByNombre(Aeropuerto a) throws SQLException {
 		return da.getByNombre(a);
 	}
 

@@ -76,8 +76,14 @@ public class PaisServlet extends HttpServlet {
 				}
 			}
 		}
-		LinkedList<Pais> paises = cp.getAll();
-		request.setAttribute("listaPaises", paises);
+		try {
+			LinkedList<Pais> paises = cp.getAll();
+			request.setAttribute("listaPaises", paises);
+		} catch (Exception e) {
+			String message = e.getMessage();
+			request.setAttribute("message", message);
+
+		}
 		request.getRequestDispatcher("WEB-INF/ui-pais/ListarPaises.jsp").forward(request, response);
 	}
 

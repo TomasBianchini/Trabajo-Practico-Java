@@ -13,15 +13,15 @@ public class CtrlCiudad {
 		dc = new DataCiudad();
 	}
 
-	public LinkedList<Ciudad> getAll() {
+	public LinkedList<Ciudad> getAll() throws SQLException {
 		return dc.getAll();
 	}
 
-	public Ciudad getById(Ciudad c) {
+	public Ciudad getById(Ciudad c) throws SQLException {
 		return dc.getById(c);
 	}
 
-	public Ciudad getByNombre(Ciudad c) {
+	public Ciudad getByNombre(Ciudad c) throws SQLException {
 		return dc.getByNombre(c);
 	}
 

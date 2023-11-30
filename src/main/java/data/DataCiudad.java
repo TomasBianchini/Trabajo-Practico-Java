@@ -11,7 +11,7 @@ import entities.Pais;
 
 public class DataCiudad {
 
-	public LinkedList<Ciudad> getAll() {
+	public LinkedList<Ciudad> getAll() throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
 		LinkedList<Ciudad> ciudades = new LinkedList<>();
@@ -32,7 +32,7 @@ public class DataCiudad {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -43,13 +43,13 @@ public class DataCiudad {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return ciudades;
 	}
 
-	public Ciudad getById(Ciudad c) {
+	public Ciudad getById(Ciudad c) throws SQLException {
 		Ciudad ciu = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -68,7 +68,7 @@ public class DataCiudad {
 				ciu.getPais().setNombre(rs.getString("p.nombre"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -79,13 +79,13 @@ public class DataCiudad {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return ciu;
 	}
 
-	public Ciudad getByNombre(Ciudad c) {
+	public Ciudad getByNombre(Ciudad c) throws SQLException {
 		Ciudad ciu = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -104,7 +104,7 @@ public class DataCiudad {
 				ciu.getPais().setNombre(rs.getString("p.nombre"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -115,7 +115,7 @@ public class DataCiudad {
 				}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return ciu;

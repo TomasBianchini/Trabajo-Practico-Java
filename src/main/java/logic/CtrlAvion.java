@@ -13,15 +13,15 @@ public class CtrlAvion {
 		da = new DataAvion();
 	}
 
-	public LinkedList<Avion> getAll() {
+	public LinkedList<Avion> getAll() throws SQLException {
 		return da.getAll();
 	}
 
-	public Avion getById(Avion a) {
+	public Avion getById(Avion a) throws SQLException {
 		return da.getById(a);
 	}
 
-	public Avion getByCantAsientos(Avion a) {
+	public Avion getByCantAsientos(Avion a) throws SQLException {
 		return da.getById(a);
 	}
 

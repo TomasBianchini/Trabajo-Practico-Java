@@ -28,7 +28,6 @@ public class UsuarioServlet extends HttpServlet {
 	 */
 	public UsuarioServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -54,7 +53,8 @@ public class UsuarioServlet extends HttpServlet {
 						request.setAttribute("Usuario", usu);
 						request.getRequestDispatcher("WEB-INF/ui-usuario/EditarUsuario.jsp").forward(request, response);
 					} catch (Exception e) {
-						// TODO manejar exception
+						String message = e.getMessage();
+						request.setAttribute("message", message);
 					}
 					break;
 				}
@@ -94,7 +94,9 @@ public class UsuarioServlet extends HttpServlet {
 						LinkedList<Pasaje> pasajes = cpasaje.getByIdUsuario(us);
 						request.setAttribute("listaPasajes", pasajes);
 						request.getRequestDispatcher("WEB-INF/ui-usuario/ListaPasajes.jsp").forward(request, response);
-					} catch (Exception e) {// TODO Manejar exception
+					} catch (Exception e) {
+						String message = e.getMessage();
+						request.setAttribute("message", message);
 					}
 					break;
 				}
@@ -107,9 +109,14 @@ public class UsuarioServlet extends HttpServlet {
 				}
 			}
 		}
+		try {
+			LinkedList<Usuario> lu = cu.getAll();
+			request.setAttribute("listaUsuario", lu);
+		} catch (Exception e) {
+			String message = e.getMessage();
+			request.setAttribute("message", message);
 
-		LinkedList<Usuario> lu = cu.getAll();
-		request.setAttribute("listaUsuario", lu);
+		}
 		request.getRequestDispatcher("WEB-INF/ui-usuario/ListarUsuario.jsp").forward(request, response);
 	}
 

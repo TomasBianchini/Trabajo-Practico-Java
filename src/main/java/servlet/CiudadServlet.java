@@ -57,24 +57,39 @@ public class CiudadServlet extends HttpServlet {
 
 				}
 				case "redirecEditar": {
-					Ciudad p = verificarInput(request);
-					Ciudad ciu = cc.getById(p);
-					request.setAttribute("Ciudad", ciu);
-					request.getRequestDispatcher("WEB-INF/ui-ciudad/EditarCiudad.jsp").forward(request, response);
+					try {
+						Ciudad p = verificarInput(request);
+						Ciudad ciu = cc.getById(p);
+						request.setAttribute("Ciudad", ciu);
+					} catch (Exception e) {
+						String message = e.getMessage();
+						request.setAttribute("message", message);
+					}
+					break;
 				}
-
 				case "redirecAgregarCiudad": {
 					CtrlPais cp = new CtrlPais();
-					LinkedList<Pais> paises = cp.getAll();
-					request.setAttribute("listaPaises", paises);
+					try {
+						LinkedList<Pais> paises = cp.getAll();
+						request.setAttribute("listaPaises", paises);
+					} catch (Exception e) {
+						String message = e.getMessage();
+						request.setAttribute("message", message);
+
+					}
 					request.getRequestDispatcher("WEB-INF/ui-ciudad/AgregarCiudad.jsp").forward(request, response);
 					break;
 				}
 				}
 			}
 		}
-		LinkedList<Ciudad> ciudades = cc.getAll();
-		request.setAttribute("listaCiudades", ciudades);
+		try {
+			LinkedList<Ciudad> ciudades = cc.getAll();
+			request.setAttribute("listaCiudades", ciudades);
+		} catch (Exception e) {
+			String message = e.getMessage();
+			request.setAttribute("message", message);
+		}
 		request.getRequestDispatcher("WEB-INF/ui-ciudad/ListarCiudad.jsp").forward(request, response);
 	}
 
@@ -104,11 +119,9 @@ public class CiudadServlet extends HttpServlet {
 					break;
 				}
 				case "editarCiudad": {
-					String nombre = request.getParameter("nombre");
-					Ciudad pa = verificarInput(request);
-					pa.setNombre(nombre);
 					try {
-						cc.edit(pa);
+						Ciudad ciu = verificarInput(request);
+						cc.edit(ciu);
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
@@ -124,7 +137,7 @@ public class CiudadServlet extends HttpServlet {
 
 	}
 
-	private Ciudad verificarInput(HttpServletRequest request) {
+	private Ciudad verificarInput(HttpServletRequest request) throws Exception {
 		Ciudad c = null;
 		String codPostal = request.getParameter("codPostal");
 		String nombre = request.getParameter("nombre");
