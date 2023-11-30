@@ -10,9 +10,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="Styles/Agregar.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="Styles/Agregar.css">
+
     <%
     	Vuelo vue = (Vuelo)request.getAttribute("Vuelo");
     	Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
@@ -21,9 +22,7 @@
     %> 
     <title>Detalles del Pasaje</title>
 </head>
-<body>
-
-   
+<body>  
 	
 	<form onsubmit="comprarPasaje()">
 		<input type="hidden" id="idUsuario" name="idUsuario" value="<%= usu.getIdUsuario() %>">

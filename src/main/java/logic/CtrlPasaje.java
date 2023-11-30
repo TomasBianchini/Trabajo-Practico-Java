@@ -1,5 +1,6 @@
 package logic;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import data.DataPasaje;
@@ -27,7 +28,7 @@ public class CtrlPasaje {
 			p.setUsuario(usuario);
 			p.setVuelo(vuelo);
 			p.setAsiento(asiento);
-			p.setEstado("Comprado");
+			p.setEstado("Confirmado");
 			int bandera = 0;
 			LinkedList<Pasaje> pasajes = this.getByVuelo(vuelo);
 			if (!pasajes.isEmpty()) {
@@ -55,6 +56,14 @@ public class CtrlPasaje {
 
 	public LinkedList<Pasaje> getByIdUsuario(Usuario usu) {
 		return dp.getByIdUsuario(usu);
+	}
+
+	public void cambiarEstado(Pasaje pas) {
+		String[] estados = { "Confirmado", "Finalizado", "Cancelado" };
+		boolean estadoValido = Arrays.asList(estados).contains(pas.getEstado());
+		if (estadoValido) {
+			dp.cambiarEstado(pas);
+		}
 	}
 
 }

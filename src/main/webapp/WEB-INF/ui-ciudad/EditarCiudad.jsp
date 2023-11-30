@@ -20,7 +20,7 @@
 	  	<h1>Pais: <%= ciudad.getPais().getNombre()%></h1>
         <label for="codPostal">
         	Codigo Postal
-       		<input type="text" id="codPostal" name="codPostal" autofocus value="<%= ciudad.getCodPostal() %>">
+       		<input type="text" id="codPostal" name="codPostal" required autofocus value="<%= ciudad.getCodPostal() %>">
         </label>
   		<label for="nombre">
   			Nombre

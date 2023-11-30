@@ -43,30 +43,35 @@ public class PaisServlet extends HttpServlet {
 			if (accion != null) {
 				switch (accion) {
 				case "eliminar": {
-					int idPais = Integer.parseInt(request.getParameter("idPais"));
 					Pais pa = new Pais();
-					pa.setIdPais(idPais);
 					try {
+						int id = verificarId(request);
+						pa.setIdPais(id);
 						cp.delete(pa);
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
-
 					}
 					break;
 
 				}
-				case "AgregarPais": {
+				case "redirecAgregarPais": {
 					request.getRequestDispatcher("WEB-INF/ui-pais/AgregarPais.jsp").forward(request, response);
 					break;
 				}
-				case "editar": {
+				case "redirecEditar": {
 					Pais p = new Pais();
-					int idPais = Integer.parseInt(request.getParameter("idPais"));
-					p.setIdPais(idPais);
-					Pais pa = cp.getById(p);
-					request.setAttribute("Pais", pa);
-					request.getRequestDispatcher("WEB-INF/ui-pais/EditarPais.jsp").forward(request, response);
+					try {
+						int id = verificarId(request);
+						p.setIdPais(id);
+						Pais pa = cp.getById(p);
+						request.setAttribute("Pais", pa);
+						request.getRequestDispatcher("WEB-INF/ui-pais/EditarPais.jsp").forward(request, response);
+					} catch (Exception e) {
+						String message = e.getMessage();
+						request.setAttribute("message", message);
+					}
+
 				}
 				}
 			}
@@ -91,33 +96,24 @@ public class PaisServlet extends HttpServlet {
 			if (accion != null) {
 				switch (accion) {
 				case "insertar": {
-					String nombre = request.getParameter("nombre");
-					Pais pa = new Pais();
-					pa.setNombre(nombre);
-
+					Pais pa = verificarInput(request);
 					try {
 						cp.add(pa);
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
-
 					}
 					break;
-
 				}
 				case "editarPais": {
-					int idPais = Integer.parseInt(request.getParameter("idPais"));
-					String nombre = request.getParameter("nombre");
-					Pais pa = new Pais();
-					pa.setIdPais(idPais);
-					pa.setNombre(nombre);
-
 					try {
+						int idPais = verificarId(request);
+						Pais pa = verificarInput(request);
+						pa.setIdPais(idPais);
 						cp.edit(pa);
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
-
 					}
 					break;
 				}
@@ -125,5 +121,26 @@ public class PaisServlet extends HttpServlet {
 			}
 		}
 		doGet(request, response);
+	}
+
+	private Pais verificarInput(HttpServletRequest request) {
+		Pais p = null;
+		String nombre = request.getParameter("nombre");
+		if (!nombre.isEmpty()) {
+			p = new Pais();
+			p.setNombre(nombre);
+		}
+		return p;
+	}
+
+	private int verificarId(HttpServletRequest request) throws Exception {
+		String idInput = request.getParameter("idPais");
+		int id;
+		try {
+			id = Integer.parseInt(idInput);
+		} catch (NumberFormatException e) {
+			throw e;
+		}
+		return id;
 	}
 }

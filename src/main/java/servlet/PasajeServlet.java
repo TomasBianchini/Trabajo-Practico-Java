@@ -46,52 +46,57 @@ public class PasajeServlet extends HttpServlet {
 		} else {
 			if (accion != null) {
 				switch (accion) {
-				case "compraPasaje": {
-
-					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-					Vuelo vue = new Vuelo();
-					vue.setIdvuelo(idvuelo);
-					Vuelo v = new Vuelo();
-					v = cv.getById(vue);
-					request.setAttribute("Vuelo", v);
-					HashMap<String, Asiento> asientosDisponibles = cv.getAsientosDisponibles(v);
-					request.setAttribute("asientosDisponibles", asientosDisponibles);
-					request.getRequestDispatcher("WEB-INF/ui-pasaje/ComprarPasaje.jsp").forward(request, response);
-
+				case "redirecCompraPasaje": {
+					try {
+						int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+						Vuelo vue = new Vuelo();
+						vue.setIdvuelo(idvuelo);
+						Vuelo v = new Vuelo();
+						v = cv.getById(vue);
+						request.setAttribute("Vuelo", v);
+						HashMap<String, Asiento> asientosDisponibles = cv.getAsientosDisponibles(v);
+						request.setAttribute("asientosDisponibles", asientosDisponibles);
+						request.getRequestDispatcher("WEB-INF/ui-pasaje/ComprarPasaje.jsp").forward(request, response);
+					} catch (Exception e) {
+						// TODO manejar exception
+					}
 					break;
 				}
 				case "compra": {
+					try {
+						int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+						Vuelo vue = new Vuelo();
+						vue.setIdvuelo(idvuelo);
 
-					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-					Vuelo vue = new Vuelo();
-					vue.setIdvuelo(idvuelo);
+						int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+						Usuario usu = new Usuario();
+						usu.setIdUsuario(idUsuario);
+						int idAvion = Integer.parseInt(request.getParameter("idavion"));
+						String fila = request.getParameter("fila");
+						String numero = request.getParameter("numero");
+						String tipo = request.getParameter("tipo");
 
-					int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-					Usuario usu = new Usuario();
-					usu.setIdUsuario(idUsuario);
-					int idAvion = Integer.parseInt(request.getParameter("idavion"));
-					String fila = request.getParameter("fila");
-					String numero = request.getParameter("numero");
-					String tipo = request.getParameter("tipo");
-
-					Asiento asiento = new Asiento();
-					asiento.setAvion(new Avion());
-					asiento.setFila(fila);
-					asiento.setNumero(numero);
-					asiento.setTipo(tipo);
-					asiento.getAvion().setIdAvion(idAvion);
-					CtrlPasaje cpas = new CtrlPasaje();
-					Pasaje pasaje = new Pasaje();
-					pasaje.setVuelo(vue);
-					pasaje.setUsuario(usu);
-					pasaje.setAsiento(asiento);
-					Pasaje p = cpas.add(pasaje);
-					if (p == null) {
-						String message = "No se pudo realizar la compra";
-						request.setAttribute("message", message);
-						System.out.println(message);
+						Asiento asiento = new Asiento();
+						asiento.setAvion(new Avion());
+						asiento.setFila(fila);
+						asiento.setNumero(numero);
+						asiento.setTipo(tipo);
+						asiento.getAvion().setIdAvion(idAvion);
+						CtrlPasaje cpas = new CtrlPasaje();
+						Pasaje pasaje = new Pasaje();
+						pasaje.setVuelo(vue);
+						pasaje.setUsuario(usu);
+						pasaje.setAsiento(asiento);
+						Pasaje p = cpas.add(pasaje);
+						if (p == null) {
+							String message = "No se pudo realizar la compra";
+							request.setAttribute("message", message);
+							System.out.println(message);
+						}
+						request.getRequestDispatcher("VueloServlet").forward(request, response);
+					} catch (Exception e) {
+						// TODO manejar exception
 					}
-					request.getRequestDispatcher("VueloServlet").forward(request, response);
 					break;
 				}
 				default:

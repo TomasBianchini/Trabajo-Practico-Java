@@ -45,22 +45,11 @@ public class AvionServlet extends HttpServlet {
 		} else {
 			if (accion != null) {
 				switch (accion) {
-				case "editar": {
-					Avion a = new Avion();
-					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
-					a.setIdAvion(idAvion);
-					Avion avi = ca.getById(a);
-					request.setAttribute("Avion", avi);
-					request.getRequestDispatcher("WEB-INF/EditarAvion.jsp").forward(request, response);
-					break;
-				}
-
 				case "eliminar": {
-					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
-					Avion avi = new Avion();
-					avi.setIdAvion(idAvion);
-
 					try {
+						int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+						Avion avi = new Avion();
+						avi.setIdAvion(idAvion);
 						ca.delete(avi);
 					} catch (Exception e) {
 						String message = e.getMessage();
@@ -69,39 +58,48 @@ public class AvionServlet extends HttpServlet {
 					}
 					break;
 				}
-				case "AgregarAvion": {
+				case "redirecAgregarAvion": {
 					request.getRequestDispatcher("WEB-INF/ui-avion/AgregarAvion.jsp").forward(request, response);
 					break;
 				}
 				case "listarAsientos": {
-					Avion a = new Avion();
-					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
-					a.setIdAvion(idAvion);
-					Avion avi = ca.getById(a);
-					request.setAttribute("avion", avi);
-					request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
+					try {
+						Avion a = new Avion();
+						int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+						a.setIdAvion(idAvion);
+						Avion avi = ca.getById(a);
+						request.setAttribute("avion", avi);
+						request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
+					} catch (Exception e) {
+						// TODO manejar exception
+					}
 					break;
 				}
-				case "AgregarAsiento": {
-					Avion a = new Avion();
-					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
-					a.setIdAvion(idAvion);
-					Avion avi = ca.getById(a);
-					request.setAttribute("avion", avi);
-					request.getRequestDispatcher("WEB-INF/ui-asiento/AgregarAsiento.jsp").forward(request, response);
+				case "redirecAgregarAsiento": {
+					try {
+						Avion a = new Avion();
+						int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+						a.setIdAvion(idAvion);
+						Avion avi = ca.getById(a);
+						request.setAttribute("avion", avi);
+						request.getRequestDispatcher("WEB-INF/ui-asiento/AgregarAsiento.jsp").forward(request,
+								response);
+					} catch (Exception e) {
+						// TODO manejar excetion
+					}
 					break;
 				}
 				case "eliminarAsiento": {
-					int idavion = Integer.parseInt(request.getParameter("idAvion"));
-					String fila = request.getParameter("fila");
-					String numero = request.getParameter("numero");
-					Asiento asi = new Asiento();
-					asi.setFila(fila);
-					asi.setNumero(numero);
-					asi.setAvion(new Avion());
-					asi.getAvion().setIdAvion(idavion);
-
 					try {
+						int idavion = Integer.parseInt(request.getParameter("idAvion"));
+						String fila = request.getParameter("fila");
+						String numero = request.getParameter("numero");
+						Asiento asi = new Asiento();
+						asi.setFila(fila);
+						asi.setNumero(numero);
+						asi.setAvion(new Avion());
+						asi.getAvion().setIdAvion(idavion);
+
 						cas.delete(asi);
 						Avion a = new Avion();
 						a.setIdAvion(idavion);
@@ -159,18 +157,18 @@ public class AvionServlet extends HttpServlet {
 					break;
 				}
 				case "insertarAsiento": {
-					int idavion = Integer.parseInt(request.getParameter("IdAvion"));
-					String fila = request.getParameter("fila");
-					String numero = request.getParameter("numero");
-					String tipo = request.getParameter("tipo");
-					Asiento asi = new Asiento();
-					asi.setFila(fila);
-					asi.setNumero(numero);
-					asi.setTipo(tipo);
-					asi.setAvion(new Avion());
-					asi.getAvion().setIdAvion(idavion);
-
 					try {
+						int idavion = Integer.parseInt(request.getParameter("IdAvion"));
+						String fila = request.getParameter("fila");
+						String numero = request.getParameter("numero");
+						String tipo = request.getParameter("tipo");
+						Asiento asi = new Asiento();
+						asi.setFila(fila);
+						asi.setNumero(numero);
+						asi.setTipo(tipo);
+						asi.setAvion(new Avion());
+						asi.getAvion().setIdAvion(idavion);
+
 						cas.add(asi);
 						Avion a = new Avion();
 						a.setIdAvion(idavion);

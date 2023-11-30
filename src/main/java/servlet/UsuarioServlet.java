@@ -45,22 +45,26 @@ public class UsuarioServlet extends HttpServlet {
 		} else {
 			if (accion != null) {
 				switch (accion) {
-				case "editar": {
-					Usuario us = new Usuario();
-					int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-					us.setIdUsuario(idUsuario);
-					Usuario usu = cu.getById(us);
-					request.setAttribute("Usuario", usu);
-					request.getRequestDispatcher("WEB-INF/ui-usuario/EditarUsuario.jsp").forward(request, response);
+				case "redirecEditar": {
+					try {
+						Usuario us = new Usuario();
+						int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+						us.setIdUsuario(idUsuario);
+						Usuario usu = cu.getById(us);
+						request.setAttribute("Usuario", usu);
+						request.getRequestDispatcher("WEB-INF/ui-usuario/EditarUsuario.jsp").forward(request, response);
+					} catch (Exception e) {
+						// TODO manejar exception
+					}
 					break;
 				}
 				case "eliminar": {
 					if (usuario.getTipo().equals("admin")) {
-						int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-						Usuario usu = new Usuario();
-						usu.setIdUsuario(idUsuario);
-
 						try {
+							int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+							Usuario usu = new Usuario();
+							usu.setIdUsuario(idUsuario);
+
 							cu.delete(usu);
 						} catch (Exception e) {
 							String message = e.getMessage();
@@ -72,7 +76,7 @@ public class UsuarioServlet extends HttpServlet {
 					}
 					break;
 				}
-				case "AgregarUsuario": {
+				case "redirecAgregarUsuario": {
 					if (usuario.getTipo().equals("admin")) {
 						request.getRequestDispatcher("WEB-INF/ui-usuario/AgregarUsuario.jsp").forward(request,
 								response);
@@ -83,12 +87,15 @@ public class UsuarioServlet extends HttpServlet {
 				}
 				case "misPasajes": {
 					Usuario us = new Usuario();
-					int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-					us.setIdUsuario(idUsuario);
-					CtrlPasaje cpasaje = new CtrlPasaje();
-					LinkedList<Pasaje> pasajes = cpasaje.getByIdUsuario(us);
-					request.setAttribute("listaPasajes", pasajes);
-					request.getRequestDispatcher("WEB-INF/ui-usuario/ListaPasajes.jsp").forward(request, response);
+					try {
+						int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+						us.setIdUsuario(idUsuario);
+						CtrlPasaje cpasaje = new CtrlPasaje();
+						LinkedList<Pasaje> pasajes = cpasaje.getByIdUsuario(us);
+						request.setAttribute("listaPasajes", pasajes);
+						request.getRequestDispatcher("WEB-INF/ui-usuario/ListaPasajes.jsp").forward(request, response);
+					} catch (Exception e) {// TODO Manejar exception
+					}
 					break;
 				}
 				case "cerrarSesion": {
@@ -100,6 +107,7 @@ public class UsuarioServlet extends HttpServlet {
 				}
 			}
 		}
+
 		LinkedList<Usuario> lu = cu.getAll();
 		request.setAttribute("listaUsuario", lu);
 		request.getRequestDispatcher("WEB-INF/ui-usuario/ListarUsuario.jsp").forward(request, response);
@@ -121,24 +129,25 @@ public class UsuarioServlet extends HttpServlet {
 				switch (accion) {
 				case "insertarUsuario": {
 					if (user.getTipo().equals("admin")) {
-						String tipo = request.getParameter("tipo");
-						String nroDocumento = request.getParameter("nroDocumento");
-						String tipoDocumento = request.getParameter("tipoDocumento");
-						String nombre = request.getParameter("nombre");
-						String apellido = request.getParameter("apellido");
-						String email = request.getParameter("email");
-						String contrasenia = request.getParameter("contrasenia");
-						LocalDate fechaNacimiento = LocalDate.parse(request.getParameter("fechaNacimiento"));
-						Usuario usuario = new Usuario();
-						usuario.setApellido(apellido);
-						usuario.setNroDocumento(nroDocumento);
-						usuario.setTipoDocumento(tipoDocumento);
-						usuario.setNombre(nombre);
-						usuario.setEmail(email);
-						usuario.setContrasenia(contrasenia);
-						usuario.setTipo(tipo);
-						usuario.setFechaNacimiento(fechaNacimiento);
 						try {
+							String tipo = request.getParameter("tipo");
+							String nroDocumento = request.getParameter("nroDocumento");
+							String tipoDocumento = request.getParameter("tipoDocumento");
+							String nombre = request.getParameter("nombre");
+							String apellido = request.getParameter("apellido");
+							String email = request.getParameter("email");
+							String contrasenia = request.getParameter("contrasenia");
+							LocalDate fechaNacimiento = LocalDate.parse(request.getParameter("fechaNacimiento"));
+							Usuario usuario = new Usuario();
+							usuario.setApellido(apellido);
+							usuario.setNroDocumento(nroDocumento);
+							usuario.setTipoDocumento(tipoDocumento);
+							usuario.setNombre(nombre);
+							usuario.setEmail(email);
+							usuario.setContrasenia(contrasenia);
+							usuario.setTipo(tipo);
+							usuario.setFechaNacimiento(fechaNacimiento);
+
 							cu.add(usuario);
 						} catch (Exception e) {
 							String message = e.getMessage();
@@ -151,26 +160,27 @@ public class UsuarioServlet extends HttpServlet {
 
 				}
 				case "editarUsuario": {
-					int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-					String tipo = request.getParameter("tipo");
-					String nroDocumento = request.getParameter("nroDocumento");
-					String tipoDocumento = request.getParameter("tipoDocumento");
-					String nombre = request.getParameter("nombre");
-					String apellido = request.getParameter("apellido");
-					String email = request.getParameter("email");
-					String contrasenia = request.getParameter("contrasenia");
-					LocalDate fechaNacimiento = LocalDate.parse(request.getParameter("fechaNacimiento"));
-					Usuario usu = new Usuario();
-					usu.setIdUsuario(idUsuario);
-					usu.setApellido(apellido);
-					usu.setNroDocumento(nroDocumento);
-					usu.setTipoDocumento(tipoDocumento);
-					usu.setNombre(nombre);
-					usu.setEmail(email);
-					usu.setContrasenia(contrasenia);
-					usu.setTipo(tipo);
-					usu.setFechaNacimiento(fechaNacimiento);
 					try {
+						int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+						String tipo = request.getParameter("tipo");
+						String nroDocumento = request.getParameter("nroDocumento");
+						String tipoDocumento = request.getParameter("tipoDocumento");
+						String nombre = request.getParameter("nombre");
+						String apellido = request.getParameter("apellido");
+						String email = request.getParameter("email");
+						String contrasenia = request.getParameter("contrasenia");
+						LocalDate fechaNacimiento = LocalDate.parse(request.getParameter("fechaNacimiento"));
+						Usuario usu = new Usuario();
+						usu.setIdUsuario(idUsuario);
+						usu.setApellido(apellido);
+						usu.setNroDocumento(nroDocumento);
+						usu.setTipoDocumento(tipoDocumento);
+						usu.setNombre(nombre);
+						usu.setEmail(email);
+						usu.setContrasenia(contrasenia);
+						usu.setTipo(tipo);
+						usu.setFechaNacimiento(fechaNacimiento);
+
 						cu.edit(usu);
 					} catch (Exception e) {
 						String message = e.getMessage();

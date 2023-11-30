@@ -11,16 +11,17 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
- 	<link rel="stylesheet" href="Styles/listados.css">
+ 	<link rel="stylesheet" href="Styles/pasajes.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<title>Lista Usuario</title>
 	<%
 		LinkedList<Pasaje> listaPasajes  = (LinkedList<Pasaje>)request.getAttribute("listaPasajes");
 		Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
     %>
+
 </head>
 <body>
-	
+
   <nav class="navbar">
   <div > </div>
     <ul class="nav-links">
@@ -48,11 +49,12 @@
 	
 	
 	 <%for(Pasaje pas: listaPasajes){ %>
-		<article>I'm a card!
-	 	
-	 	<body>
-	 	<h1>Detalles del pasaje:</h1>
-		<h5>Datos personales:</h5>
+   	 <article class="card">
+        <header>
+            <h1>Detalles del pasaje:</h1>
+        </header>	
+	 	<section class="details">
+		<h2>Datos personales:</h2>
 		<div class="grid" >		
 			<h5>Pasajero
                   <p><%= usu.getApellido()%>,  <%= usu.getNombre()%> </p></h5>
@@ -67,7 +69,7 @@
            		<p><%= usu.getNroDocumento()%></p>
            	</h5>
          </div>
-		 <h5>Detalles del vuelo:</h5>
+		 <h2>Detalles del vuelo:</h2>
 		 <div class="grid" >	
 			<h5>Origen
                   <p><%= pas.getVuelo().getAeropuertoOrigen().getCiudad().getNombre()%>, <%=pas.getVuelo().getAeropuertoOrigen().getCiudad().getPais().getNombre()%> </p></h5>
@@ -86,8 +88,10 @@
 			</time> </p>
            	</h5>
          </div>
-         </body>
+         </section>
+         
 	 	</article>
+	 	<br></br>
 	 	<%} %>
 
 	

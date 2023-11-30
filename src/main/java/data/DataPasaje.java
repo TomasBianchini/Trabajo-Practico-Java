@@ -194,7 +194,8 @@ public class DataPasaje {
 							+ " inner join ciudad ciuO on ciuO.codPostal = aeroO.codPostal "
 							+ " inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal "
 							+ " inner join pais pO on pO.idpais = ciuO.idPais"
-							+ " inner join pais pD on pD.idpais = ciuD.idPais" + " where vue.idVuelo = ?");
+							+ " inner join pais pD on pD.idpais = ciuD.idPais"
+							+ " where vue.idVuelo = ? and pas.estado= 'Confirmado' ");
 			stmt.setInt(1, vue.getIdvuelo());
 			rs = stmt.executeQuery();
 			if (rs != null /* && rs.next() */) {
@@ -252,7 +253,7 @@ public class DataPasaje {
 		return pasajes;
 	}
 
-	public void edit(Pasaje p) {
+	public void cambiarEstado(Pasaje p) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = DbConnector.getInstancia().getConn()

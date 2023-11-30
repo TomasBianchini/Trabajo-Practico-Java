@@ -44,22 +44,27 @@ public class AeropuertoServlet extends HttpServlet {
 		} else {
 			if (accion != null) {
 				switch (accion) {
-				case "editar": {
+				case "redirecEditar": {
 					Aeropuerto a = new Aeropuerto();
-					int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
-					a.setIdAeropuerto(idAeropuerto);
-					Aeropuerto aero = ca.getById(a);
-					request.setAttribute("Aeropuerto", aero);
-					request.getRequestDispatcher("WEB-INF/ui-aeropuerto/EditarAeropuerto.jsp").forward(request,
-							response);
+					try {
+						int idAeropuerto = verificarId(request);
+						a.setIdAeropuerto(idAeropuerto);
+						Aeropuerto aero = ca.getById(a);
+						request.setAttribute("Aeropuerto", aero);
+						request.getRequestDispatcher("WEB-INF/ui-aeropuerto/EditarAeropuerto.jsp").forward(request,
+								response);
+
+					} catch (Exception e) {
+						// TODO : manejar la exception
+					}
+
 					break;
 				}
 				case "eliminar": {
-					int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
-					Aeropuerto ae = new Aeropuerto();
-					ae.setIdAeropuerto(idAeropuerto);
-
 					try {
+						int idAeropuerto = verificarId(request);
+						Aeropuerto ae = new Aeropuerto();
+						ae.setIdAeropuerto(idAeropuerto);
 						new CtrlAeropuerto().delete(ae);
 					} catch (Exception e) {
 						String message = e.getMessage();
@@ -68,7 +73,7 @@ public class AeropuertoServlet extends HttpServlet {
 					}
 					break;
 				}
-				case "AgregarAeropuerto": {
+				case "redirecAgregarAeropuerto": {
 					CtrlCiudad cc = new CtrlCiudad();
 					LinkedList<Ciudad> ciudades = cc.getAll();
 					request.setAttribute("listaCiudades", ciudades);
@@ -99,19 +104,8 @@ public class AeropuertoServlet extends HttpServlet {
 			if (accion != null) {
 				switch (accion) {
 				case "insertar": {
-					String nombre = request.getParameter("nombre");
-					String desc = request.getParameter("descripcion");
-					String nombreCiudad = request.getParameter("nombreCiudad");
-					Aeropuerto ae = new Aeropuerto();
-					CtrlCiudad cc = new CtrlCiudad();
-					Ciudad ciu = new Ciudad();
-					ciu.setNombre(nombreCiudad);
-					ciu = cc.getByNombre(ciu);
-					ae.setNombre(nombre);
-					ae.setDescAeropuerto(desc);
-					ae.setCiudad(ciu);
-
 					try {
+						Aeropuerto ae = verificarInput(request);
 						ca.add(ae);
 					} catch (Exception e) {
 						String message = e.getMessage();
@@ -121,15 +115,15 @@ public class AeropuertoServlet extends HttpServlet {
 					break;
 				}
 				case "editarAeropuerto": {
-					int idAeropuerto = Integer.parseInt(request.getParameter("idAeropuerto"));
-					String descAeropuerto = request.getParameter("descAeropuerto");
-					String nombre = request.getParameter("nombre");
-					Aeropuerto a = new Aeropuerto();
-					a.setIdAeropuerto(idAeropuerto);
-					a.setNombre(nombre);
-					a.setDescAeropuerto(descAeropuerto);
-
 					try {
+						int idAeropuerto = verificarId(request);
+						String descAeropuerto = request.getParameter("descAeropuerto");
+						String nombre = request.getParameter("nombre");
+						Aeropuerto a = new Aeropuerto();
+						a.setIdAeropuerto(idAeropuerto);
+						a.setNombre(nombre);
+						a.setDescAeropuerto(descAeropuerto);
+
 						ca.edit(a);
 					} catch (Exception e) {
 						String message = e.getMessage();
@@ -142,6 +136,37 @@ public class AeropuertoServlet extends HttpServlet {
 			}
 		}
 		doGet(request, response);
+	}
+
+	private Aeropuerto verificarInput(HttpServletRequest request) {
+		String nombre = request.getParameter("nombre");
+		String desc = request.getParameter("descripcion");
+		String nombreCiudad = request.getParameter("nombreCiudad");
+		CtrlCiudad cc = new CtrlCiudad();
+		Ciudad ciu = new Ciudad();
+
+		Aeropuerto aero = null;
+
+		if (!nombre.isEmpty() && !desc.isEmpty() && !nombreCiudad.isEmpty()) {
+			aero = new Aeropuerto();
+			ciu.setNombre(nombreCiudad);
+			ciu = cc.getByNombre(ciu);
+			aero.setNombre(nombre);
+			aero.setDescAeropuerto(desc);
+			aero.setCiudad(ciu);
+		}
+		return aero;
+	}
+
+	private int verificarId(HttpServletRequest request) throws Exception {
+		String idInput = request.getParameter("idAeropuerto");
+		int id;
+		try {
+			id = Integer.parseInt(idInput);
+		} catch (NumberFormatException e) {
+			throw e;
+		}
+		return id;
 	}
 
 }

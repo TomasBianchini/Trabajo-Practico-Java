@@ -44,10 +44,9 @@ public class CiudadServlet extends HttpServlet {
 			if (accion != null) {
 				switch (accion) {
 				case "eliminar": {
-					String codPostal = request.getParameter("codPostal");
-					Ciudad ciu = new Ciudad();
-					ciu.setCodPostal(codPostal);
+
 					try {
+						Ciudad ciu = verificarInput(request);
 						cc.delete(ciu);
 					} catch (Exception e) {
 						String message = e.getMessage();
@@ -57,16 +56,14 @@ public class CiudadServlet extends HttpServlet {
 					break;
 
 				}
-				case "editar": {
-					Ciudad p = new Ciudad();
-					String codPostal = request.getParameter("codPostal");
-					p.setCodPostal(codPostal);
+				case "redirecEditar": {
+					Ciudad p = verificarInput(request);
 					Ciudad ciu = cc.getById(p);
 					request.setAttribute("Ciudad", ciu);
 					request.getRequestDispatcher("WEB-INF/ui-ciudad/EditarCiudad.jsp").forward(request, response);
 				}
 
-				case "AgregarCiudad": {
+				case "redirecAgregarCiudad": {
 					CtrlPais cp = new CtrlPais();
 					LinkedList<Pais> paises = cp.getAll();
 					request.setAttribute("listaPaises", paises);
@@ -96,18 +93,8 @@ public class CiudadServlet extends HttpServlet {
 			if (accion != null) {
 				switch (accion) {
 				case "insertar": {
-					String codPostal = request.getParameter("codPostal");
-					String nombre = request.getParameter("nombre");
-					String nombrePais = request.getParameter("pais");
-					Ciudad ciu = new Ciudad();
-					Pais pais = new Pais();
-					CtrlPais cp = new CtrlPais();
-					pais.setNombre(nombrePais);
-					pais = cp.getByNombre(pais);
-					ciu.setNombre(nombre);
-					ciu.setCodPostal(codPostal);
-					ciu.setPais(pais);
 					try {
+						Ciudad ciu = verificarInput(request);
 						cc.add(ciu);
 					} catch (Exception e) {
 						String message = e.getMessage();
@@ -117,10 +104,8 @@ public class CiudadServlet extends HttpServlet {
 					break;
 				}
 				case "editarCiudad": {
-					String codPostal = request.getParameter("codPostal");
 					String nombre = request.getParameter("nombre");
-					Ciudad pa = new Ciudad();
-					pa.setCodPostal(codPostal);
+					Ciudad pa = verificarInput(request);
 					pa.setNombre(nombre);
 					try {
 						cc.edit(pa);
@@ -139,4 +124,29 @@ public class CiudadServlet extends HttpServlet {
 
 	}
 
+	private Ciudad verificarInput(HttpServletRequest request) {
+		Ciudad c = null;
+		String codPostal = request.getParameter("codPostal");
+		String nombre = request.getParameter("nombre");
+		String nombrePais = request.getParameter("pais");
+
+		if (!codPostal.isEmpty()) {
+			if (nombre != null && nombrePais != null) {
+				if (!nombre.isEmpty() && !nombrePais.isEmpty()) {
+					c = new Ciudad();
+					CtrlPais cp = new CtrlPais();
+					Pais pais = new Pais();
+					pais.setNombre(nombrePais);
+					pais = cp.getByNombre(pais);
+					c.setNombre(nombre);
+					c.setCodPostal(codPostal);
+					c.setPais(pais);
+				}
+			} else {
+				c = new Ciudad();
+				c.setCodPostal(codPostal);
+			}
+		}
+		return c;
+	}
 }

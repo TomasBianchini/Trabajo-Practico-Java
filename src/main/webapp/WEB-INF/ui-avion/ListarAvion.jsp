@@ -41,7 +41,7 @@
 	
 	<div class="conteiner-table">
 		<div class="boton">
-		    <a href="AvionServlet?accion=AgregarAvion"><button>Agregar Avion</button></a>
+		    <a href="AvionServlet?accion=redirecAgregarAvion"><button>Agregar Avion</button></a>
 		</div> 
 		<table role="grid">
 		  <thead>

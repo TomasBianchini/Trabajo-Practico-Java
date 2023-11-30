@@ -48,11 +48,11 @@ public class VueloServlet extends HttpServlet {
 				switch (accion) {
 				case "eliminar": {
 					if (usuario.getTipo().equals("admin")) {
-						int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-						Vuelo vue = new Vuelo();
-						vue.setIdvuelo(idvuelo);
-
 						try {
+							int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+							Vuelo vue = new Vuelo();
+							vue.setIdvuelo(idvuelo);
+
 							cv.delete(vue);
 						} catch (Exception e) {
 							String message = e.getMessage();
@@ -64,7 +64,7 @@ public class VueloServlet extends HttpServlet {
 					}
 					break;
 				}
-				case "AgregarVuelo": {
+				case "redirecAgregarVuelo": {
 					if (usuario.getTipo().equals("admin")) {
 						CtrlAeropuerto ca = new CtrlAeropuerto();
 						LinkedList<Aeropuerto> aeropuertos = ca.getAll();
@@ -75,17 +75,22 @@ public class VueloServlet extends HttpServlet {
 					}
 					break;
 				}
-				case "editar": {
+				case "redirecEditar": {
 					if (usuario.getTipo().equals("admin")) {
-						int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-						Vuelo vue = new Vuelo();
-						vue.setIdvuelo(idvuelo);
-						Vuelo v = new Vuelo();
-						v = cv.getById(vue);
-						request.setAttribute("Vuelo", v);
-						request.getRequestDispatcher("WEB-INF/ui-vuelo/EditarVuelo.jsp").forward(request, response);
+						try {
+							int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+							Vuelo vue = new Vuelo();
+							vue.setIdvuelo(idvuelo);
+							Vuelo v = new Vuelo();
+							v = cv.getById(vue);
+							request.setAttribute("Vuelo", v);
+							request.getRequestDispatcher("WEB-INF/ui-vuelo/EditarVuelo.jsp").forward(request, response);
+						} catch (Exception e) {
+							// TODO manejar exception
+						}
+
 					} else {
-						request.getRequestDispatcher("VueloServlet").forward(request, response);
+						request.getRequestDispatcher("index.htlm").forward(request, response);
 					}
 					break;
 				}
@@ -100,15 +105,11 @@ public class VueloServlet extends HttpServlet {
 					v.getAeropuertoDestino().setNombre(destino);
 					vuelos = cv.getByOrigenYDestino(v);
 					request.setAttribute("listaVuelos", vuelos);
-					request.getRequestDispatcher("Vuelos").forward(request, response);
+					request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
 					break;
 				}
 				}
 			}
-		}
-		if (request.getAttribute("message") != null) {
-			String message = (String) request.getAttribute("message");
-			request.setAttribute("message", message);
 		}
 		LinkedList<Vuelo> vuelos = cv.getAll();
 		request.setAttribute("listaVuelos", vuelos);
@@ -131,54 +132,58 @@ public class VueloServlet extends HttpServlet {
 			if (accion != null) {
 				switch (accion) {
 				case "insertar": {
-					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-					LocalDateTime fechaHoraSalida = LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
-					LocalDateTime fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
-					String nombreAeropuertoOrigen = request.getParameter("nombreAeropuertoOrigen");
-					String nombreAeropuertoDestino = request.getParameter("nombreAeropuertoDestino");
+					try {
+						int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+						LocalDateTime fechaHoraSalida = LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
+						LocalDateTime fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
+						String nombreAeropuertoOrigen = request.getParameter("nombreAeropuertoOrigen");
+						String nombreAeropuertoDestino = request.getParameter("nombreAeropuertoDestino");
 
-					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
-					double precioGeneral = Double.parseDouble(request.getParameter("precioGeneral"));
-					double precioPrimeraclase = Double.parseDouble(request.getParameter("precioPrimeraClase"));
-					Vuelo vue = new Vuelo();
-					CtrlAeropuerto cAero = new CtrlAeropuerto();
-					Aeropuerto aeroOrigen = new Aeropuerto();
-					Aeropuerto aeroDestino = new Aeropuerto();
-					aeroOrigen.setNombre(nombreAeropuertoOrigen);
-					aeroOrigen = cAero.getByNombre(aeroOrigen);
-					aeroDestino.setNombre(nombreAeropuertoDestino);
-					aeroDestino = cAero.getByNombre(aeroDestino);
+						int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+						double precioGeneral = Double.parseDouble(request.getParameter("precioGeneral"));
+						double precioPrimeraclase = Double.parseDouble(request.getParameter("precioPrimeraClase"));
+						Vuelo vue = new Vuelo();
+						CtrlAeropuerto cAero = new CtrlAeropuerto();
+						Aeropuerto aeroOrigen = new Aeropuerto();
+						Aeropuerto aeroDestino = new Aeropuerto();
+						aeroOrigen.setNombre(nombreAeropuertoOrigen);
+						aeroOrigen = cAero.getByNombre(aeroOrigen);
+						aeroDestino.setNombre(nombreAeropuertoDestino);
+						aeroDestino = cAero.getByNombre(aeroDestino);
 
-					vue.setIdvuelo(idvuelo);
-					vue.setAeropuertoOrigen(aeroOrigen);
-					vue.setAeropuertoDestino(aeroDestino);
-					vue.setFechaHoraLlegada(fechaHoraLlegada);
-					vue.setFechaHoraSalida(fechaHoraSalida);
-					vue.setAvion(new Avion());
-					vue.getAvion().setIdAvion(idAvion);
-					vue.setPrecioGeneral(precioGeneral);
-					vue.setPrecioPrimeraClase(precioPrimeraclase);
-					cv.add(vue);
+						vue.setIdvuelo(idvuelo);
+						vue.setAeropuertoOrigen(aeroOrigen);
+						vue.setAeropuertoDestino(aeroDestino);
+						vue.setFechaHoraLlegada(fechaHoraLlegada);
+						vue.setFechaHoraSalida(fechaHoraSalida);
+						vue.setAvion(new Avion());
+						vue.getAvion().setIdAvion(idAvion);
+						vue.setPrecioGeneral(precioGeneral);
+						vue.setPrecioPrimeraClase(precioPrimeraclase);
+						cv.add(vue);
+					} catch (Exception e) {
+						// TODO manejar exception
+					}
 
 					break;
 				}
 				case "editarVuelo": {
-					int idvuelo = Integer.parseInt(request.getParameter("idVuelo"));
-					LocalDateTime fechaHoraSalida = LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
-					LocalDateTime fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
-					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
-					double precioGeneral = Double.parseDouble(request.getParameter("precioGeneral"));
-					double precioPrimeraclase = Double.parseDouble(request.getParameter("precioPrimeraClase"));
-					Vuelo vue = new Vuelo();
-					vue.setAvion(new Avion());
-					vue.setIdvuelo(idvuelo);
-					vue.setFechaHoraSalida(fechaHoraSalida);
-					vue.setFechaHoraLlegada(fechaHoraLlegada);
-					vue.getAvion().setIdAvion(idAvion);
-					vue.setPrecioGeneral(precioGeneral);
-					vue.setPrecioPrimeraClase(precioPrimeraclase);
-
 					try {
+						int idvuelo = Integer.parseInt(request.getParameter("idVuelo"));
+						LocalDateTime fechaHoraSalida = LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
+						LocalDateTime fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
+						int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+						double precioGeneral = Double.parseDouble(request.getParameter("precioGeneral"));
+						double precioPrimeraclase = Double.parseDouble(request.getParameter("precioPrimeraClase"));
+						Vuelo vue = new Vuelo();
+						vue.setAvion(new Avion());
+						vue.setIdvuelo(idvuelo);
+						vue.setFechaHoraSalida(fechaHoraSalida);
+						vue.setFechaHoraLlegada(fechaHoraLlegada);
+						vue.getAvion().setIdAvion(idAvion);
+						vue.setPrecioGeneral(precioGeneral);
+						vue.setPrecioPrimeraClase(precioPrimeraclase);
+
 						cv.edit(vue);
 					} catch (Exception e) {
 						String message = e.getMessage();
