@@ -12,6 +12,7 @@
 	<title>Lista Ciudades</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
  	<link rel="stylesheet" href="Styles/listados.css">
+ 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<%
     	LinkedList<Ciudad> listaCiudades= (LinkedList<Ciudad>)request.getAttribute("listaCiudades");
@@ -34,11 +35,20 @@
 	    </ul>
 	</nav>
 	
-    <div class="mensaje">
-        <% if (message != null && !message.isEmpty()) { %>
-            <p class="mensaje-texto <%= message.startsWith("Error") ? "mensaje-error" : "mensaje-exito" %>"><%= message %></p>
-        <% } %>
-    </div>
+<div class="mensaje">
+    <% if (message != null && !message.isEmpty()) { %>
+        <script>
+            // Display the message using SweetAlert after the page is fully loaded
+            window.onload = function() {
+                Swal.fire({
+                    icon: '<%= message.startsWith("error")? "success" : "error"  %>',
+                    title: 'Message',
+                    text: 'NO SE REALIZO LA ACCION, <%= message %>',
+                });
+            };
+        </script>
+    <% } %>
+</div>
 	
 	<div class="conteiner-table">
 		 <div class="boton">
