@@ -109,6 +109,7 @@ public class PasajeServlet extends HttpServlet {
 						CtrlPasaje cpas = new CtrlPasaje();
 						int id = Integer.parseInt(request.getParameter("idPasaje"));
 						pas.setIdPasaje(id);
+						pas = cpas.getById(pas);
 						pas.setEstado("Cancelado");
 						cpas.cambiarEstado(pas);
 

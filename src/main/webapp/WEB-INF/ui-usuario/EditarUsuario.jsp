@@ -56,11 +56,29 @@
  		 </label>
  		 <label for="contrasenia">Contraseña
     	 <input id="contrasenia" name="contrasenia" required  type="password" value="<%= usu.getContrasenia() %>" >
+
 		 </label>
+		 <fieldset>		
+		 	<input type="checkbox"  onclick="togglePasswordVisibility()">
+				 Mostrar contraseña
+ 		 </fieldset>
 		 <div class="grid">
         	<button type="submit">Aceptar</button>
         	<a href="VueloServlet"><button type="button" >Cancelar</button></a>
     	</div>
  	 </form>
 </body>
+  
+
+<script>
+  function togglePasswordVisibility() {
+    const passwordInput = document.getElementById("contrasenia");
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+  }
+</script>
+  
 </html>

@@ -8,15 +8,12 @@
     <meta name="description" content="A minimalist layout for Login pages. Built with Pico CSS." />
     <link rel="canonical" href="https://picocss.com/examples/sign-in/" />
 
-    <!-- Pico.css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
-    
 
   </head>
 
   <body>
 
-    <!-- Main -->
     <main class="container">
       <article class="grid">
         <div>
@@ -31,14 +28,20 @@
               aria-label="Login"
               required
             />
+
             <input
               type="password"
               name="contrasenia"
+              id="contrasenia"
               placeholder="Password"
               aria-label="Password"
               required
             />
-            <button type="submit" class="contrast">Login</button>
+             <fieldset>
+				 <input type="checkbox"  onclick="togglePasswordVisibility()">
+				 Mostrar contraseña
+ 			 </fieldset>
+             <button type="submit" class="contrast">Login</button>
           </form>
         </div>
       </article>
@@ -46,6 +49,21 @@
 
 
   </body>
+
+<script>
+  function togglePasswordVisibility() {
+    const passwordInput = document.getElementById("contrasenia");
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+  }
+</script>
+  
+  
+  
+  
 </html>
 
 

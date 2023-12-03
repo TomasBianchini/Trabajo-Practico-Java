@@ -87,10 +87,11 @@
 	           	</h5>
 	         </div>
 	         </section>
-	         <footer> 
-	         	<a href="PasajeServlet?accion=cancelarPasaje&idPasaje=<%= pas.getIdPasaje()%>"><button type="button" >Cancelar pasaje</button></a>
-	         </footer>
-	         
+	         <% if (pas.getEstado().equals("Confirmado")) { %>
+		         <footer> 
+		         	<a href="PasajeServlet?accion=cancelarPasaje&idPasaje=<%= pas.getIdPasaje()%>"><button type="button" >Cancelar pasaje</button></a>
+		         </footer>
+	       	 <%} %>
 		 	</article>
 		 	<br></br>
 		 	<%} %>

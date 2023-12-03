@@ -1,9 +1,12 @@
 package logic;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+import Service.EmailService;
 import data.DataPasaje;
 import entities.Asiento;
 import entities.Pasaje;
@@ -17,7 +20,8 @@ public class CtrlPasaje {
 		dp = new DataPasaje();
 	}
 
-	public Pasaje add(Pasaje pasaje) throws SQLException {
+	public Pasaje add(Pasaje pasaje) throws Exception {
+
 		CtrlUsuario cUsuario = new CtrlUsuario();
 		CtrlVuelo cVuelo = new CtrlVuelo();
 		CtrlAsiento cAsiento = new CtrlAsiento();
@@ -42,7 +46,13 @@ public class CtrlPasaje {
 				}
 			}
 			if (bandera == 0) {
-				dp.add(p);
+				try {
+					dp.add(p);
+					EmailService em = new EmailService();
+					em.sendEmail("Gracias por su compra!", p, p.getUsuario().getEmail());
+				} catch (Exception e) {
+					throw e;
+				}
 			} else {
 				p = null;
 			}
@@ -61,10 +71,20 @@ public class CtrlPasaje {
 
 	public void cambiarEstado(Pasaje pas) throws SQLException {
 		String[] estados = { "Confirmado", "Finalizado", "Cancelado" };
+		LocalDateTime currentDate = LocalDateTime.now();
 		boolean estadoValido = Arrays.asList(estados).contains(pas.getEstado());
 		if (estadoValido) {
-			dp.cambiarEstado(pas);
+			long diferenciaEnMinutos = ChronoUnit.MINUTES.between(pas.getVuelo().getFechaHoraSalida(), currentDate);
+			if (diferenciaEnMinutos <= 120)
+				dp.cambiarEstado(pas);
+		} else {
+			throw new Error("no se puede cancelar");
 		}
+	}
+
+	public Pasaje getById(Pasaje pas) throws SQLException {
+		return dp.getById(pas);
+
 	}
 
 }
