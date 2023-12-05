@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import Service.EmailService;
+import Service.PdfService;
 import data.DataPasaje;
 import entities.Asiento;
 import entities.Pasaje;
@@ -47,9 +48,15 @@ public class CtrlPasaje {
 			}
 			if (bandera == 0) {
 				try {
+
 					dp.add(p);
+					Pasaje pas = getById(p);
+					PdfService ps = new PdfService();
+					ps.crearPdf(pas);
+
 					EmailService em = new EmailService();
-					em.sendEmail("Gracias por su compra!", p, p.getUsuario().getEmail());
+					em.sendEmail("Gracias por su compra!", pas, pas.getUsuario().getEmail());
+
 				} catch (Exception e) {
 					throw e;
 				}
@@ -75,7 +82,7 @@ public class CtrlPasaje {
 		boolean estadoValido = Arrays.asList(estados).contains(pas.getEstado());
 		if (estadoValido) {
 			long diferenciaEnMinutos = ChronoUnit.MINUTES.between(pas.getVuelo().getFechaHoraSalida(), currentDate);
-			if (diferenciaEnMinutos <= 120)
+			if (diferenciaEnMinutos <= 360)
 				dp.cambiarEstado(pas);
 		} else {
 			throw new Error("no se puede cancelar");

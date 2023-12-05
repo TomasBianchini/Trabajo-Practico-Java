@@ -66,6 +66,7 @@ public class UsuarioServlet extends HttpServlet {
 							usu.setIdUsuario(idUsuario);
 
 							cu.delete(usu);
+
 						} catch (Exception e) {
 							String message = e.getMessage();
 							request.setAttribute("message", message);
@@ -109,21 +110,21 @@ public class UsuarioServlet extends HttpServlet {
 				}
 
 			}
+			if (usuario.getTipo().equals("admin")) {
+				try {
+					LinkedList<Usuario> lu = cu.getAll();
+					request.setAttribute("listaUsuario", lu);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
 
-		}
-		if (usuario.getTipo().equals("admin")) {
-			try {
-				LinkedList<Usuario> lu = cu.getAll();
-				request.setAttribute("listaUsuario", lu);
-			} catch (Exception e) {
-				String message = e.getMessage();
-				request.setAttribute("message", message);
-
+				}
+				request.getRequestDispatcher("WEB-INF/ui-usuario/ListarUsuario.jsp").forward(request, response);
+			} else {
+				request.getRequestDispatcher("VueloServlet").forward(request, response);
 			}
-			request.getRequestDispatcher("WEB-INF/ui-usuario/ListarUsuario.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("VueloServlet").forward(request, response);
 		}
+
 	}
 
 	/**

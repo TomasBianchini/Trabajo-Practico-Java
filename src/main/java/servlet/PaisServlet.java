@@ -82,7 +82,6 @@ public class PaisServlet extends HttpServlet {
 		} catch (Exception e) {
 			String message = e.getMessage();
 			request.setAttribute("message", message);
-
 		}
 		request.getRequestDispatcher("WEB-INF/ui-pais/ListarPaises.jsp").forward(request, response);
 	}

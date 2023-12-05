@@ -274,11 +274,13 @@ public class DataPasaje {
 		}
 	}
 
-	public void add(Pasaje p) throws SQLException {
+	public Pasaje add(Pasaje p) throws SQLException {
 		PreparedStatement stmt = null;
+		ResultSet keyResultSet = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
-					"insert into pasaje(Estado, idVuelo, fila, numero, idAvion, idUsuario) values(?,?,?,?,?,?)");
+					"insert into pasaje(Estado, idVuelo, fila, numero, idAvion, idUsuario) values(?,?,?,?,?,?)",
+					PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, p.getEstado());
 			stmt.setInt(2, p.getVuelo().getIdvuelo());
 			stmt.setString(3, p.getAsiento().getFila());
@@ -286,6 +288,10 @@ public class DataPasaje {
 			stmt.setInt(5, p.getAsiento().getAvion().getIdAvion());
 			stmt.setInt(6, p.getUsuario().getIdUsuario());
 			stmt.executeUpdate();
+			keyResultSet = stmt.getGeneratedKeys();
+			if (keyResultSet != null && keyResultSet.next()) {
+				p.setIdPasaje(keyResultSet.getInt(1));
+			}
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -297,6 +303,7 @@ public class DataPasaje {
 				throw e;
 			}
 		}
+		return p;
 	}
 
 	public Pasaje getById(Pasaje pas) throws SQLException {
@@ -305,7 +312,7 @@ public class DataPasaje {
 		Pasaje p = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
-					"select pas.idPasaje, pas.estado, usu.tipoDocumento, usu.nroDocumento, usu.nombre, usu.apellido,"
+					"select pas.idPasaje, pas.estado, usu.tipoDocumento, usu.nroDocumento, usu.nombre, usu.apellido, usu.email, "
 							+ " asi.*, "
 							+ " pO.nombre as nPaisO, pD.nombre as nPaisD, ciuD.nombre as nCiudadD, vue.*, ciuO.nombre as nCiudadO, "
 							+ " aeroO.nombre as nAeroO, aeroD.nombre as nAeroD " + " from pasaje pas "
@@ -336,6 +343,7 @@ public class DataPasaje {
 				p.getUsuario().setTipoDocumento(rs.getString("usu.tipoDocumento"));
 				p.getUsuario().setNombre(rs.getString("usu.nombre"));
 				p.getUsuario().setApellido(rs.getString("usu.apellido"));
+				p.getUsuario().setEmail(rs.getString("usu.email"));
 				p.setVuelo(new Vuelo());
 				p.getVuelo().setAeropuertoDestino(new Aeropuerto());
 				p.getVuelo().setAeropuertoOrigen(new Aeropuerto());

@@ -92,15 +92,19 @@ public class PasajeServlet extends HttpServlet {
 							String message = "No se pudo realizar la compra";
 							request.setAttribute("message", message);
 							System.out.println(message);
+							request.getRequestDispatcher("VueloServlet").forward(request, response);
 						} else {
 							String message = "Compra realizada con exito";
 							request.setAttribute("message", message);
 							System.out.println(message);
+							request.getRequestDispatcher("VueloServlet").forward(request, response);
 						}
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
+						request.getRequestDispatcher("VueloServlet").forward(request, response);
 					}
+
 					break;
 				}
 				case "cancelarPasaje": {
@@ -117,16 +121,17 @@ public class PasajeServlet extends HttpServlet {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
 					}
-
+					request.getRequestDispatcher("VueloServlet").forward(request, response);
 					break;
 				}
+				default:
+					request.getRequestDispatcher("VueloServlet").forward(request, response);
 
 				}
 
 			}
+			request.getRequestDispatcher("VueloServlet").forward(request, response);
 		}
-		request.getRequestDispatcher("VueloServlet").forward(request, response);
-		// TODO arreglar esta poronga
 
 	}
 

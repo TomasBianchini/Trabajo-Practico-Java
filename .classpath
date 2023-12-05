@@ -15,5 +15,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/javax.mail.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/javax.activation-1.1.0.v201105071233.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/itext5-itextpdf-5.5.12.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

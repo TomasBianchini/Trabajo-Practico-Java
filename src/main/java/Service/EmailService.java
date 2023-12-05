@@ -4,7 +4,6 @@ import java.util.Properties;
 
 import javax.mail.BodyPart;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -35,9 +34,7 @@ public class EmailService {
 
 	public void sendEmail(String subject, Pasaje p, String to) throws Exception {
 		try {
-			String texto = "Informacion Personal:" + p.getUsuario().getNombre() + p.getUsuario().getApellido()
-					+ "Detalles de vuelo:" + p.getVuelo().getAeropuertoDestino().getNombre() + p.getAsiento().getFila()
-					+ p.getAsiento().getNumero() + p.getAsiento().getTipo();
+			String texto = "La compra se realizo exitosamente! Puede cancelar la compra hasta 6 horas antes del vuelo. ";
 
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(mail_from));
@@ -46,6 +43,10 @@ public class EmailService {
 			message.setSubject(subject);
 
 			MimeMultipart multipart = new MimeMultipart("related");
+
+			MimeBodyPart adjuntoParte = new MimeBodyPart();
+			adjuntoParte.attachFile("C:\\Users\\Usuario\\Downloads\\Pasajes\\comprobante_" + p.getIdPasaje() + ".pdf");
+			multipart.addBodyPart(adjuntoParte);
 
 			BodyPart messageBodyPart = new MimeBodyPart();
 			messageBodyPart.setText(texto);
@@ -57,7 +58,7 @@ public class EmailService {
 			t.connect(mail_from, this.password);
 			t.sendMessage(message, message.getAllRecipients());
 			t.close();
-		} catch (MessagingException me) {
+		} catch (Exception me) {
 			throw me;
 		}
 
