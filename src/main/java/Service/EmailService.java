@@ -2,7 +2,6 @@ package Service;
 
 import java.util.Properties;
 
-import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -48,7 +47,7 @@ public class EmailService {
 			adjuntoParte.attachFile("C:\\Users\\Usuario\\Downloads\\Pasajes\\comprobante_" + p.getIdPasaje() + ".pdf");
 			multipart.addBodyPart(adjuntoParte);
 
-			BodyPart messageBodyPart = new MimeBodyPart();
+			MimeBodyPart messageBodyPart = new MimeBodyPart();
 			messageBodyPart.setText(texto);
 			multipart.addBodyPart(messageBodyPart);
 

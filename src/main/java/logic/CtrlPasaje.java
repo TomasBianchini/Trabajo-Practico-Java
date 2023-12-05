@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import Service.EmailService;
@@ -26,46 +27,37 @@ public class CtrlPasaje {
 		CtrlUsuario cUsuario = new CtrlUsuario();
 		CtrlVuelo cVuelo = new CtrlVuelo();
 		CtrlAsiento cAsiento = new CtrlAsiento();
+
 		Usuario usuario = cUsuario.getById(pasaje.getUsuario());
 		Vuelo vuelo = cVuelo.getById(pasaje.getVuelo());
 		Asiento asiento = cAsiento.getOne(pasaje.getAsiento());
 		Pasaje p = new Pasaje();
+
 		if (usuario != null && vuelo != null && asiento != null) {
 			p.setUsuario(usuario);
 			p.setVuelo(vuelo);
 			p.setAsiento(asiento);
 			p.setEstado("Confirmado");
-			int bandera = 0;
-			LinkedList<Pasaje> pasajes = this.getByVuelo(vuelo);
-			if (!pasajes.isEmpty()) {
-				for (Pasaje pas : pasajes) {
-					if (pas.getAsiento().getNumero().equalsIgnoreCase(p.getAsiento().getNumero())
-							&& pas.getAsiento().getFila().equalsIgnoreCase(p.getAsiento().getFila())
-							&& pas.getAsiento().getAvion().getIdAvion() == p.getAsiento().getAvion().getIdAvion()) {
-						bandera = 1;
-					}
-				}
-			}
-			if (bandera == 0) {
+			if (this.isAsientoDisponible(vuelo, asiento)) {
 				try {
-
 					dp.add(p);
-					Pasaje pas = getById(p);
-					PdfService ps = new PdfService();
-					ps.crearPdf(pas);
-
-					EmailService em = new EmailService();
-					em.sendEmail("Gracias por su compra!", pas, pas.getUsuario().getEmail());
-
+					this.enviarMail(p);
 				} catch (Exception e) {
 					throw e;
 				}
 			} else {
 				p = null;
 			}
-
 		}
 		return p;
+	}
+
+	public boolean isAsientoDisponible(Vuelo v, Asiento asi) throws Exception {
+		LinkedList<Pasaje> pasajes = this.getByVuelo(v);
+		return pasajes.stream()
+				.noneMatch(pas -> pas.getAsiento().getNumero().equalsIgnoreCase(asi.getNumero())
+						&& pas.getAsiento().getFila().equalsIgnoreCase(asi.getFila())
+						&& pas.getAsiento().getAvion().getIdAvion() == asi.getAvion().getIdAvion());
 	}
 
 	public LinkedList<Pasaje> getByVuelo(Vuelo vue) throws SQLException {
@@ -73,7 +65,9 @@ public class CtrlPasaje {
 	}
 
 	public LinkedList<Pasaje> getByIdUsuario(Usuario usu) throws SQLException {
-		return dp.getByIdUsuario(usu);
+		LinkedList<Pasaje> pasajes = dp.getByIdUsuario(usu);
+		Collections.sort(pasajes, (p1, p2) -> Integer.compare(p2.getIdPasaje(), p1.getIdPasaje()));
+		return pasajes;
 	}
 
 	public void cambiarEstado(Pasaje pas) throws SQLException {
@@ -91,6 +85,20 @@ public class CtrlPasaje {
 
 	public Pasaje getById(Pasaje pas) throws SQLException {
 		return dp.getById(pas);
+	}
+
+	public void enviarMail(Pasaje p) throws Exception {
+		try {
+			Pasaje pas = this.getById(p);
+
+			PdfService ps = new PdfService();
+			ps.crearPdf(pas);
+
+			EmailService em = new EmailService();
+			em.sendEmail("Gracias por su compra!", pas, pas.getUsuario().getEmail());
+		} catch (Exception e) {
+			throw e;
+		}
 
 	}
 

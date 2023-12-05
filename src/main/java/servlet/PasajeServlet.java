@@ -91,25 +91,20 @@ public class PasajeServlet extends HttpServlet {
 						pasaje.setAsiento(asiento);
 						Pasaje p = cpas.add(pasaje);
 						if (p == null) {
-							String message = "No se pudo realizar la compra";
+							String message = "error : No se pudo realizar la compra";
 							request.setAttribute("message", message);
-							System.out.println(message);
-							request.getRequestDispatcher("VueloServlet").forward(request, response);
 							reenviar = false;
 						} else {
 							String message = "Compra realizada con exito";
 							request.setAttribute("message", message);
-							System.out.println(message);
-							request.getRequestDispatcher("VueloServlet").forward(request, response);
 							reenviar = false;
 						}
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
-						request.getRequestDispatcher("VueloServlet").forward(request, response);
 						reenviar = false;
 					}
-
+					request.getRequestDispatcher("VueloServlet").forward(request, response);
 					break;
 				}
 				case "cancelarPasaje": {

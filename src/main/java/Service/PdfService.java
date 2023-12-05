@@ -28,8 +28,6 @@ public class PdfService {
 
 			document.close();
 
-			System.out.println("Creado el PDF");
-
 		} catch (FileNotFoundException ex) {
 			System.err.println("Error: Archivo no encontrado - " + ex.getMessage());
 			ex.printStackTrace();
