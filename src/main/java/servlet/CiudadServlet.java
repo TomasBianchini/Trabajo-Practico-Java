@@ -116,6 +116,7 @@ public class CiudadServlet extends HttpServlet {
 					cc.add(ciu);
 					LinkedList<Pais> paises = cp.getAll();
 					request.setAttribute("listaPaises", paises);
+					request.setAttribute("message", "Ciudad agregada correctamente");
 				} catch (Exception e) {
 					String message = "error : " + e.getMessage();
 					request.setAttribute("message", message);
