@@ -55,7 +55,7 @@ public class VueloServlet extends HttpServlet {
 
 							cv.delete(vue);
 						} catch (Exception e) {
-							String message = e.getMessage();
+							String message = "error :" + e.getMessage();
 							request.setAttribute("message", message);
 						}
 					} else {
@@ -71,7 +71,7 @@ public class VueloServlet extends HttpServlet {
 							LinkedList<Aeropuerto> aeropuertos = ca.getAll();
 							request.setAttribute("listaAeropuertos", aeropuertos);
 						} catch (Exception e) {
-							String message = e.getMessage();
+							String message = "error :" + e.getMessage();
 							request.setAttribute("message", message);
 
 						}
@@ -95,7 +95,7 @@ public class VueloServlet extends HttpServlet {
 							request.getRequestDispatcher("WEB-INF/ui-vuelo/EditarVuelo.jsp").forward(request, response);
 							reenviar = false;
 						} catch (Exception e) {
-							String message = e.getMessage();
+							String message = "error :" + e.getMessage();
 							request.setAttribute("message", message);
 						}
 
@@ -118,7 +118,7 @@ public class VueloServlet extends HttpServlet {
 						vuelos = cv.getByOrigenYDestino(v);
 						request.setAttribute("listaVuelos", vuelos);
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error :" + e.getMessage();
 						request.setAttribute("message", message);
 
 					}
@@ -128,17 +128,18 @@ public class VueloServlet extends HttpServlet {
 				}
 				}
 			}
+			if (reenviar) {
+				try {
+					LinkedList<Vuelo> vuelos = cv.getAll();
+					request.setAttribute("listaVuelos", vuelos);
+				} catch (Exception e) {
+					String message = "error :" + e.getMessage();
+					request.setAttribute("message", message);
+				}
+				request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
+			}
 		}
-		try {
-			LinkedList<Vuelo> vuelos = cv.getAll();
-			request.setAttribute("listaVuelos", vuelos);
-		} catch (Exception e) {
-			String message = e.getMessage();
-			request.setAttribute("message", message);
 
-		}
-		if (reenviar)
-			request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
 	}
 
 	/**
@@ -189,9 +190,9 @@ public class VueloServlet extends HttpServlet {
 					cv.add(vue);
 					LinkedList<Aeropuerto> aeropuertos = ca.getAll();
 					request.setAttribute("listaAeropuertos", aeropuertos);
-
+					request.setAttribute("message", "Vuelo agregado correctamente");
 				} catch (Exception e) {
-					String message = e.getMessage();
+					String message = "error : " + e.getMessage();
 					request.setAttribute("message", message);
 				}
 				request.getRequestDispatcher("WEB-INF/ui-vuelo/AgregarVuelo.jsp").forward(request, response);
@@ -215,8 +216,9 @@ public class VueloServlet extends HttpServlet {
 					vue.setPrecioPrimeraClase(precioPrimeraclase);
 
 					cv.edit(vue);
+					request.setAttribute("message", "Vuelo editado correctamente");
 				} catch (Exception e) {
-					String message = e.getMessage();
+					String message = "error :" + e.getMessage();
 					request.setAttribute("message", message);
 				}
 				doGet(request, response);

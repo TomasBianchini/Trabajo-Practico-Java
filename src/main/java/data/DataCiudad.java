@@ -180,6 +180,7 @@ public class DataCiudad {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				throw e;
+
 			}
 		}
 	}

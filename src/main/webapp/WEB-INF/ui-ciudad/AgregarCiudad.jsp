@@ -10,18 +10,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="Styles/Agregar.css">
-	 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	 <% 
-		LinkedList<Pais> listaPaises = (LinkedList<Pais>)request.getAttribute("listaPaises");
-	 	String message = (String)request.getAttribute("message");
-    	
-	%>
-
+	 <% LinkedList<Pais> listaPaises = (LinkedList<Pais>)request.getAttribute("listaPaises");%>
+	 <%	String message = (String)request.getAttribute("message");	%>
 <title>Agregar Ciudad</title>
 </head>
 <body>
 	<div class="mensaje">
+		
 	    <% if (message != null && !message.isEmpty()) { %>
+	        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	        <script>
 	            window.onload = function() {
 	                Swal.fire({
@@ -33,6 +30,7 @@
 	        </script>
 	    <% } %>
 	</div>
+
   <form action="CiudadServlet?accion=insertar" method="post" >
   	<div class="grid">
 		<label for="codPostal">

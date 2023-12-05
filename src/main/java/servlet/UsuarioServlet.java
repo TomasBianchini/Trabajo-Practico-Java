@@ -55,7 +55,7 @@ public class UsuarioServlet extends HttpServlet {
 						request.getRequestDispatcher("WEB-INF/ui-usuario/EditarUsuario.jsp").forward(request, response);
 						reenviar = false;
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error :" + e.getMessage();
 						request.setAttribute("message", message);
 					}
 					break;
@@ -70,7 +70,7 @@ public class UsuarioServlet extends HttpServlet {
 							cu.delete(usu);
 
 						} catch (Exception e) {
-							String message = e.getMessage();
+							String message = "error :" + e.getMessage();
 							request.setAttribute("message", message);
 
 						}
@@ -102,7 +102,7 @@ public class UsuarioServlet extends HttpServlet {
 						request.getRequestDispatcher("WEB-INF/ui-usuario/ListaPasajes.jsp").forward(request, response);
 						reenviar = false;
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error :" + e.getMessage();
 						request.setAttribute("message", message);
 					}
 					break;
@@ -115,16 +115,14 @@ public class UsuarioServlet extends HttpServlet {
 					reenviar = false;
 					break;
 				}
-
 			}
 			if (usuario.getTipo().equals("admin")) {
 				try {
 					LinkedList<Usuario> lu = cu.getAll();
 					request.setAttribute("listaUsuario", lu);
 				} catch (Exception e) {
-					String message = e.getMessage();
+					String message = "error :" + e.getMessage();
 					request.setAttribute("message", message);
-
 				}
 				if (reenviar)
 					request.getRequestDispatcher("WEB-INF/ui-usuario/ListarUsuario.jsp").forward(request, response);
@@ -175,7 +173,7 @@ public class UsuarioServlet extends HttpServlet {
 						request.getRequestDispatcher("WEB-INF/ui-usuario/AgregarUsuario.jsp").forward(request,
 								response);
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error :" + e.getMessage();
 						request.setAttribute("message", message);
 					}
 				} else {
@@ -205,15 +203,12 @@ public class UsuarioServlet extends HttpServlet {
 					usu.setContrasenia(contrasenia);
 					usu.setTipo(tipo);
 					usu.setFechaNacimiento(fechaNacimiento);
-
 					cu.edit(usu);
-
+					request.setAttribute("message", "Usuario editado correctamente");
 					doGet(request, response);
-
 				} catch (Exception e) {
-					String message = e.getMessage();
+					String message = "error :" + e.getMessage();
 					request.setAttribute("message", message);
-
 				}
 				break;
 			}

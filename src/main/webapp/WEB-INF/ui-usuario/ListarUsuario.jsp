@@ -36,11 +36,9 @@
     
     <li role="list" dir="rtl">
       <a aria-haspopup="listbox">Perfil</a>
-      <ul >
-        
-   <li><a href="UsuarioServlet?accion=redirecEditar&idUsuario=<%=u.getIdUsuario()%>" >Cambiar datos</a></li>
- 
-  <li><a href="UsuarioServlet?accion=cerrarSesion" >Cerrar sesión</a></li>
+      <ul >   
+  		 <li><a href="UsuarioServlet?accion=redirecEditar&idUsuario=<%=u.getIdUsuario()%>" >Cambiar datos</a></li>
+		<li><a href="UsuarioServlet?accion=cerrarSesion" >Cerrar sesión</a></li>
       </ul>
     </li>
     
@@ -57,7 +55,7 @@
 	        <script>
 	            window.onload = function() {
 	                Swal.fire({
-	                	icon: '<%= message.startsWith("error")? "success" : "error"  %>',
+	                	icon: '<%= message.startsWith("error")? "error" : "success"  %>',
 	                    title: 'Message',
 	                    text: 'NO SE REALIZO LA ACCION, <%= message %>',
 	                });

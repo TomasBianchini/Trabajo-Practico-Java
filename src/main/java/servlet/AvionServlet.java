@@ -53,7 +53,7 @@ public class AvionServlet extends HttpServlet {
 						avi.setIdAvion(idAvion);
 						ca.delete(avi);
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error :" + e.getMessage();
 						request.setAttribute("message", message);
 
 					}
@@ -74,7 +74,7 @@ public class AvionServlet extends HttpServlet {
 						request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
 						reenviar = false;
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error :" + e.getMessage();
 						request.setAttribute("message", message);
 					}
 					break;
@@ -90,7 +90,7 @@ public class AvionServlet extends HttpServlet {
 								response);
 						reenviar = false;
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error :" + e.getMessage();
 						request.setAttribute("message", message);
 					}
 					break;
@@ -114,7 +114,7 @@ public class AvionServlet extends HttpServlet {
 						request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
 						reenviar = false;
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error :" + e.getMessage();
 						request.setAttribute("message", message);
 
 					}
@@ -123,15 +123,18 @@ public class AvionServlet extends HttpServlet {
 				}
 				}
 			}
-			try {
-				LinkedList<Avion> la = ca.getAll();
-				request.setAttribute("listaAviones", la);
-			} catch (Exception e) {
-				String message = e.getMessage();
-				request.setAttribute("message", message);
-			}
-			if (reenviar)
+			if (reenviar) {
+				try {
+					LinkedList<Avion> la = ca.getAll();
+					request.setAttribute("listaAviones", la);
+				} catch (Exception e) {
+					String message = "error :" + e.getMessage();
+					request.setAttribute("message", message);
+				}
+
 				request.getRequestDispatcher("WEB-INF/ui-avion/ListarAvion.jsp").forward(request, response);
+
+			}
 		}
 
 	}
@@ -158,11 +161,8 @@ public class AvionServlet extends HttpServlet {
 					ca.add(avi);
 					request.setAttribute("message", "Avion agregado correctamente");
 				} catch (Exception e) {
-
 					String message = "error: " + e.getMessage();
-
 					request.setAttribute("message", message);
-
 				}
 				request.getRequestDispatcher("WEB-INF/ui-avion/AgregarAvion.jsp").forward(request, response);
 				break;
@@ -187,7 +187,7 @@ public class AvionServlet extends HttpServlet {
 					request.setAttribute("avion", avi);
 					request.setAttribute("message", "Asiento agregado correctamente");
 				} catch (Exception e) {
-					String message = e.getMessage();
+					String message = "error :" + e.getMessage();
 					request.setAttribute("message", message);
 				}
 				request.getRequestDispatcher("WEB-INF/ui-asiento/AgregarAsiento.jsp").forward(request, response);

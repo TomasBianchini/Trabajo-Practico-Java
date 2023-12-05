@@ -58,12 +58,13 @@ public class signin extends HttpServlet {
 			LinkedList<Vuelo> vuelos = cv.getAll();
 			request.setAttribute("listaVuelos", vuelos);
 		} catch (Exception e) {
-			String message = e.getMessage();
+			String message = "error :" + e.getMessage();
 			request.setAttribute("message", message);
 		}
 
 		if (usu != null) {
 			request.getSession().setAttribute("usuario", usu);
+			request.getSession().setMaxInactiveInterval(60 * 60);
 			request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
 		} else {
 			request.getRequestDispatcher("index.html").forward(request, response);

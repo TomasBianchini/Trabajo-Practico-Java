@@ -17,14 +17,15 @@
 <body>
 	<h1>Editar Ciudad</h1>
 	  <form action="CiudadServlet?accion=editarCiudad" method="post">
+		 <input type="hidden" name="pais" value="<%= ciudad.getPais().getNombre()%>">
 	  	<h1>Pais: <%= ciudad.getPais().getNombre()%></h1>
         <label for="codPostal">
         	Codigo Postal
-       		<input type="text" id="codPostal" name="codPostal" required autofocus value="<%= ciudad.getCodPostal() %>">
+       		<input type="text" id="codPostal" name="codPostal" required autofocus value="<%=ciudad.getCodPostal() %>">
         </label>
   		<label for="nombre">
   			Nombre
-  			<input id="nombre" name="nombre" required type="text" value="<%= ciudad.getNombre() %>" >
+  			<input id="nombre" name="nombre" required type="text" value="<%=ciudad.getNombre() %>" >
   		</label>
  		<div class="grid">
          	<button type="submit">Actualizar</button>

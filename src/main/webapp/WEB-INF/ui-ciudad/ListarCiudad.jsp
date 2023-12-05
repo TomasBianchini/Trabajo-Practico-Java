@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<%
     	LinkedList<Ciudad> listaCiudades= (LinkedList<Ciudad>)request.getAttribute("listaCiudades");
-	Usuario u = (Usuario)request.getSession().getAttribute("usuario");
+		Usuario u = (Usuario)request.getSession().getAttribute("usuario");
 		String message = (String)request.getAttribute("message");
     %>
 
@@ -29,9 +29,9 @@
   <div > </div>
     <ul class="nav-links">
     <% if (u.getTipo().equals("admin")) { %>
-      <li><a href="UsuarioServlet" class="active">Usuarios</a></li>
+      <li><a href="UsuarioServlet" >Usuarios</a></li>
       <li><a href="PaisServlet"  >Paises</a></li>
-      <li><a href="CiudadServlet" >Ciudades</a></li>
+      <li><a href="CiudadServlet" class="active">Ciudades</a></li>
       <li><a href="AvionServlet" >Aviones</a></li>
       <li><a href="AeropuertoServlet"  >Aeropuertos</a></li>
        <% } %>
@@ -64,7 +64,7 @@
                 Swal.fire({
                 	icon: '<%= message.startsWith("error")? "error" : "success"  %>',
                     title: 'Message',
-                    text: 'NO SE REALIZO LA ACCION, <%= message %>',
+                    text: '<%= message %>',
                 });
             };
         </script>

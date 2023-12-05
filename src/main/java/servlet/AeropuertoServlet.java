@@ -55,7 +55,7 @@ public class AeropuertoServlet extends HttpServlet {
 								response);
 						reenviar = false;
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error :" + e.getMessage();
 						request.setAttribute("message", message);
 					}
 
@@ -68,7 +68,7 @@ public class AeropuertoServlet extends HttpServlet {
 						ae.setIdAeropuerto(idAeropuerto);
 						new CtrlAeropuerto().delete(ae);
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error :" + e.getMessage();
 						request.setAttribute("message", message);
 					}
 					break;
@@ -79,7 +79,7 @@ public class AeropuertoServlet extends HttpServlet {
 						LinkedList<Ciudad> ciudades = cc.getAll();
 						request.setAttribute("listaCiudades", ciudades);
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error :" + e.getMessage();
 						request.setAttribute("message", message);
 
 					}
@@ -90,15 +90,16 @@ public class AeropuertoServlet extends HttpServlet {
 				}
 				}
 			}
-			try {
-				LinkedList<Aeropuerto> aeropuertos = ca.getAll();
-				request.setAttribute("listaAeropuertos", aeropuertos);
-
-			} catch (Exception e) {
-				String message = e.getMessage();
-				request.setAttribute("message", message);
-			}
 			if (reenviar) {
+				try {
+					LinkedList<Aeropuerto> aeropuertos = ca.getAll();
+					request.setAttribute("listaAeropuertos", aeropuertos);
+
+				} catch (Exception e) {
+					String message = "error :" + e.getMessage();
+					request.setAttribute("message", message);
+				}
+
 				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
 			}
 		}
@@ -127,7 +128,7 @@ public class AeropuertoServlet extends HttpServlet {
 					LinkedList<Ciudad> ciudades = cc.getAll();
 					request.setAttribute("listaCiudades", ciudades);
 				} catch (Exception e) {
-					String message = e.getMessage();
+					String message = "error :" + e.getMessage();
 					request.setAttribute("message", message);
 				}
 				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/AgregarAeropuerto.jsp").forward(request, response);
@@ -135,10 +136,13 @@ public class AeropuertoServlet extends HttpServlet {
 			}
 			case "editarAeropuerto": {
 				try {
+					int id = verificarId(request);
 					Aeropuerto a = verificarInputEditar(request);
+					a.setIdAeropuerto(id);
 					ca.edit(a);
+					request.setAttribute("message", "Aeropuerto editado correctamente");
 				} catch (Exception e) {
-					String message = e.getMessage();
+					String message = "error :" + e.getMessage();
 					request.setAttribute("message", message);
 				}
 				doGet(request, response);

@@ -71,21 +71,22 @@ public class PaisServlet extends HttpServlet {
 						request.getRequestDispatcher("WEB-INF/ui-pais/EditarPais.jsp").forward(request, response);
 						reenviar = false;
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error :" + e.getMessage();
 						request.setAttribute("message", message);
 					}
 
 				}
 				}
 			}
-			try {
-				LinkedList<Pais> paises = cp.getAll();
-				request.setAttribute("listaPaises", paises);
-			} catch (Exception e) {
-				String message = e.getMessage();
-				request.setAttribute("message", message);
-			}
 			if (reenviar) {
+				try {
+					LinkedList<Pais> paises = cp.getAll();
+					request.setAttribute("listaPaises", paises);
+				} catch (Exception e) {
+					String message = "error :" + e.getMessage();
+					request.setAttribute("message", message);
+				}
+
 				request.getRequestDispatcher("WEB-INF/ui-pais/ListarPaises.jsp").forward(request, response);
 			}
 		}
