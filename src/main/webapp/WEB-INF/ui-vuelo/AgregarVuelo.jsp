@@ -10,12 +10,27 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="Styles/Agregar.css">
-	<%
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	 <% 
+	 	String message = (String)request.getAttribute("message");
     	LinkedList<Aeropuerto> listaAeropuertos= (LinkedList<Aeropuerto>)request.getAttribute("listaAeropuertos");
 	%>
 <title>Agregar Vuelo</title>
 </head>
 <body>
+	<div class="mensaje">
+	    <% if (message != null && !message.isEmpty()) { %>
+	        <script>
+	            window.onload = function() {
+	                Swal.fire({
+	                    icon: '<%= message.startsWith("error")? "error" : "success"  %>',
+	                    title: 'Message',
+	                    text: '<%= message %>',
+	                });
+	            };
+	        </script>
+	    <% } %>
+	</div>
   <form action="VueloServlet?accion=insertar" method="post">
   		 <label for="idvuelo">
   		 	ID vuelo
@@ -34,18 +49,26 @@
 	  		 	Aeropuerto de origen
 	 			<select id="nombreAeropuertoOrigen" name="nombreAeropuertoOrigen" required>
 	   				<option value="" selected>Elegir origen..</option>
-	   				<%for(Aeropuerto origen: listaAeropuertos){ %>
-	   	   				 <option value="<%=origen.getNombre()%>"><%=origen.getNombre()%></option>
-	   	   			 <%}%>
+	   				   <%if(listaAeropuertos == null || listaAeropuertos.isEmpty()){%>
+								<option value="">No hay aeropuertos disponibles</option>
+						<%}else{ %>
+				   				<%for(Aeropuerto origen: listaAeropuertos){ %>
+	   	   							 <option value="<%=origen.getNombre()%>"><%=origen.getNombre()%></option>
+	   	   					   <%}%>
+	   	   			  <%}%>
 	   			</select>
 			</label>
 			<label for="nombreAeropuertoDestino">
 	  		 	Aeropuerto de destino
 	 			<select id="nombreAeropuertoDestino" name="nombreAeropuertoDestino" required>
 	   				<option value="" selected>Elegir destino..</option>
-	   				<%for(Aeropuerto destino: listaAeropuertos){ %>
-	   	   				 <option value="<%=destino.getNombre()%>"><%=destino.getNombre()%></option>
-	   	   			 <%}%>
+	   		        <%if(listaAeropuertos == null || listaAeropuertos.isEmpty()){%>
+						<option value="">No hay aeropuertos disponibles</option>
+					<%}else{ %>
+		   				<%for(Aeropuerto destino: listaAeropuertos){ %>
+		   	   				 <option value="<%=destino.getNombre()%>"><%=destino.getNombre()%></option>
+		   	   			 <%}%>
+		   	   		 <%}%>
 	   			</select>
 			</label>
  		 </div>

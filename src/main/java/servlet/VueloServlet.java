@@ -40,8 +40,9 @@ public class VueloServlet extends HttpServlet {
 		CtrlVuelo cv = new CtrlVuelo();
 		String accion = request.getParameter("accion");
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		boolean reenviar = true;
 		if (usuario == null) {
-			request.getRequestDispatcher("index.html").forward(request, response);
+			response.sendRedirect("index.html");
 		} else {
 			if (accion != null) {
 				switch (accion) {
@@ -59,6 +60,7 @@ public class VueloServlet extends HttpServlet {
 						}
 					} else {
 						request.getRequestDispatcher("VueloServlet").forward(request, response);
+						reenviar = false;
 					}
 					break;
 				}
@@ -74,8 +76,10 @@ public class VueloServlet extends HttpServlet {
 
 						}
 						request.getRequestDispatcher("WEB-INF/ui-vuelo/AgregarVuelo.jsp").forward(request, response);
+						reenviar = false;
 					} else {
 						request.getRequestDispatcher("VueloServlet").forward(request, response);
+						reenviar = false;
 					}
 					break;
 				}
@@ -89,6 +93,7 @@ public class VueloServlet extends HttpServlet {
 							v = cv.getById(vue);
 							request.setAttribute("Vuelo", v);
 							request.getRequestDispatcher("WEB-INF/ui-vuelo/EditarVuelo.jsp").forward(request, response);
+							reenviar = false;
 						} catch (Exception e) {
 							String message = e.getMessage();
 							request.setAttribute("message", message);
@@ -96,6 +101,7 @@ public class VueloServlet extends HttpServlet {
 
 					} else {
 						request.getRequestDispatcher("index.htlm").forward(request, response);
+						reenviar = false;
 					}
 					break;
 				}
@@ -117,6 +123,7 @@ public class VueloServlet extends HttpServlet {
 
 					}
 					request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
+					reenviar = false;
 					break;
 				}
 				}
@@ -130,7 +137,8 @@ public class VueloServlet extends HttpServlet {
 			request.setAttribute("message", message);
 
 		}
-		request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
+		if (reenviar)
+			request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
 	}
 
 	/**
@@ -145,73 +153,80 @@ public class VueloServlet extends HttpServlet {
 		if (usuario == null || !usuario.getTipo().equals("admin")) {
 			request.getRequestDispatcher("index.html").forward(request, response);
 		} else {
-			if (accion != null) {
-				switch (accion) {
-				case "insertar": {
-					try {
-						int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-						LocalDateTime fechaHoraSalida = LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
-						LocalDateTime fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
-						String nombreAeropuertoOrigen = request.getParameter("nombreAeropuertoOrigen");
-						String nombreAeropuertoDestino = request.getParameter("nombreAeropuertoDestino");
+			switch (accion) {
+			case "insertar": {
+				CtrlAeropuerto ca = new CtrlAeropuerto();
 
-						int idAvion = Integer.parseInt(request.getParameter("idAvion"));
-						double precioGeneral = Double.parseDouble(request.getParameter("precioGeneral"));
-						double precioPrimeraclase = Double.parseDouble(request.getParameter("precioPrimeraClase"));
-						Vuelo vue = new Vuelo();
-						CtrlAeropuerto cAero = new CtrlAeropuerto();
-						Aeropuerto aeroOrigen = new Aeropuerto();
-						Aeropuerto aeroDestino = new Aeropuerto();
-						aeroOrigen.setNombre(nombreAeropuertoOrigen);
-						aeroOrigen = cAero.getByNombre(aeroOrigen);
-						aeroDestino.setNombre(nombreAeropuertoDestino);
-						aeroDestino = cAero.getByNombre(aeroDestino);
+				try {
 
-						vue.setIdvuelo(idvuelo);
-						vue.setAeropuertoOrigen(aeroOrigen);
-						vue.setAeropuertoDestino(aeroDestino);
-						vue.setFechaHoraLlegada(fechaHoraLlegada);
-						vue.setFechaHoraSalida(fechaHoraSalida);
-						vue.setAvion(new Avion());
-						vue.getAvion().setIdAvion(idAvion);
-						vue.setPrecioGeneral(precioGeneral);
-						vue.setPrecioPrimeraClase(precioPrimeraclase);
-						cv.add(vue);
-					} catch (Exception e) {
-						String message = e.getMessage();
-						request.setAttribute("message", message);
-					}
+					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+					LocalDateTime fechaHoraSalida = LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
+					LocalDateTime fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
+					String nombreAeropuertoOrigen = request.getParameter("nombreAeropuertoOrigen");
+					String nombreAeropuertoDestino = request.getParameter("nombreAeropuertoDestino");
 
-					break;
+					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+					double precioGeneral = Double.parseDouble(request.getParameter("precioGeneral"));
+					double precioPrimeraclase = Double.parseDouble(request.getParameter("precioPrimeraClase"));
+					Vuelo vue = new Vuelo();
+					CtrlAeropuerto cAero = new CtrlAeropuerto();
+					Aeropuerto aeroOrigen = new Aeropuerto();
+					Aeropuerto aeroDestino = new Aeropuerto();
+					aeroOrigen.setNombre(nombreAeropuertoOrigen);
+					aeroOrigen = cAero.getByNombre(aeroOrigen);
+					aeroDestino.setNombre(nombreAeropuertoDestino);
+					aeroDestino = cAero.getByNombre(aeroDestino);
+
+					vue.setIdvuelo(idvuelo);
+					vue.setAeropuertoOrigen(aeroOrigen);
+					vue.setAeropuertoDestino(aeroDestino);
+					vue.setFechaHoraLlegada(fechaHoraLlegada);
+					vue.setFechaHoraSalida(fechaHoraSalida);
+					vue.setAvion(new Avion());
+					vue.getAvion().setIdAvion(idAvion);
+					vue.setPrecioGeneral(precioGeneral);
+					vue.setPrecioPrimeraClase(precioPrimeraclase);
+					cv.add(vue);
+					LinkedList<Aeropuerto> aeropuertos = ca.getAll();
+					request.setAttribute("listaAeropuertos", aeropuertos);
+
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
 				}
-				case "editarVuelo": {
-					try {
-						int idvuelo = Integer.parseInt(request.getParameter("idVuelo"));
-						LocalDateTime fechaHoraSalida = LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
-						LocalDateTime fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
-						int idAvion = Integer.parseInt(request.getParameter("idAvion"));
-						double precioGeneral = Double.parseDouble(request.getParameter("precioGeneral"));
-						double precioPrimeraclase = Double.parseDouble(request.getParameter("precioPrimeraClase"));
-						Vuelo vue = new Vuelo();
-						vue.setAvion(new Avion());
-						vue.setIdvuelo(idvuelo);
-						vue.setFechaHoraSalida(fechaHoraSalida);
-						vue.setFechaHoraLlegada(fechaHoraLlegada);
-						vue.getAvion().setIdAvion(idAvion);
-						vue.setPrecioGeneral(precioGeneral);
-						vue.setPrecioPrimeraClase(precioPrimeraclase);
+				request.getRequestDispatcher("WEB-INF/ui-vuelo/AgregarVuelo.jsp").forward(request, response);
+				break;
+			}
+			case "editarVuelo": {
+				try {
+					int idvuelo = Integer.parseInt(request.getParameter("idVuelo"));
+					LocalDateTime fechaHoraSalida = LocalDateTime.parse(request.getParameter("fechaHoraSalida"));
+					LocalDateTime fechaHoraLlegada = LocalDateTime.parse(request.getParameter("fechaHoraLlegada"));
+					int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+					double precioGeneral = Double.parseDouble(request.getParameter("precioGeneral"));
+					double precioPrimeraclase = Double.parseDouble(request.getParameter("precioPrimeraClase"));
+					Vuelo vue = new Vuelo();
+					vue.setAvion(new Avion());
+					vue.setIdvuelo(idvuelo);
+					vue.setFechaHoraSalida(fechaHoraSalida);
+					vue.setFechaHoraLlegada(fechaHoraLlegada);
+					vue.getAvion().setIdAvion(idAvion);
+					vue.setPrecioGeneral(precioGeneral);
+					vue.setPrecioPrimeraClase(precioPrimeraclase);
 
-						cv.edit(vue);
-					} catch (Exception e) {
-						String message = e.getMessage();
-						request.setAttribute("message", message);
-					}
-					break;
+					cv.edit(vue);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
 				}
-				}
+				doGet(request, response);
+				break;
+			}
+			default:
+				doGet(request, response);
+
 			}
 		}
-		doGet(request, response);
 
 	}
 

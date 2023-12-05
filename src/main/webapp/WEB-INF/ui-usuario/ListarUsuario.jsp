@@ -31,20 +31,19 @@
 	    </ul>
 	</nav>
 	
-<div class="mensaje">
-    <% if (message != null && !message.isEmpty()) { %>
-        <script>
-            // Display the message using SweetAlert after the page is fully loaded
-            window.onload = function() {
-                Swal.fire({
-                    icon: '<%= message.startsWith("error")? "success" : "error"  %>',
-                    title: 'Message',
-                    text: 'NO SE REALIZO LA ACCION, <%= message %>',
-                });
-            };
-        </script>
-    <% } %>
-</div>
+	<div class="mensaje">
+	    <% if (message != null && !message.isEmpty()) { %>
+	        <script>
+	            window.onload = function() {
+	                Swal.fire({
+	                    icon: '<%= message.startsWith("error")? "error" : "success"  %>',
+	                    title: 'Message',
+	                    text: 'NO SE REALIZO LA ACCION, <%= message %>',
+	                });
+	            };
+	        </script>
+	    <% } %>
+	</div>
 
 	
 	 <div class="conteiner-table"> 

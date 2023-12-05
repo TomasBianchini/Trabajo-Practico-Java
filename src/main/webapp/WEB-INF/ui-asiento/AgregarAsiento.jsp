@@ -7,12 +7,27 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta charset="UTF-8">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<% String message = (String)request.getAttribute("message");%>
 	<link rel="stylesheet" href="Styles/Agregar.css">
 	    <% Avion avi = (Avion)request.getAttribute("avion");%>
 	<title>Agregar Asiento</title>
 </head>
 
 <body>
+	<div class="mensaje">
+	    <% if (message != null && !message.isEmpty()) { %>
+	        <script>
+	            window.onload = function() {
+	                Swal.fire({
+	                    icon: '<%= message.startsWith("error")? "error" : "success"  %>',
+	                    title: 'Message',
+	                    text: '<%= message %>',
+	                });
+	            };
+	        </script>
+	    <% } %>
+	</div>
 	<form action="AvionServlet?accion=insertarAsiento" method="post">
 		<input type="hidden" name="IdAvion" value="<%= avi.getIdAvion() %>">
  		<p>Avion: <%= avi.getIdAvion() %> </p>

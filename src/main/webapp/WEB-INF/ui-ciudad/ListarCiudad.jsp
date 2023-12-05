@@ -41,7 +41,7 @@
             // Display the message using SweetAlert after the page is fully loaded
             window.onload = function() {
                 Swal.fire({
-                    icon: '<%= message.startsWith("error")? "success" : "error"  %>',
+                    icon: '<%= message.startsWith("error")? "error" : "success"  %>',
                     title: 'Message',
                     text: 'NO SE REALIZO LA ACCION, <%= message %>',
                 });

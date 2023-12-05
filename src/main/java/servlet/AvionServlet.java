@@ -40,8 +40,9 @@ public class AvionServlet extends HttpServlet {
 		CtrlAsiento cas = new CtrlAsiento();
 		String accion = request.getParameter("accion");
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		boolean reenviar = true;
 		if (usuario == null || !usuario.getTipo().equals("admin")) {
-			request.getRequestDispatcher("index.html").forward(request, response);
+			response.sendRedirect("index.html");
 		} else {
 			if (accion != null) {
 				switch (accion) {
@@ -60,6 +61,7 @@ public class AvionServlet extends HttpServlet {
 				}
 				case "redirecAgregarAvion": {
 					request.getRequestDispatcher("WEB-INF/ui-avion/AgregarAvion.jsp").forward(request, response);
+					reenviar = false;
 					break;
 				}
 				case "listarAsientos": {
@@ -70,6 +72,7 @@ public class AvionServlet extends HttpServlet {
 						Avion avi = ca.getById(a);
 						request.setAttribute("avion", avi);
 						request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
+						reenviar = false;
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
@@ -85,6 +88,7 @@ public class AvionServlet extends HttpServlet {
 						request.setAttribute("avion", avi);
 						request.getRequestDispatcher("WEB-INF/ui-asiento/AgregarAsiento.jsp").forward(request,
 								response);
+						reenviar = false;
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
@@ -108,6 +112,7 @@ public class AvionServlet extends HttpServlet {
 						Avion avi = ca.getById(a);
 						request.setAttribute("avion", avi);
 						request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
+						reenviar = false;
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
@@ -118,15 +123,16 @@ public class AvionServlet extends HttpServlet {
 				}
 				}
 			}
+			try {
+				LinkedList<Avion> la = ca.getAll();
+				request.setAttribute("listaAviones", la);
+			} catch (Exception e) {
+				String message = e.getMessage();
+				request.setAttribute("message", message);
+			}
+			if (reenviar)
+				request.getRequestDispatcher("WEB-INF/ui-avion/ListarAvion.jsp").forward(request, response);
 		}
-		try {
-			LinkedList<Avion> la = ca.getAll();
-			request.setAttribute("listaAviones", la);
-		} catch (Exception e) {
-			String message = e.getMessage();
-			request.setAttribute("message", message);
-		}
-		request.getRequestDispatcher("WEB-INF/ui-avion/ListarAvion.jsp").forward(request, response);
 
 	}
 
@@ -140,55 +146,56 @@ public class AvionServlet extends HttpServlet {
 		CtrlAsiento cas = new CtrlAsiento();
 		String accion = request.getParameter("accion");
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+
 		if (usuario == null || !usuario.getTipo().equals("admin")) {
-			request.getRequestDispatcher("index.html").forward(request, response);
+			response.sendRedirect("index.html");
 		} else {
-			if (accion != null) {
-				switch (accion) {
-				case "insertarAvion": {
+			switch (accion) {
+			case "insertarAvion": {
 
-					try {
-						Avion avi = verificarInput(request);
-						ca.add(avi);
-					} catch (Exception e) {
-						String message = e.getMessage();
-						request.setAttribute("message", message);
-
-					}
-					break;
+				try {
+					Avion avi = verificarInput(request);
+					ca.add(avi);
+					request.setAttribute("message", "Avion agregado correctamente");
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
 				}
-				case "insertarAsiento": {
-					try {
-						int idavion = Integer.parseInt(request.getParameter("IdAvion"));
-						String fila = request.getParameter("fila");
-						String numero = request.getParameter("numero");
-						String tipo = request.getParameter("tipo");
-						Asiento asi = new Asiento();
-						asi.setFila(fila);
-						asi.setNumero(numero);
-						asi.setTipo(tipo);
-						asi.setAvion(new Avion());
-						asi.getAvion().setIdAvion(idavion);
+				request.getRequestDispatcher("WEB-INF/ui-avion/AgregarAvion.jsp").forward(request, response);
+				break;
+			}
+			case "insertarAsiento": {
+				try {
+					int idavion = Integer.parseInt(request.getParameter("IdAvion"));
+					String fila = request.getParameter("fila");
+					String numero = request.getParameter("numero");
+					String tipo = request.getParameter("tipo");
+					Asiento asi = new Asiento();
+					asi.setFila(fila);
+					asi.setNumero(numero);
+					asi.setTipo(tipo);
+					asi.setAvion(new Avion());
+					asi.getAvion().setIdAvion(idavion);
 
-						cas.add(asi);
-						Avion a = new Avion();
-						a.setIdAvion(idavion);
-						Avion avi = ca.getById(a);
-						request.setAttribute("avion", avi);
-						request.getRequestDispatcher("WEB-INF/ui-asiento/ListarAsiento.jsp").forward(request, response);
-					} catch (Exception e) {
-						String message = e.getMessage();
-						request.setAttribute("message", message);
-					}
-					break;
-
+					cas.add(asi);
+					Avion a = new Avion();
+					a.setIdAvion(idavion);
+					Avion avi = ca.getById(a);
+					request.setAttribute("avion", avi);
+					request.setAttribute("message", "Asiento agregado correctamente");
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
 				}
+				request.getRequestDispatcher("WEB-INF/ui-asiento/AgregarAsiento.jsp").forward(request, response);
+				break;
 
-				}
+			}
+			default:
+				doGet(request, response);
 			}
 
 		}
-		doGet(request, response);
 	}
 
 	private Avion verificarInput(HttpServletRequest request) {

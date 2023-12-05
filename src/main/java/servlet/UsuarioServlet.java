@@ -39,8 +39,9 @@ public class UsuarioServlet extends HttpServlet {
 		CtrlUsuario cu = new CtrlUsuario();
 		String accion = request.getParameter("accion");
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		boolean reenviar = true;
 		if (usuario == null) {
-			request.getRequestDispatcher("index.html").forward(request, response);
+			response.sendRedirect("index.html");
 		} else {
 			if (accion != null) {
 				switch (accion) {
@@ -52,6 +53,7 @@ public class UsuarioServlet extends HttpServlet {
 						Usuario usu = cu.getById(us);
 						request.setAttribute("Usuario", usu);
 						request.getRequestDispatcher("WEB-INF/ui-usuario/EditarUsuario.jsp").forward(request, response);
+						reenviar = false;
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
@@ -74,6 +76,7 @@ public class UsuarioServlet extends HttpServlet {
 						}
 					} else {
 						request.getRequestDispatcher("VueloServlet").forward(request, response);
+						reenviar = false;
 					}
 					break;
 				}
@@ -81,8 +84,10 @@ public class UsuarioServlet extends HttpServlet {
 					if (usuario.getTipo().equals("admin")) {
 						request.getRequestDispatcher("WEB-INF/ui-usuario/AgregarUsuario.jsp").forward(request,
 								response);
+						reenviar = false;
 					} else {
 						request.getRequestDispatcher("VueloServlet").forward(request, response);
+						reenviar = false;
 					}
 					break;
 				}
@@ -95,6 +100,7 @@ public class UsuarioServlet extends HttpServlet {
 						LinkedList<Pasaje> pasajes = cpasaje.getByIdUsuario(us);
 						request.setAttribute("listaPasajes", pasajes);
 						request.getRequestDispatcher("WEB-INF/ui-usuario/ListaPasajes.jsp").forward(request, response);
+						reenviar = false;
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
@@ -105,7 +111,8 @@ public class UsuarioServlet extends HttpServlet {
 				}
 					HttpSession sesion = request.getSession();
 					sesion.invalidate();
-					request.getRequestDispatcher("index.html").forward(request, response);
+					response.sendRedirect("index.html");
+					reenviar = false;
 					break;
 				}
 
@@ -119,9 +126,11 @@ public class UsuarioServlet extends HttpServlet {
 					request.setAttribute("message", message);
 
 				}
-				request.getRequestDispatcher("WEB-INF/ui-usuario/ListarUsuario.jsp").forward(request, response);
+				if (reenviar)
+					request.getRequestDispatcher("WEB-INF/ui-usuario/ListarUsuario.jsp").forward(request, response);
 			} else {
-				request.getRequestDispatcher("VueloServlet").forward(request, response);
+				if (reenviar)
+					request.getRequestDispatcher("VueloServlet").forward(request, response);
 			}
 		}
 
@@ -137,45 +146,12 @@ public class UsuarioServlet extends HttpServlet {
 		CtrlUsuario cu = new CtrlUsuario();
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
 		if (user == null) {
-			request.getRequestDispatcher("index.html").forward(request, response);
+			response.sendRedirect("index.html");
 		} else {
-			if (accion != null) {
-				switch (accion) {
-				case "insertarUsuario": {
-					if (user.getTipo().equals("admin")) {
-						try {
-							String tipo = request.getParameter("tipo");
-							String nroDocumento = request.getParameter("nroDocumento");
-							String tipoDocumento = request.getParameter("tipoDocumento");
-							String nombre = request.getParameter("nombre");
-							String apellido = request.getParameter("apellido");
-							String email = request.getParameter("email");
-							String contrasenia = request.getParameter("contrasenia");
-							LocalDate fechaNacimiento = LocalDate.parse(request.getParameter("fechaNacimiento"));
-							Usuario usuario = new Usuario();
-							usuario.setApellido(apellido);
-							usuario.setNroDocumento(nroDocumento);
-							usuario.setTipoDocumento(tipoDocumento);
-							usuario.setNombre(nombre);
-							usuario.setEmail(email);
-							usuario.setContrasenia(contrasenia);
-							usuario.setTipo(tipo);
-							usuario.setFechaNacimiento(fechaNacimiento);
-
-							cu.add(usuario);
-						} catch (Exception e) {
-							String message = e.getMessage();
-							request.setAttribute("message", message);
-						}
-					} else {
-						request.getRequestDispatcher("VueloServlet").forward(request, response);
-					}
-					break;
-
-				}
-				case "editarUsuario": {
+			switch (accion) {
+			case "insertarUsuario": {
+				if (user.getTipo().equals("admin")) {
 					try {
-						int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
 						String tipo = request.getParameter("tipo");
 						String nroDocumento = request.getParameter("nroDocumento");
 						String tipoDocumento = request.getParameter("tipoDocumento");
@@ -184,32 +160,69 @@ public class UsuarioServlet extends HttpServlet {
 						String email = request.getParameter("email");
 						String contrasenia = request.getParameter("contrasenia");
 						LocalDate fechaNacimiento = LocalDate.parse(request.getParameter("fechaNacimiento"));
-						Usuario usu = new Usuario();
-						usu.setIdUsuario(idUsuario);
-						usu.setApellido(apellido);
-						usu.setNroDocumento(nroDocumento);
-						usu.setTipoDocumento(tipoDocumento);
-						usu.setNombre(nombre);
-						usu.setEmail(email);
-						usu.setContrasenia(contrasenia);
-						usu.setTipo(tipo);
-						usu.setFechaNacimiento(fechaNacimiento);
+						Usuario usuario = new Usuario();
+						usuario.setApellido(apellido);
+						usuario.setNroDocumento(nroDocumento);
+						usuario.setTipoDocumento(tipoDocumento);
+						usuario.setNombre(nombre);
+						usuario.setEmail(email);
+						usuario.setContrasenia(contrasenia);
+						usuario.setTipo(tipo);
+						usuario.setFechaNacimiento(fechaNacimiento);
 
-						cu.edit(usu);
-
-						request.getRequestDispatcher("VueloServlet").forward(request, response);
-
+						cu.add(usuario);
+						request.setAttribute("message", "Usuario agregado correctamente");
+						request.getRequestDispatcher("WEB-INF/ui-usuario/AgregarUsuario.jsp").forward(request,
+								response);
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
-
 					}
-					break;
+				} else {
+					request.getRequestDispatcher("VueloServlet").forward(request, response);
 				}
-				}
+				break;
+
 			}
+			case "editarUsuario": {
+				try {
+					int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+					String tipo = request.getParameter("tipo");
+					String nroDocumento = request.getParameter("nroDocumento");
+					String tipoDocumento = request.getParameter("tipoDocumento");
+					String nombre = request.getParameter("nombre");
+					String apellido = request.getParameter("apellido");
+					String email = request.getParameter("email");
+					String contrasenia = request.getParameter("contrasenia");
+					LocalDate fechaNacimiento = LocalDate.parse(request.getParameter("fechaNacimiento"));
+					Usuario usu = new Usuario();
+					usu.setIdUsuario(idUsuario);
+					usu.setApellido(apellido);
+					usu.setNroDocumento(nroDocumento);
+					usu.setTipoDocumento(tipoDocumento);
+					usu.setNombre(nombre);
+					usu.setEmail(email);
+					usu.setContrasenia(contrasenia);
+					usu.setTipo(tipo);
+					usu.setFechaNacimiento(fechaNacimiento);
+
+					cu.edit(usu);
+
+					doGet(request, response);
+
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+
+				}
+				break;
+			}
+			default:
+				doGet(request, response);
+			}
+
 		}
-		doGet(request, response);
+
 	}
 
 }

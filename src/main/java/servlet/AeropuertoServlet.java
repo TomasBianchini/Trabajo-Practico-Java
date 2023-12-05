@@ -38,8 +38,9 @@ public class AeropuertoServlet extends HttpServlet {
 		CtrlAeropuerto ca = new CtrlAeropuerto();
 		String accion = request.getParameter("accion");
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		boolean reenviar = true;
 		if (usuario == null || !usuario.getTipo().equals("admin")) {
-			request.getRequestDispatcher("index.html").forward(request, response);
+			response.sendRedirect("index.html");
 		} else {
 			if (accion != null) {
 				switch (accion) {
@@ -52,7 +53,7 @@ public class AeropuertoServlet extends HttpServlet {
 						request.setAttribute("Aeropuerto", aero);
 						request.getRequestDispatcher("WEB-INF/ui-aeropuerto/EditarAeropuerto.jsp").forward(request,
 								response);
-
+						reenviar = false;
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
@@ -69,7 +70,6 @@ public class AeropuertoServlet extends HttpServlet {
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
-
 					}
 					break;
 				}
@@ -85,20 +85,23 @@ public class AeropuertoServlet extends HttpServlet {
 					}
 					request.getRequestDispatcher("WEB-INF/ui-aeropuerto/AgregarAeropuerto.jsp").forward(request,
 							response);
+					reenviar = false;
 					break;
 				}
 				}
 			}
-		}
-		try {
-			LinkedList<Aeropuerto> aeropuertos = ca.getAll();
-			request.setAttribute("listaAeropuertos", aeropuertos);
+			try {
+				LinkedList<Aeropuerto> aeropuertos = ca.getAll();
+				request.setAttribute("listaAeropuertos", aeropuertos);
 
-		} catch (Exception e) {
-			String message = e.getMessage();
-			request.setAttribute("message", message);
+			} catch (Exception e) {
+				String message = e.getMessage();
+				request.setAttribute("message", message);
+			}
+			if (reenviar) {
+				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
+			}
 		}
-		request.getRequestDispatcher("WEB-INF/ui-aeropuerto/ListarAeropuerto.jsp").forward(request, response);
 
 	}
 
@@ -112,37 +115,39 @@ public class AeropuertoServlet extends HttpServlet {
 		String accion = request.getParameter("accion");
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 		if (usuario == null || !usuario.getTipo().equals("admin")) {
-			request.getRequestDispatcher("index.html").forward(request, response);
+			response.sendRedirect("index.html");
 		} else {
-			if (accion != null) {
-				switch (accion) {
-				case "insertar": {
-					try {
-						Aeropuerto ae = verificarInput(request);
-						ca.add(ae);
-					} catch (Exception e) {
-						String message = e.getMessage();
-						request.setAttribute("message", message);
-
-					}
-					break;
+			switch (accion) {
+			case "insertar": {
+				CtrlCiudad cc = new CtrlCiudad();
+				try {
+					Aeropuerto ae = verificarInput(request);
+					ca.add(ae);
+					request.setAttribute("message", "Aeropuerto agregado correctamente");
+					LinkedList<Ciudad> ciudades = cc.getAll();
+					request.setAttribute("listaCiudades", ciudades);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
 				}
-				case "editarAeropuerto": {
-					try {
-						Aeropuerto a = verificarInputEditar(request);
-
-						ca.edit(a);
-					} catch (Exception e) {
-						String message = e.getMessage();
-						request.setAttribute("message", message);
-
-					}
-					break;
+				request.getRequestDispatcher("WEB-INF/ui-aeropuerto/AgregarAeropuerto.jsp").forward(request, response);
+				break;
+			}
+			case "editarAeropuerto": {
+				try {
+					Aeropuerto a = verificarInputEditar(request);
+					ca.edit(a);
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
 				}
-				}
+				doGet(request, response);
+				break;
+			}
+			default:
+				doGet(request, response);
 			}
 		}
-		doGet(request, response);
 	}
 
 	private Aeropuerto verificarInput(HttpServletRequest request) throws Exception {

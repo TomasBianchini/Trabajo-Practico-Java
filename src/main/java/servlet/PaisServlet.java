@@ -37,8 +37,9 @@ public class PaisServlet extends HttpServlet {
 		CtrlPais cp = new CtrlPais();
 		String accion = request.getParameter("accion");
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		boolean reenviar = true;
 		if (usuario == null || !usuario.getTipo().equals("admin")) {
-			request.getRequestDispatcher("index.html").forward(request, response);
+			response.sendRedirect("index.html");
 		} else {
 			if (accion != null) {
 				switch (accion) {
@@ -57,6 +58,7 @@ public class PaisServlet extends HttpServlet {
 				}
 				case "redirecAgregarPais": {
 					request.getRequestDispatcher("WEB-INF/ui-pais/AgregarPais.jsp").forward(request, response);
+					reenviar = false;
 					break;
 				}
 				case "redirecEditar": {
@@ -67,6 +69,7 @@ public class PaisServlet extends HttpServlet {
 						Pais pa = cp.getById(p);
 						request.setAttribute("Pais", pa);
 						request.getRequestDispatcher("WEB-INF/ui-pais/EditarPais.jsp").forward(request, response);
+						reenviar = false;
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
@@ -75,15 +78,18 @@ public class PaisServlet extends HttpServlet {
 				}
 				}
 			}
+			try {
+				LinkedList<Pais> paises = cp.getAll();
+				request.setAttribute("listaPaises", paises);
+			} catch (Exception e) {
+				String message = e.getMessage();
+				request.setAttribute("message", message);
+			}
+			if (reenviar) {
+				request.getRequestDispatcher("WEB-INF/ui-pais/ListarPaises.jsp").forward(request, response);
+			}
 		}
-		try {
-			LinkedList<Pais> paises = cp.getAll();
-			request.setAttribute("listaPaises", paises);
-		} catch (Exception e) {
-			String message = e.getMessage();
-			request.setAttribute("message", message);
-		}
-		request.getRequestDispatcher("WEB-INF/ui-pais/ListarPaises.jsp").forward(request, response);
+
 	}
 
 	/**
@@ -96,36 +102,40 @@ public class PaisServlet extends HttpServlet {
 		String accion = request.getParameter("accion");
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 		if (usuario == null || !usuario.getTipo().equals("admin")) {
-			request.getRequestDispatcher("index.html").forward(request, response);
+			response.sendRedirect("index.html");
 		} else {
-			if (accion != null) {
-				switch (accion) {
-				case "insertar": {
+			switch (accion) {
+			case "insertar": {
+				Pais pa = verificarInput(request);
+				try {
+					cp.add(pa);
+					request.setAttribute("message", "Pais agregado correctamente");
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
+				}
+				request.getRequestDispatcher("WEB-INF/ui-pais/AgregarPais.jsp").forward(request, response);
+				break;
+			}
+			case "editarPais": {
+				try {
+					int idPais = verificarId(request);
 					Pais pa = verificarInput(request);
-					try {
-						cp.add(pa);
-					} catch (Exception e) {
-						String message = e.getMessage();
-						request.setAttribute("message", message);
-					}
-					break;
+					pa.setIdPais(idPais);
+					cp.edit(pa);
+					request.setAttribute("message", "Pais editado correctamente");
+				} catch (Exception e) {
+					String message = e.getMessage();
+					request.setAttribute("message", message);
 				}
-				case "editarPais": {
-					try {
-						int idPais = verificarId(request);
-						Pais pa = verificarInput(request);
-						pa.setIdPais(idPais);
-						cp.edit(pa);
-					} catch (Exception e) {
-						String message = e.getMessage();
-						request.setAttribute("message", message);
-					}
-					break;
-				}
-				}
+				doGet(request, response);
+				break;
+			}
+			default:
+				doGet(request, response);
 			}
 		}
-		doGet(request, response);
+
 	}
 
 	private Pais verificarInput(HttpServletRequest request) {
@@ -148,4 +158,5 @@ public class PaisServlet extends HttpServlet {
 		}
 		return id;
 	}
+
 }

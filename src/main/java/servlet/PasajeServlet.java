@@ -40,6 +40,7 @@ public class PasajeServlet extends HttpServlet {
 		String accion = request.getParameter("accion");
 		CtrlVuelo cv = new CtrlVuelo();
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		boolean reenviar = true;
 		if (usuario == null) {
 			request.getRequestDispatcher("index.html").forward(request, response);
 		} else {
@@ -56,6 +57,7 @@ public class PasajeServlet extends HttpServlet {
 						HashMap<String, Asiento> asientosDisponibles = cv.getAsientosDisponibles(v);
 						request.setAttribute("asientosDisponibles", asientosDisponibles);
 						request.getRequestDispatcher("WEB-INF/ui-pasaje/ComprarPasaje.jsp").forward(request, response);
+						reenviar = false;
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
@@ -93,16 +95,19 @@ public class PasajeServlet extends HttpServlet {
 							request.setAttribute("message", message);
 							System.out.println(message);
 							request.getRequestDispatcher("VueloServlet").forward(request, response);
+							reenviar = false;
 						} else {
 							String message = "Compra realizada con exito";
 							request.setAttribute("message", message);
 							System.out.println(message);
 							request.getRequestDispatcher("VueloServlet").forward(request, response);
+							reenviar = false;
 						}
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
 						request.getRequestDispatcher("VueloServlet").forward(request, response);
+						reenviar = false;
 					}
 
 					break;
@@ -122,15 +127,17 @@ public class PasajeServlet extends HttpServlet {
 						request.setAttribute("message", message);
 					}
 					request.getRequestDispatcher("VueloServlet").forward(request, response);
+					reenviar = false;
 					break;
 				}
 				default:
 					request.getRequestDispatcher("VueloServlet").forward(request, response);
-
+					reenviar = false;
 				}
 
 			}
-			request.getRequestDispatcher("VueloServlet").forward(request, response);
+			if (reenviar)
+				request.getRequestDispatcher("VueloServlet").forward(request, response);
 		}
 
 	}
