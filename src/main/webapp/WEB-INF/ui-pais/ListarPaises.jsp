@@ -1,4 +1,5 @@
 <%@page import="entities.Pais"%>
+<%@page import="entities.Usuario"%>
 <%@page import="java.util.LinkedList"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -15,7 +16,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<%
     	LinkedList<Pais> listaPais = (LinkedList<Pais>)request.getAttribute("listaPaises");
-
+	Usuario u = (Usuario)request.getSession().getAttribute("usuario");
         String message = (String)request.getAttribute("message");
     %>
 
@@ -23,24 +24,43 @@
     <title>Lista Paises</title>
 </head>
 <body>
-  <nav class="navbar">
-	    <ul class="nav-links">
-	      <li><a href="UsuarioServlet" >Usuarios</a></li>
-	      <li><a href="PaisServlet" class="active" >Paises</a></li>
-	      <li><a href="CiudadServlet" >Ciudades</a></li>
-	      <li><a href="AvionServlet" >Aviones</a></li>
-	      <li><a href="AeropuertoServlet" >Aeropuertos</a></li>
-	      <li><a href="VueloServlet"  >Vuelos</a></li>
-	      <li><a href="UsuarioServlet?accion=cerrarSesion">Cerrar sesión</a></li>
-	    </ul>
-  </nav>
+   <nav class="navbar">
+  <div > </div>
+    <ul class="nav-links">
+    <% if (u.getTipo().equals("admin")) { %>
+      <li><a href="UsuarioServlet" >Usuarios</a></li>
+      <li><a href="PaisServlet" class="active" >Paises</a></li>
+      <li><a href="CiudadServlet" >Ciudades</a></li>
+      <li><a href="AvionServlet" >Aviones</a></li>
+      <li><a href="AeropuertoServlet"  >Aeropuertos</a></li>
+       <% } %>
+      <li><a href="VueloServlet" >Vuelos</a></li>
+
+    
+    
+    <li role="list" dir="rtl">
+      <a aria-haspopup="listbox">Perfil</a>
+      <ul >
+        
+   <li><a href="UsuarioServlet?accion=redirecEditar&idUsuario=<%=u.getIdUsuario()%>" >Cambiar datos</a></li>
+ 
+  <li><a href="UsuarioServlet?accion=cerrarSesion" >Cerrar sesión</a></li>
+      </ul>
+    </li>
+    
+    </ul>
+    
+    
+    
+    
+  </nav>	
 
 <div class="mensaje">
     <% if (message != null && !message.isEmpty()) { %>
         <script>
             window.onload = function() {
                 Swal.fire({
-                    icon: '<%= message.startsWith("error")? "error" : "success"  %>',
+                	icon: '<%= message.startsWith("error")? "error" : "success"  %>',
                     title: 'Message',
                     text: '<%= message %>',
                 });

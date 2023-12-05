@@ -15,28 +15,49 @@
 	<title>Lista Usuario</title>
 	<%
 		LinkedList<Usuario> listaUsu = (LinkedList<Usuario>)request.getAttribute("listaUsuario");
+	 Usuario u = (Usuario)request.getSession().getAttribute("usuario");
 		String message = (String)request.getAttribute("message");
     %>
 </head>
 <body>
-	<nav class="navbar">
-	    <ul class="nav-links">
-	      <li > <a href="UsuarioServlet" class="active">Usuarios</a></li>
-	      <li><a href="PaisServlet"  >Paises</a></li>
-	      <li><a href="CiudadServlet" >Ciudades</a></li>
-	      <li><a href="AvionServlet" >Aviones</a></li>
-	      <li> <a href="AeropuertoServlet" >Aeropuertos</a></li>
-	      <li><a href="VueloServlet"  >Vuelos</a></li>
-	      <li><a href="UsuarioServlet?accion=cerrarSesion">Cerrar sesión</a></li>
-	    </ul>
-	</nav>
+	  <nav class="navbar">
+  <div > </div>
+    <ul class="nav-links">
+    <% if (u.getTipo().equals("admin")) { %>
+      <li><a href="UsuarioServlet" class="active">Usuarios</a></li>
+      <li><a href="PaisServlet"  >Paises</a></li>
+      <li><a href="CiudadServlet" >Ciudades</a></li>
+      <li><a href="AvionServlet" >Aviones</a></li>
+      <li><a href="AeropuertoServlet"  >Aeropuertos</a></li>
+       <% } %>
+      <li><a href="VueloServlet" >Vuelos</a></li>
+
+    
+    
+    <li role="list" dir="rtl">
+      <a aria-haspopup="listbox">Perfil</a>
+      <ul >
+        
+   <li><a href="UsuarioServlet?accion=redirecEditar&idUsuario=<%=u.getIdUsuario()%>" >Cambiar datos</a></li>
+ 
+  <li><a href="UsuarioServlet?accion=cerrarSesion" >Cerrar sesión</a></li>
+      </ul>
+    </li>
+    
+    </ul>
+    
+    
+    
+    
+  </nav>		
+
 	
 	<div class="mensaje">
 	    <% if (message != null && !message.isEmpty()) { %>
 	        <script>
 	            window.onload = function() {
 	                Swal.fire({
-	                    icon: '<%= message.startsWith("error")? "error" : "success"  %>',
+	                	icon: '<%= message.startsWith("error")? "success" : "error"  %>',
 	                    title: 'Message',
 	                    text: 'NO SE REALIZO LA ACCION, <%= message %>',
 	                });

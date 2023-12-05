@@ -23,7 +23,7 @@
 	        <script>
 	            window.onload = function() {
 	                Swal.fire({
-	                    icon: '<%= message.startsWith("error")? "error" : "success"  %>',
+	                	icon: '<%= message.startsWith("error")? "success" : "error"  %>',
 	                    title: 'Message',
 	                    text: '<%= message %>',
 	                });

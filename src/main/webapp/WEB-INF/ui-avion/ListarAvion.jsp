@@ -1,4 +1,5 @@
 <%@page import="entities.Avion"%>
+<%@page import="entities.Usuario"%>
 <%@page import="java.util.LinkedList"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -14,23 +15,43 @@
  	<link rel="stylesheet" href="Styles/listados.css">
  	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-	<% LinkedList<Avion> listaAviones = (LinkedList<Avion>)request.getAttribute("listaAviones"); 
+	<% LinkedList<Avion> listaAviones = (LinkedList<Avion>)request.getAttribute("listaAviones");
+	Usuario u = (Usuario)request.getSession().getAttribute("usuario");
 	 String message = (String)request.getAttribute("message");
 	
 	%>
 </head>
 <body>
-	<nav class="navbar">
-	    <ul class="nav-links">
-	      <li > <a href="UsuarioServlet" >Usuarios</a></li>
-	      <li><a href="PaisServlet"  >Paises</a></li>
-	      <li><a href="CiudadServlet" >Ciudades</a></li>
-	      <li><a href="AvionServlet" class="active">Aviones</a></li>
-	      <li> <a href="AeropuertoServlet" >Aeropuertos</a></li>
-	      <li><a href="VueloServlet"  >Vuelos</a></li>
-	      <li><a href="UsuarioServlet?accion=cerrarSesion">Cerrar sesión</a></li>
-	    </ul>
-	</nav>
+ <nav class="navbar">
+  <div > </div>
+    <ul class="nav-links">
+    <% if (u.getTipo().equals("admin")) { %>
+      <li><a href="UsuarioServlet" >Usuarios</a></li>
+      <li><a href="PaisServlet"  >Paises</a></li>
+      <li><a href="CiudadServlet" >Ciudades</a></li>
+      <li><a href="AvionServlet" class="active">Aviones</a></li>
+      <li><a href="AeropuertoServlet"  >Aeropuertos</a></li>
+       <% } %>
+      <li><a href="VueloServlet" >Vuelos</a></li>
+
+    
+    
+    <li role="list" dir="rtl">
+      <a aria-haspopup="listbox">Perfil</a>
+      <ul >
+        
+   <li><a href="UsuarioServlet?accion=redirecEditar&idUsuario=<%=u.getIdUsuario()%>" >Cambiar datos</a></li>
+ 
+  <li><a href="UsuarioServlet?accion=cerrarSesion" >Cerrar sesión</a></li>
+      </ul>
+    </li>
+    
+    </ul>
+    
+    
+    
+    
+  </nav>	
 	
 	
 <div class="mensaje">
@@ -38,7 +59,7 @@
         <script>
             window.onload = function() {
                 Swal.fire({
-                    icon: '<%= message.startsWith("error")? "error" : "success"  %>',
+                    icon: '<%= message.startsWith("error")? "success" : "error"  %>',
                     title: 'Message',
                     text: '<%= message %>',
                 });

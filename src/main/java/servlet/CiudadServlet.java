@@ -49,7 +49,7 @@ public class CiudadServlet extends HttpServlet {
 						Ciudad ciu = verificarInput(request);
 						cc.delete(ciu);
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error: " + e.getMessage();
 						request.setAttribute("message", message);
 					}
 					break;
@@ -117,7 +117,7 @@ public class CiudadServlet extends HttpServlet {
 					LinkedList<Pais> paises = cp.getAll();
 					request.setAttribute("listaPaises", paises);
 				} catch (Exception e) {
-					String message = e.getMessage();
+					String message = "error: " + e.getMessage();
 					request.setAttribute("message", message);
 				}
 				request.getRequestDispatcher("WEB-INF/ui-ciudad/AgregarCiudad.jsp").forward(request, response);
@@ -129,7 +129,7 @@ public class CiudadServlet extends HttpServlet {
 					cc.edit(ciu);
 					request.setAttribute("message", "Ciudad editada correctamente");
 				} catch (Exception e) {
-					String message = e.getMessage();
+					String message = "error: " + e.getMessage();
 					request.setAttribute("message", message);
 				}
 				doGet(request, response);

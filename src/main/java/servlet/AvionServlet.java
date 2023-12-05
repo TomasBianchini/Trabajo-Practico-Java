@@ -158,8 +158,11 @@ public class AvionServlet extends HttpServlet {
 					ca.add(avi);
 					request.setAttribute("message", "Avion agregado correctamente");
 				} catch (Exception e) {
-					String message = e.getMessage();
+
+					String message = "error: " + e.getMessage();
+
 					request.setAttribute("message", message);
+
 				}
 				request.getRequestDispatcher("WEB-INF/ui-avion/AgregarAvion.jsp").forward(request, response);
 				break;

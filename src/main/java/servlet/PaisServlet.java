@@ -50,7 +50,7 @@ public class PaisServlet extends HttpServlet {
 						pa.setIdPais(id);
 						cp.delete(pa);
 					} catch (Exception e) {
-						String message = e.getMessage();
+						String message = "error: " + e.getMessage();
 						request.setAttribute("message", message);
 					}
 					break;
@@ -111,7 +111,7 @@ public class PaisServlet extends HttpServlet {
 					cp.add(pa);
 					request.setAttribute("message", "Pais agregado correctamente");
 				} catch (Exception e) {
-					String message = e.getMessage();
+					String message = "error: " + e.getMessage();
 					request.setAttribute("message", message);
 				}
 				request.getRequestDispatcher("WEB-INF/ui-pais/AgregarPais.jsp").forward(request, response);
@@ -125,7 +125,7 @@ public class PaisServlet extends HttpServlet {
 					cp.edit(pa);
 					request.setAttribute("message", "Pais editado correctamente");
 				} catch (Exception e) {
-					String message = e.getMessage();
+					String message = "error: " + e.getMessage();
 					request.setAttribute("message", message);
 				}
 				doGet(request, response);
