@@ -2,6 +2,7 @@ package Service;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.time.format.DateTimeFormatter;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -38,32 +39,41 @@ public class PdfService {
 	}
 
 	private static void agregarContenido(Document document, Pasaje pas) throws DocumentException {
-		// Agregar un encabezado con estilo
+
 		Font fontTitulo = new Font(Font.FontFamily.HELVETICA, 18, Font.ITALIC, BaseColor.BLACK);
 		Paragraph titulo = new Paragraph("Pasaje Aéreo", fontTitulo);
 		titulo.setAlignment(Paragraph.ALIGN_CENTER);
 		document.add(titulo);
 
-		// Espacio en blanco
 		document.add(new Paragraph("\n"));
 
-		// Información del pasaje en una tabla estilizada
 		PdfPTable table = new PdfPTable(2);
 		table.setWidthPercentage(70);
 		table.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 		agregarCelda(table, "Nombre del Pasajero:", pas.getUsuario().getNombre() + " " + pas.getUsuario().getApellido(),
 				BaseColor.DARK_GRAY);
-		agregarCelda(table, "Fecha de Salida:", pas.getVuelo().getFechaHoraSalida().toString(), BaseColor.DARK_GRAY);
-		agregarCelda(table, "Fecha de Llegada:", pas.getVuelo().getFechaHoraLlegada().toString(), BaseColor.DARK_GRAY);
-		agregarCelda(table, "Asiento:", pas.getAsiento().getFila() + pas.getAsiento().getNumero(), BaseColor.DARK_GRAY);
+		agregarCelda(table, "Origen: ",
+				pas.getVuelo().getAeropuertoOrigen().getNombre() + ", "
+						+ pas.getVuelo().getAeropuertoOrigen().getCiudad().getNombre() + ", "
+						+ pas.getVuelo().getAeropuertoOrigen().getCiudad().getPais().getNombre(),
+				BaseColor.DARK_GRAY);
+		agregarCelda(table, "Fecha de Salida:", pas.getVuelo().getFechaHoraSalida()
+				.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")).toString(), BaseColor.DARK_GRAY);
+		agregarCelda(table, "Destino: ",
+				pas.getVuelo().getAeropuertoDestino().getNombre() + ", "
+						+ pas.getVuelo().getAeropuertoDestino().getCiudad().getNombre() + ", "
+						+ pas.getVuelo().getAeropuertoDestino().getCiudad().getPais().getNombre(),
+				BaseColor.DARK_GRAY);
+		agregarCelda(table, "Fecha de Llegada:", pas.getVuelo().getFechaHoraLlegada()
+				.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")).toString(), BaseColor.DARK_GRAY);
+		agregarCelda(table, "Asiento:", pas.getAsiento().getFila() + " " + pas.getAsiento().getNumero(),
+				BaseColor.DARK_GRAY);
 
 		document.add(table);
 
-		// Espacio en blanco
 		document.add(new Paragraph("\n"));
 
-		// Detalles adicionales con estilo
 		Font fontAgradecimiento = new Font(Font.FontFamily.HELVETICA, 14, Font.ITALIC, BaseColor.DARK_GRAY);
 		Paragraph agradecimiento = new Paragraph("¡Gracias por elegir nuestra aerolínea!", fontAgradecimiento);
 		agradecimiento.setAlignment(Paragraph.ALIGN_CENTER);
@@ -82,7 +92,6 @@ public class PdfService {
 
 		etiquetaCell.setBackgroundColor(colorFondo);
 
-		// Agregar bordes a las celdas
 		etiquetaCell.setBorderColor(BaseColor.GRAY);
 		etiquetaCell.setBorderWidth(1f);
 		valorCell.setBorderColor(BaseColor.GRAY);
