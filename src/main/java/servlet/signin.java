@@ -50,10 +50,10 @@ public class signin extends HttpServlet {
 		String contrasenia = request.getParameter("contrasenia");
 		usu.setEmail(email);
 		usu.setContrasenia(contrasenia);
-
+		Usuario usuario = null;
 		CtrlLogin ctrl = new CtrlLogin();
 		try {
-			usu = ctrl.validate(usu);
+			usuario = ctrl.validate(usu);
 			CtrlVuelo cv = new CtrlVuelo();
 			LinkedList<Vuelo> vuelos = cv.getAll();
 			request.setAttribute("listaVuelos", vuelos);
@@ -62,8 +62,8 @@ public class signin extends HttpServlet {
 			request.setAttribute("message", message);
 		}
 
-		if (usu != null) {
-			request.getSession().setAttribute("usuario", usu);
+		if (usuario != null) {
+			request.getSession().setAttribute("usuario", usuario);
 			request.getSession().setMaxInactiveInterval(60 * 60);
 			request.getRequestDispatcher("Vuelos.jsp").forward(request, response);
 		} else {

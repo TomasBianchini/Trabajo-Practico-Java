@@ -29,7 +29,7 @@ public class DataVuelo {
 					+ " inner join ciudad ciuO on ciuO.codPostal = aeroO.codPostal "
 					+ " inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal "
 					+ " inner join pais pO on pO.idpais = ciuO.idPais"
-					+ " inner join pais pD on pD.idpais = ciuD.idPais ");
+					+ " inner join pais pD on pD.idpais = ciuD.idPais where vue.fechaHoraSalida > now() ");
 			if (rs != null) {
 				while (rs.next()) {
 					Vuelo v = new Vuelo();
