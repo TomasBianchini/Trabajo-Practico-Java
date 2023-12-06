@@ -75,7 +75,7 @@
 			</label>
  		 </div>
  	        <label for="inputIdAvion">Id del avion
- 	     	 			 			<select id="inputIdAvion" name="idAvion" required>
+ 	     	 	<select id="inputIdAvion" name="idAvion" required>
 	   				<option value="" selected>Elegir Avion..</option>
 	   		        <%if(listaAvion == null || listaAvion.isEmpty()){%>
 						<option value="">No hay Aviones</option>
@@ -84,8 +84,8 @@
 		   	   				 <option value="<%=avi.getIdAvion()%>"><%=avi.getIdAvion()%></option>
 		   	   			 <%}%>
 		   	   		 <%}%>
-	   			</select></label>
-    
+	   			</select>
+	   		</label>
 		 <div class="grid">
 	    	 <label for="precioGeneral" >
 	    	 	Precio General:

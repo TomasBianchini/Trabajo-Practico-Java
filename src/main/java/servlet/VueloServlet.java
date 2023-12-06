@@ -71,9 +71,9 @@ public class VueloServlet extends HttpServlet {
 						CtrlAvion a = new CtrlAvion();
 						try {
 							LinkedList<Aeropuerto> aeropuertos = ca.getAll();
-							LinkedList<Avion> avion = a.getAll();
+							LinkedList<Avion> aviones = a.getAll();
 							request.setAttribute("listaAeropuertos", aeropuertos);
-							request.setAttribute("listaAvion", avion);
+							request.setAttribute("listaAvion", aviones);
 						} catch (Exception e) {
 							String message = "error :" + e.getMessage();
 							request.setAttribute("message", message);
@@ -161,7 +161,7 @@ public class VueloServlet extends HttpServlet {
 			switch (accion) {
 			case "insertar": {
 				CtrlAeropuerto ca = new CtrlAeropuerto();
-
+				CtrlAvion a = new CtrlAvion();
 				try {
 
 					int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
@@ -193,7 +193,9 @@ public class VueloServlet extends HttpServlet {
 					vue.setPrecioPrimeraClase(precioPrimeraclase);
 					cv.add(vue);
 					LinkedList<Aeropuerto> aeropuertos = ca.getAll();
+					LinkedList<Avion> aviones = a.getAll();
 					request.setAttribute("listaAeropuertos", aeropuertos);
+					request.setAttribute("listaAvion", aviones);
 					request.setAttribute("message", "Vuelo agregado correctamente");
 				} catch (Exception e) {
 					String message = "error : " + e.getMessage();
