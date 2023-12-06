@@ -15,6 +15,7 @@ import entities.Avion;
 import entities.Usuario;
 import entities.Vuelo;
 import logic.CtrlAeropuerto;
+import logic.CtrlAvion;
 import logic.CtrlVuelo;
 
 /**
@@ -67,9 +68,12 @@ public class VueloServlet extends HttpServlet {
 				case "redirecAgregarVuelo": {
 					if (usuario.getTipo().equals("admin")) {
 						CtrlAeropuerto ca = new CtrlAeropuerto();
+						CtrlAvion a = new CtrlAvion();
 						try {
 							LinkedList<Aeropuerto> aeropuertos = ca.getAll();
+							LinkedList<Avion> avion = a.getAll();
 							request.setAttribute("listaAeropuertos", aeropuertos);
+							request.setAttribute("listaAvion", avion);
 						} catch (Exception e) {
 							String message = "error :" + e.getMessage();
 							request.setAttribute("message", message);

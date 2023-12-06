@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ page import="entities.Aeropuerto" %>
+  <%@ page import="entities.Avion" %>
  <%@ page import="java.util.LinkedList" %>
 <!DOCTYPE html>
 <html data-theme="dark">
@@ -14,6 +15,7 @@
 	 <% 
 	 	String message = (String)request.getAttribute("message");
     	LinkedList<Aeropuerto> listaAeropuertos= (LinkedList<Aeropuerto>)request.getAttribute("listaAeropuertos");
+    	LinkedList<Avion> listaAvion= (LinkedList<Avion>)request.getAttribute("listaAvion");
 	%>
 <title>Agregar Vuelo</title>
 </head>
@@ -72,8 +74,17 @@
 	   			</select>
 			</label>
  		 </div>
- 	     <label for="inputIdAvion">Id del avion</label>
-    	 <input id="inputIdAvion" name="idAvion" placeholder="id del avion" required type="text"> 	
+ 	        <label for="inputIdAvion">Id del avion
+ 	     	 			 			<select id="inputIdAvion" name="idAvion" required>
+	   				<option value="" selected>Elegir Avion..</option>
+	   		        <%if(listaAvion == null || listaAvion.isEmpty()){%>
+						<option value="">No hay Aviones</option>
+					<%}else{ %>
+		   				<%for(Avion avi: listaAvion){ %>
+		   	   				 <option value="<%=avi.getIdAvion()%>"><%=avi.getIdAvion()%></option>
+		   	   			 <%}%>
+		   	   		 <%}%>
+	   			</select></label>
     
 		 <div class="grid">
 	    	 <label for="precioGeneral" >
