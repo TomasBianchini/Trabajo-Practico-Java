@@ -17,7 +17,7 @@
     		Tipo documento:
        		<input id="tipoDocumento" name="tipoDocumento" placeholder="Tipo Documento" required autofocus type="text">
         </label>
-        <label for="nroDocumento" >
+        <label for="nroDocumento">
         	Numero documento:
        		 <input id="nroDocumento" name="nroDocumento" placeholder="Numero Documento" required type="text">
     	</label>
