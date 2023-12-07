@@ -61,7 +61,6 @@ public class signin extends HttpServlet {
 			String message = "error :" + e.getMessage();
 			request.setAttribute("message", message);
 		}
-
 		if (usuario != null) {
 			request.getSession().setAttribute("usuario", usuario);
 			request.getSession().setMaxInactiveInterval(60 * 60);

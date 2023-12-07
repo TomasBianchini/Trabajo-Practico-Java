@@ -11,6 +11,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BarcodeQRCode;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -78,6 +79,14 @@ public class PdfService {
 		Paragraph agradecimiento = new Paragraph("¡Gracias por elegir nuestra aerolínea!", fontAgradecimiento);
 		agradecimiento.setAlignment(Paragraph.ALIGN_CENTER);
 		document.add(agradecimiento);
+
+		String pasajeInfoUrlParams = String.format("id=%s", pas.getIdPasaje());
+		;
+
+		String textCodigoQR = "http://192.168.0.103:8080/jaTp/FinalizarPasaje?accion=mostrar&" + pasajeInfoUrlParams;
+		BarcodeQRCode codigoBarrasQR = new BarcodeQRCode(textCodigoQR, 0, 0, null);
+		document.add(codigoBarrasQR.getImage());
+
 	}
 
 	private static void agregarCelda(PdfPTable table, String etiqueta, String valor, BaseColor colorFondo) {

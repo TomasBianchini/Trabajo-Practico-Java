@@ -74,12 +74,18 @@ public class CtrlPasaje {
 		String[] estados = { "Confirmado", "Finalizado", "Cancelado" };
 		LocalDateTime currentDate = LocalDateTime.now();
 		boolean estadoValido = Arrays.asList(estados).contains(pas.getEstado());
-		if (estadoValido) {
-			long diferenciaEnMinutos = ChronoUnit.MINUTES.between(pas.getVuelo().getFechaHoraSalida(), currentDate);
-			if (diferenciaEnMinutos <= 360)
-				dp.cambiarEstado(pas);
+		// TODO cambiar a que vea el estado y luego por cada estado realizar las
+		// comprobaciones correspondientes
+		if (pas.getEstado().equals("Cancelado")) {
+			if (estadoValido) {
+				long diferenciaEnMinutos = ChronoUnit.MINUTES.between(pas.getVuelo().getFechaHoraSalida(), currentDate);
+				if (diferenciaEnMinutos <= 360)
+					dp.cambiarEstado(pas);
+			} else {
+				throw new Error("no se puede cancelar");
+			}
 		} else {
-			throw new Error("no se puede cancelar");
+			dp.cambiarEstado(pas);
 		}
 	}
 
