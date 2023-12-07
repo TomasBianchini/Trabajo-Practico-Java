@@ -3,7 +3,6 @@ package logic;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -70,23 +69,26 @@ public class CtrlPasaje {
 		return pasajes;
 	}
 
-	public void cambiarEstado(Pasaje pas) throws SQLException {
-		String[] estados = { "Confirmado", "Finalizado", "Cancelado" };
+	public void cancelarPasaje(Pasaje pas) throws Error, Exception {
 		LocalDateTime currentDate = LocalDateTime.now();
-		boolean estadoValido = Arrays.asList(estados).contains(pas.getEstado());
-		// TODO cambiar a que vea el estado y luego por cada estado realizar las
-		// comprobaciones correspondientes
-		if (pas.getEstado().equals("Cancelado")) {
-			if (estadoValido) {
-				long diferenciaEnMinutos = ChronoUnit.MINUTES.between(pas.getVuelo().getFechaHoraSalida(), currentDate);
-				if (diferenciaEnMinutos <= 360)
-					dp.cambiarEstado(pas);
-			} else {
-				throw new Error("no se puede cancelar");
-			}
-		} else {
+		long diferenciaEnMinutos = ChronoUnit.MINUTES.between(currentDate, pas.getVuelo().getFechaHoraSalida());
+		if (diferenciaEnMinutos <= 360) {
+			pas.setEstado("Cancelado");
 			dp.cambiarEstado(pas);
-		}
+		} else
+			throw new Error("error : No se puede cancelar fuera del plazo permitido (hasta 6 horas antes del vuelo)");
+	}
+
+	public void finalizarPasaje(Pasaje pas) throws Error, Exception {
+		LocalDateTime currentDate = LocalDateTime.now();
+		long diferenciaEnMinutos = ChronoUnit.MINUTES.between(currentDate, pas.getVuelo().getFechaHoraSalida());
+		System.out.println(pas.getVuelo().getFechaHoraSalida());
+		if (diferenciaEnMinutos >= 15 && diferenciaEnMinutos <= 120) {
+			pas.setEstado("Finalizado");
+			dp.cambiarEstado(pas);
+		} else
+			throw new Error(
+					"error : No se puede finalizar fuera del plazo permitido (entre 15 minutos y 2 horas antes del vuelo)");
 	}
 
 	public Pasaje getById(Pasaje pas) throws SQLException {

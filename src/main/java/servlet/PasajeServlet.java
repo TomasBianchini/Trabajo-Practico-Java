@@ -93,18 +93,16 @@ public class PasajeServlet extends HttpServlet {
 						if (p == null) {
 							String message = "error : No se pudo realizar la compra";
 							request.setAttribute("message", message);
-							reenviar = false;
 						} else {
 							String message = "Compra realizada con exito";
 							request.setAttribute("message", message);
-							reenviar = false;
 						}
 					} catch (Exception e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
-						reenviar = false;
 					}
 					request.getRequestDispatcher("VueloServlet").forward(request, response);
+					reenviar = false;
 					break;
 				}
 				case "cancelarPasaje": {
@@ -114,10 +112,11 @@ public class PasajeServlet extends HttpServlet {
 						int id = Integer.parseInt(request.getParameter("idPasaje"));
 						pas.setIdPasaje(id);
 						pas = cpas.getById(pas);
-						pas.setEstado("Cancelado");
-						cpas.cambiarEstado(pas);
-
+						cpas.cancelarPasaje(pas);
 					} catch (Exception e) {
+						String message = e.getMessage();
+						request.setAttribute("message", message);
+					} catch (Error e) {
 						String message = e.getMessage();
 						request.setAttribute("message", message);
 					}

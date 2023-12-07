@@ -51,11 +51,17 @@ public class FinalizarPasaje extends HttpServlet {
 		}
 		case "finalizarPasaje": {
 			try {
-				pas.setEstado("Finalizado");
-				cp.cambiarEstado(pas);
 				pasaje = cp.getById(pas);
+				cp.finalizarPasaje(pasaje);
+				pasaje = cp.getById(pasaje);
+				String message = "Finalizacion realizada con exito";
+				request.setAttribute("message", message);
 			} catch (Exception e) {
-				e.printStackTrace();
+				String message = "error : " + e.getMessage();
+				request.setAttribute("message", message);
+			} catch (Error e) {
+				String message = e.getMessage();
+				request.setAttribute("message", message);
 			}
 			request.setAttribute("Pasaje", pasaje);
 			request.getRequestDispatcher("finalizarPasaje.jsp").forward(request, response);

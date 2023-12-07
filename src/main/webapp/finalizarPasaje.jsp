@@ -14,17 +14,23 @@
 	<title>Lista Usuario</title>
 	<%
     	Pasaje pas = (Pasaje)request.getAttribute("Pasaje");
+   		String message = (String)request.getAttribute("message"); 
    	%>
 
 </head>
 <body>
+			<% if(message != null && !message.isEmpty()) {%>
+				<span><%= message%> </span>
+			<% }%>
 			<% if(pas == null) {%>
 				<h1>El pasaje no existe</h1>
-			<%	} else {%>
+			<%} else {%>
 			 <article class="card">
 	        <header>
-	        	<h5>Estado: <%= pas.getEstado()%> </h5>
-	            <h1>Detalles del pasaje:</h1>
+	    		<hgroup>
+  					<h2>Detalles del pasaje</h2>
+ 			  		<h3>Estado: <%= pas.getEstado()%></h3>
+				</hgroup>
 	        </header>	
 		 	<section class="details">
 			<h2>Datos personales:</h2>

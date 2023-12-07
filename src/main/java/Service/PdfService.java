@@ -82,13 +82,8 @@ public class PdfService {
 		document.add(agradecimiento);
 
 		document.add(new Paragraph("\n"));
-		Paragraph cancelar = new Paragraph("Para ver el estado del pasaje y para cancelar utilizar el siguiente QR",
-				fontAgradecimiento);
-		cancelar.setAlignment(Paragraph.ALIGN_CENTER);
-		document.add(cancelar);
 
 		String pasajeInfoUrlParams = String.format("id=%s", pas.getIdPasaje());
-		;
 
 		String textCodigoQR = "http://192.168.0.103:8080/jaTp/FinalizarPasaje?accion=mostrar&" + pasajeInfoUrlParams;
 		BarcodeQRCode codigoBarrasQR = new BarcodeQRCode(textCodigoQR, 300, 300, null);

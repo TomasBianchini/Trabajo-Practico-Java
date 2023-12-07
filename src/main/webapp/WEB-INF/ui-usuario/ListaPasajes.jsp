@@ -63,8 +63,10 @@
 		 <%for(Pasaje pas: listaPasajes){ %>
 	   	 <article class="card">
 	        <header>
-	        	<h5>Estado: <%= pas.getEstado()%> </h5>
-	            <h1>Detalles del pasaje:</h1>
+	    		<hgroup>
+  					<h1>Detalles del pasaje</h1>
+ 			  		<h3>Estado: <%= pas.getEstado()%></h3>
+				</hgroup>
 	        </header>	
 		 	<section class="details">
 			<h2>Datos personales:</h2>
