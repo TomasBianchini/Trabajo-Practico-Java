@@ -78,7 +78,7 @@
 }
 
 .nav-links li {
-    margin-right: 20px;
+    margin-right: 5px;
 }
 
 .nav-links a {
@@ -99,4 +99,24 @@
 .active {
   background-color: #a6a6a6;
 }
+
+    li[role="list"] a:hover {
+        color: #333;
+        text-decoration: none;
+    }
+
+
+
+    li[role="list"] ul li:first-child a {
+        color: white;
+    }
+
+    li[role="list"] ul li:nth-child(2) a {
+       color: white;
+    }
+    
+        li[role="list"] ul li:nth-child(3) a {
+       color: white;
+    }
+    
   

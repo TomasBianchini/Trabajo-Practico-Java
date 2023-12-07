@@ -13,7 +13,7 @@
  	<link rel="stylesheet" href="Styles/listados.css">
  	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-</head>
+
 	<%
     	LinkedList<Vuelo> listaVuelos = (LinkedList<Vuelo>)request.getAttribute("listaVuelos");
  	   Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
@@ -151,13 +151,18 @@
 	    var destino = dInput.value;
 		
 	    if (origen && destino) {
-	    	console.log(origen);	
-	        var url = 'VueloServlet?accion=filtrar&origen='+origen +'&destino='+destino ;
-	        window.location.href = url;
-	    } else {
-	        alert("Por favor, ingrese origen y destino ");
-	    }
+            console.log(origen);
+            var url = 'VueloServlet?accion=filtrar&origen='+origen +'&destino='+destino ;
+            window.location.href = url;
+        } else if(origen || destino) {
+            alert("Por favor, ingrese origen y destino ");
+        } else {
+             var url = 'VueloServlet';
+             window.location.href = url;
+        }
 	}
+	
+	
 	</script>
 
 </div>

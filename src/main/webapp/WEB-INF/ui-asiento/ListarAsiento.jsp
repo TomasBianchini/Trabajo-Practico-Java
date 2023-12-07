@@ -64,7 +64,7 @@
 		  <tbody>
 		     <%if(asientos == null || asientos.isEmpty()){%>
 				  <tr>
-				  	<td>No hay vuelos disponibles</td></tr>
+				  	<td>No hay asientos disponibles</td></tr>
 			 <%}else{ %>
 			  	<%for (HashMap.Entry<String, Asiento> asi: asientos.entrySet()) {%>
 			      <tr>
