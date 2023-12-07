@@ -7,7 +7,7 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
  	<link rel="stylesheet" href="Styles/listados.css">
  	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

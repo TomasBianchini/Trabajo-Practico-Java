@@ -106,7 +106,7 @@
         <th scope="col"></th>
         <% if (usu.getTipo().equals("admin")) { %>
         <th scope="col"></th>
-        <th scope="col"></th>
+        
          <% } %>
     </tr>
   </thead>

@@ -3,13 +3,13 @@
 <%@page import="java.util.LinkedList"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
 	<meta charset="ISO-8859-1">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
 	<title>Lista Ciudades</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
  	<link rel="stylesheet" href="Styles/listados.css">
@@ -45,7 +45,7 @@
         
    <li><a href="UsuarioServlet?accion=redirecEditar&idUsuario=<%=u.getIdUsuario()%>" >Cambiar datos</a></li>
  
-  <li><a href="UsuarioServlet?accion=cerrarSesion" >Cerrar sesión</a></li>
+  <li><a href="UsuarioServlet?accion=cerrarSesion" >Cerrar sesiÃ³n</a></li>
       </ul>
     </li>
     
