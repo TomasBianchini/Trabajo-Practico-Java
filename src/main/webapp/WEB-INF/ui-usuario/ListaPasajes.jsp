@@ -100,6 +100,16 @@
 	 				  <%=pas.getVuelo().getFechaHoraLlegada().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) %>
 				</time> </p>
 	           	</h5>
+	           	
+	           	<div class="grid" >	
+				<h5>Asiento
+	           		<p><%= pas.getAsiento().getFila()%> <%= pas.getAsiento().getNumero()%></p>
+	           		
+	           </div> 
+	           	
+	           	
+	           	
+	           	
 	         </div>
 	         </section>
 	         <% if (pas.getEstado().equals("Confirmado")) { %>

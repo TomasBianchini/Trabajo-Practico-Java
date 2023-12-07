@@ -1,5 +1,6 @@
 <%@page import="entities.Asiento"%>
 <%@page import="entities.Avion"%>
+<%@page import="entities.Usuario"%>
 <%@page import="java.util.HashMap"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -15,22 +16,41 @@
  	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<% Avion avi = (Avion)request.getAttribute("avion");
-	 String message = (String)request.getAttribute("message");%>
+	 String message = (String)request.getAttribute("message");
+	 Usuario u = (Usuario)request.getSession().getAttribute("usuario");%>
 	<% HashMap<String,Asiento> asientos = new HashMap<>();%>
+	
 	<% asientos = avi.getAsientos(); %>
 </head>
 <body>
-	<nav class="navbar">
-	    <ul class="nav-links">
-	      <li><a href="UsuarioServlet" >Usuarios</a></li>
-	      <li><a href="PaisServlet"  >Paises</a></li>
-	      <li><a href="CiudadServlet" >Ciudades</a></li>
-	      <li><a href="AvionServlet" class="active" >Aviones</a></li>
-	      <li><a href="AeropuertoServlet" >Aeropuertos</a></li>
-	      <li><a href="VueloServlet"  >Vuelos</a></li>
-	      <li><a href="UsuarioServlet?accion=cerrarSesion">Cerrar sesión</a></li>
-	    </ul>
-	</nav>
+	  <nav class="navbar">
+  <div > </div>
+    <ul class="nav-links">
+    <% if (u.getTipo().equals("admin")) { %>
+      <li><a href="UsuarioServlet" >Usuarios</a></li>
+      <li><a href="PaisServlet"  >Paises</a></li>
+      <li><a href="CiudadServlet" >Ciudades</a></li>
+      <li><a href="AvionServlet" class="active">Aviones</a></li>
+      <li><a href="AeropuertoServlet"  >Aeropuertos</a></li>
+       <% } %>
+      <li><a href="VueloServlet" >Vuelos</a></li>
+
+    
+    
+    <li role="list" dir="rtl">
+      <a aria-haspopup="listbox">Perfil</a>
+      <ul >   
+  		 <li><a href="UsuarioServlet?accion=redirecEditar&idUsuario=<%=u.getIdUsuario()%>" >Cambiar datos</a></li>
+		<li><a href="UsuarioServlet?accion=cerrarSesion" >Cerrar sesión</a></li>
+      </ul>
+    </li>
+    
+    </ul>
+    
+    
+    
+    
+  </nav>
 	
 	
 <div class="mensaje">
