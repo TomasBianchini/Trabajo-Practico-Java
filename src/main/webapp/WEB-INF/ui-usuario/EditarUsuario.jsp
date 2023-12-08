@@ -47,10 +47,8 @@
 			      <option value="user">Usuario</option>
 			    </select>
 	    	 </label>
-    	 <% }else{ %>
-    	 	<input type="hidden" name="tipo" value="user">
-    	 <%} %>
-    	 
+    	 <% } %>
+
     	 <label for="email">Email
     	 <input id="email" name="email"  placeholder="Email" required  type="email" value="<%= usu.getEmail() %>" >
  		 </label>

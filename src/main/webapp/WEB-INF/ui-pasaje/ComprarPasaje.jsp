@@ -20,12 +20,10 @@
 		HashMap<String,Asiento> asientosDisponibles = (HashMap<String,Asiento>)request.getAttribute("asientosDisponibles");   
     %> 
     	 <%	String message = (String)request.getAttribute("message");	%>
-
     <title>Detalles del Pasaje</title>
 </head>
 <body>  
 	<div class="mensaje">
-		
 	    <% if (message != null && !message.isEmpty()) { %>
 	        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	        <script>

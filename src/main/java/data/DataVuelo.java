@@ -151,7 +151,7 @@ public class DataVuelo {
 							+ " inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal "
 							+ " inner join pais pO on pO.idpais = ciuO.idPais"
 							+ " inner join pais pD on pD.idpais = ciuD.idPais"
-							+ " where aeroO.nombre like ? and  aeroD.nombre like ?");
+							+ " where aeroO.nombre like ? and  aeroD.nombre like ? and vue.fechaHoraSalida > now() ");
 			stmt.setString(1, "%" + v.getAeropuertoOrigen().getNombre() + "%");
 			stmt.setString(2, "%" + v.getAeropuertoDestino().getNombre() + "%");
 			rs = stmt.executeQuery();

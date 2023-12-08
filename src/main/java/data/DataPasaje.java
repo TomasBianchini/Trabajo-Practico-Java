@@ -195,7 +195,7 @@ public class DataPasaje {
 							+ " inner join ciudad ciuD on ciuD.codPostal = aeroD.codPostal "
 							+ " inner join pais pO on pO.idpais = ciuO.idPais"
 							+ " inner join pais pD on pD.idpais = ciuD.idPais"
-							+ " where vue.idVuelo = ? and pas.estado= 'Confirmado' ");
+							+ " where vue.idVuelo = ? and (pas.estado= 'Confirmado' or pas.estado= 'Finalizado') ");
 			stmt.setInt(1, vue.getIdvuelo());
 			rs = stmt.executeQuery();
 			if (rs != null) {

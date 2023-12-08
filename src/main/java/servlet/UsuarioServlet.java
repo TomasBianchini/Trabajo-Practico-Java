@@ -185,7 +185,6 @@ public class UsuarioServlet extends HttpServlet {
 			case "editarUsuario": {
 				try {
 					int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-					String tipo = request.getParameter("tipo");
 					String nroDocumento = request.getParameter("nroDocumento");
 					String tipoDocumento = request.getParameter("tipoDocumento");
 					String nombre = request.getParameter("nombre");
@@ -201,7 +200,13 @@ public class UsuarioServlet extends HttpServlet {
 					usu.setNombre(nombre);
 					usu.setEmail(email);
 					usu.setContrasenia(contrasenia);
-					usu.setTipo(tipo);
+					if (user.getTipo().equals("admin")) {
+						String tipo = request.getParameter("tipo");
+						usu.setTipo(tipo);
+					} else {
+						String tipo = "user";
+						usu.setTipo(tipo);
+					}
 					usu.setFechaNacimiento(fechaNacimiento);
 					cu.edit(usu);
 					request.setAttribute("message", "Usuario editado correctamente");
