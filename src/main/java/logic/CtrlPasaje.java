@@ -39,7 +39,7 @@ public class CtrlPasaje {
 			p.setEstado("Confirmado");
 			if (this.isAsientoDisponible(vuelo, asiento)) {
 				try {
-					dp.add(p);
+					p = dp.add(p);
 					this.enviarMail(p);
 				} catch (Exception e) {
 					throw e;
@@ -72,7 +72,7 @@ public class CtrlPasaje {
 	public void cancelarPasaje(Pasaje pas) throws Error, Exception {
 		LocalDateTime currentDate = LocalDateTime.now();
 		long diferenciaEnMinutos = ChronoUnit.MINUTES.between(currentDate, pas.getVuelo().getFechaHoraSalida());
-		if (diferenciaEnMinutos <= 360) {
+		if (diferenciaEnMinutos >= 360) {
 			pas.setEstado("Cancelado");
 			dp.cambiarEstado(pas);
 		} else
@@ -82,7 +82,6 @@ public class CtrlPasaje {
 	public void finalizarPasaje(Pasaje pas) throws Error, Exception {
 		LocalDateTime currentDate = LocalDateTime.now();
 		long diferenciaEnMinutos = ChronoUnit.MINUTES.between(currentDate, pas.getVuelo().getFechaHoraSalida());
-		System.out.println(pas.getVuelo().getFechaHoraSalida());
 		if (diferenciaEnMinutos >= 15 && diferenciaEnMinutos <= 120) {
 			pas.setEstado("Finalizado");
 			dp.cambiarEstado(pas);

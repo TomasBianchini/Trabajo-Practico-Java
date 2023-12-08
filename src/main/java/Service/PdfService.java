@@ -85,7 +85,8 @@ public class PdfService {
 
 		String pasajeInfoUrlParams = String.format("id=%s", pas.getIdPasaje());
 
-		String textCodigoQR = "http://192.168.0.103:8080/jaTp/FinalizarPasaje?accion=mostrar&" + pasajeInfoUrlParams;
+		String textCodigoQR = "https://poorly-verified-hornet.ngrok-free.app/jaTp/FinalizarPasaje?accion=mostrar&"
+				+ pasajeInfoUrlParams;
 		BarcodeQRCode codigoBarrasQR = new BarcodeQRCode(textCodigoQR, 300, 300, null);
 		Image image = codigoBarrasQR.getImage();
 		image.setAlignment(Element.ALIGN_CENTER);

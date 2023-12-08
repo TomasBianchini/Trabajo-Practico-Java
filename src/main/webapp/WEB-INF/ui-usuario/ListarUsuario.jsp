@@ -43,13 +43,12 @@
     </li>
     
     </ul>
-    
-    
+
     
     
   </nav>		
 
-	
+
 	<div class="mensaje">
 	    <% if (message != null && !message.isEmpty()) { %>
 	        <script>
@@ -57,7 +56,7 @@
 	                Swal.fire({
 	                	icon: '<%= message.startsWith("error")? "error" : "success"  %>',
 	                    title: 'Message',
-	                    text: 'NO SE REALIZO LA ACCION, <%= message %>',
+	                    text: '<%= message %>',
 	                });
 	            };
 	        </script>

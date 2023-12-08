@@ -296,6 +296,9 @@ public class DataPasaje {
 			throw e;
 		} finally {
 			try {
+				if (keyResultSet != null) {
+					keyResultSet.close();
+				}
 				if (stmt != null)
 					stmt.close();
 				DbConnector.getInstancia().releaseConn();

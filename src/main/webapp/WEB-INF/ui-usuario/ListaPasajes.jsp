@@ -17,6 +17,7 @@
 	<%
 		LinkedList<Pasaje> listaPasajes  = (LinkedList<Pasaje>)request.getAttribute("listaPasajes");
 		Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
+		String message = (String)request.getAttribute("message");
     %>
 
 </head>
@@ -32,10 +33,7 @@
       <li><a href="AvionServlet" >Aviones</a></li>
       <li><a href="AeropuertoServlet"  >Aeropuertos</a></li>
        <% } %>
-      <li><a href="VueloServlet" >Vuelos</a></li>
-
-    
-    
+      <li><a href="VueloServlet" >Vuelos</a></li>    
     <li role="list" dir="rtl">
       <a aria-haspopup="listbox">Perfil</a>
       <ul >
@@ -49,12 +47,22 @@
     </li>
     
     </ul>
-    
-    
-    
-    
   </nav>	
-	
+  
+  	<div class="mensaje">
+	    <% if (message != null && !message.isEmpty()) { %>
+	        <script>
+	            window.onload = function() {
+	                Swal.fire({
+	                	icon: '<%= message.startsWith("error")? "error" : "success"  %>',
+	                    title: 'Message',
+	                    text: '<%= message %>',
+	                });
+	            };
+	        </script>
+	    <% } %>
+	</div>
+
     <% if (listaPasajes.isEmpty()) { %>
         <div class="mensajeNoPasaje">
             <p class="mensajeNo">No tienes pasajes comprados</p>

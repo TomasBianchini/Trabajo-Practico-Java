@@ -64,47 +64,6 @@ public class PasajeServlet extends HttpServlet {
 					}
 					break;
 				}
-				case "compra": {
-					try {
-						int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
-						Vuelo vue = new Vuelo();
-						vue.setIdvuelo(idvuelo);
-
-						int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-						Usuario usu = new Usuario();
-						usu.setIdUsuario(idUsuario);
-						int idAvion = Integer.parseInt(request.getParameter("idavion"));
-						String fila = request.getParameter("fila");
-						String numero = request.getParameter("numero");
-						String tipo = request.getParameter("tipo");
-
-						Asiento asiento = new Asiento();
-						asiento.setAvion(new Avion());
-						asiento.setFila(fila);
-						asiento.setNumero(numero);
-						asiento.setTipo(tipo);
-						asiento.getAvion().setIdAvion(idAvion);
-						CtrlPasaje cpas = new CtrlPasaje();
-						Pasaje pasaje = new Pasaje();
-						pasaje.setVuelo(vue);
-						pasaje.setUsuario(usu);
-						pasaje.setAsiento(asiento);
-						Pasaje p = cpas.add(pasaje);
-						if (p == null) {
-							String message = "error : No se pudo realizar la compra";
-							request.setAttribute("message", message);
-						} else {
-							String message = "Compra realizada con exito";
-							request.setAttribute("message", message);
-						}
-					} catch (Exception e) {
-						String message = e.getMessage();
-						request.setAttribute("message", message);
-					}
-					request.getRequestDispatcher("VueloServlet").forward(request, response);
-					reenviar = false;
-					break;
-				}
 				case "cancelarPasaje": {
 					try {
 						Pasaje pas = new Pasaje();
@@ -126,12 +85,11 @@ public class PasajeServlet extends HttpServlet {
 				}
 				default:
 					request.getRequestDispatcher("VueloServlet").forward(request, response);
-					reenviar = false;
 				}
-
 			}
-			if (reenviar)
+			if (reenviar) {
 				request.getRequestDispatcher("VueloServlet").forward(request, response);
+			}
 		}
 
 	}
@@ -142,8 +100,61 @@ public class PasajeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		CtrlVuelo cv = new CtrlVuelo();
+		try {
+			String asientoSeleccionado = request.getParameter("asiento");
+			String[] partesAsiento = asientoSeleccionado.split(" ");
 
-		doGet(request, response);
+			String fila = partesAsiento[0];
+			String numero = partesAsiento[1];
+			String tipo = partesAsiento[2];
+
+			int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+			Vuelo vue = new Vuelo();
+			vue.setIdvuelo(idvuelo);
+
+			int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+			Usuario usu = new Usuario();
+			usu.setIdUsuario(idUsuario);
+			int idAvion = Integer.parseInt(request.getParameter("idAvion"));
+
+			Asiento asiento = new Asiento();
+			asiento.setAvion(new Avion());
+			asiento.setFila(fila);
+			asiento.setNumero(numero);
+			asiento.setTipo(tipo);
+			asiento.getAvion().setIdAvion(idAvion);
+			CtrlPasaje cpas = new CtrlPasaje();
+			Pasaje pasaje = new Pasaje();
+			pasaje.setVuelo(vue);
+			pasaje.setUsuario(usu);
+			pasaje.setAsiento(asiento);
+			Pasaje p = cpas.add(pasaje);
+			if (p == null) {
+				String message = "error : No se pudo realizar la compra";
+				request.setAttribute("message", message);
+			} else {
+				String message = "Compra realizada con exito";
+				request.setAttribute("message", message);
+			}
+		} catch (Exception e) {
+			String message = "error :" + e.getMessage();
+			request.setAttribute("message", message);
+		}
+		try {
+			int idvuelo = Integer.parseInt(request.getParameter("idvuelo"));
+			Vuelo vuelo = new Vuelo();
+			vuelo.setIdvuelo(idvuelo);
+			Vuelo v = cv.getById(vuelo);
+			request.setAttribute("Vuelo", v);
+			HashMap<String, Asiento> asientosDisponibles = cv.getAsientosDisponibles(v);
+			request.setAttribute("asientosDisponibles", asientosDisponibles);
+		} catch (Exception e) {
+			String message = "error :" + e.getMessage();
+			request.setAttribute("message", message);
+		}
+		request.getRequestDispatcher("WEB-INF/ui-pasaje/ComprarPasaje.jsp").forward(request, response);
+
 	}
 
 }

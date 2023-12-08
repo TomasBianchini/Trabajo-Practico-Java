@@ -15,9 +15,8 @@ public class DataAsiento {
 		ResultSet rs = null;
 		HashMap<String, Asiento> asientos = new HashMap<String, Asiento>();
 		try {
-			stmt = DbConnector.getInstancia().getConn()
-					.prepareStatement("select av.idavion, asi.fila, asi.numero, asi.tipo from asiento asi"
-							+ " inner join avion av on asi.idavion = av.idavion where av.idAvion =  ? ");
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(
+					"select asi.idavion, asi.fila, asi.numero, asi.tipo from asiento asi where asi.idAvion =  ? ");
 			stmt.setInt(1, a.getIdAvion());
 			rs = stmt.executeQuery();
 			if (rs != null) {
@@ -53,8 +52,7 @@ public class DataAsiento {
 		ResultSet rs = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn()
-					.prepareStatement("select av.idavion, asi.fila, asi.numero, asi.tipo" + " from asiento as asi"
-							+ " inner join avion as av" + " on asi.idavion = av.idavion"
+					.prepareStatement("select asi.idavion, asi.fila, asi.numero, asi.tipo from asiento asi "
 							+ " where asi.fila = ? and asi.numero = ? and asi.idavion = ?");
 			stmt.setString(1, asi.getFila());
 			stmt.setString(2, asi.getNumero());
