@@ -6,7 +6,7 @@
 |46826|Saludas, Fausto Jesús|
 
 ## 1. Idea de negocio
-
+La aplicación se encarga de la gestión de pasajes de avión, proporciona a los usuarios la posibilidad de administrar sus pasajes, permitiendo la compra, cancelación y finalización del mismo.
 
 ## 2. Alcance 
 Desde que el cliente se logea hasta la finalización del pasaje, pasando por la elección del asiento y la compra del pasaje, obteniendo el pasaje por mail.
