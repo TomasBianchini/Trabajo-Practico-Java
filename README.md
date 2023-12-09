@@ -16,7 +16,7 @@ Desde que el cliente se logea hasta la finalización del pasaje, pasando por la 
 |:-|-:|-:|
 |ABMC simple|Todos|Avión, Pais, Usuario|
 |ABMC dependiente|1|Asiento, Ciudad, Aeropuerto, Vuelo |
-|CU "Complejo"(nivel resumen)|1|Gestión Integral de Viajes: Compra, Cancelación y Finalización de Pasajes|
+|CU "Complejo"(nivel resumen)|1|Gestión de Pasajes: Compra, Cancelación y Finalización de Pasajes|
 |Listado complejo|1|Vuelos por origien y destino|
 |Nivel de acceso|2|User, Admin|
 |Manejo de errores|obligatorio|No requiere detalle|
