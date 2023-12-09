@@ -178,13 +178,14 @@ public class AvionServlet extends HttpServlet {
 					asi.setNumero(numero);
 					asi.setTipo(tipo);
 					asi.setAvion(new Avion());
-					asi.getAvion().setIdAvion(idavion);
 
-					cas.add(asi);
+					asi.getAvion().setIdAvion(idavion);
 					Avion a = new Avion();
 					a.setIdAvion(idavion);
 					Avion avi = ca.getById(a);
 					request.setAttribute("avion", avi);
+
+					cas.add(asi);
 					request.setAttribute("message", "Asiento agregado correctamente");
 				} catch (Exception e) {
 					String message = "error :" + e.getMessage();

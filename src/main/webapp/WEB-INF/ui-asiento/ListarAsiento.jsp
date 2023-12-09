@@ -47,9 +47,6 @@
     
     </ul>
     
-    
-    
-    
   </nav>
 	
 	
@@ -67,7 +64,7 @@
     <% } %>
 </div>
 	
-	<div class="conteiner-table">
+	   <div class="conteiner-table">
 		 <div class="boton">
 		    <a href="AvionServlet?accion=redirecAgregarAsiento&idAvion=<%=avi.getIdAvion()%>"><button>Agregar Asiento</button></a>
 		    <a href="AvionServlet"><button type="button">Volver Aviones</button></a>
